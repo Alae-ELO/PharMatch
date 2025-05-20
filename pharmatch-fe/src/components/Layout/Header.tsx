@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { Bell, User, Menu, X, LogOut, Settings, Pill } from 'lucide-react';
+import { Link, useLocation,  } from 'react-router-dom';
+import { Bell, User, Menu, X, LogOut, Settings, Pill, Globe } from 'lucide-react';
 import useStore from '../../store';
+import { useTranslation } from 'react-i18next';
 import Badge from '../ui/Badge';
 
 const Header: React.FC = () => {
@@ -9,7 +10,9 @@ const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
+  const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState(false);
   const location = useLocation();
+  const { t, i18n } = useTranslation();
   
   const unreadNotifications = notifications.filter(n => !n.read).length;
   
@@ -22,6 +25,13 @@ const Header: React.FC = () => {
   const toggleNotifications = () => {
     setIsNotificationsOpen(!isNotificationsOpen);
     if (isProfileOpen) setIsProfileOpen(false);
+  };
+
+  const toggleLanguageDropdown = () => setIsLanguageDropdownOpen(!isLanguageDropdownOpen);
+
+  const changeLanguage = (lng: string) => {
+    i18n.changeLanguage(lng);
+    setIsLanguageDropdownOpen(false); // Close dropdown after selection
   };
 
   const handleLogout = () => {
@@ -64,7 +74,7 @@ const Header: React.FC = () => {
             ))}
           </nav>
 
-          {/* Right Side Items */}
+          {/* Right Side Items */} {/* Language Switcher */}
           <div className="flex items-center space-x-4">
             {/* Notifications */}
             <div className="relative">
@@ -116,6 +126,36 @@ const Header: React.FC = () => {
                       </Link>
                     </div>
                   )}
+                </div>
+              )}
+            </div>
+            {/* Language Switcher */}
+            <div className="relative inline-block">
+              <button
+                onClick={toggleLanguageDropdown}
+                className="flex items-center justify-center rounded-full p-2 text-gray-500 hover:bg-gray-900"
+              >
+                <Globe className="h-5 w-5" />
+              </button>
+
+              {isLanguageDropdownOpen && (
+                <div className="absolute right-0 top-11 w-32 rounded-md border border-gray-200 bg-white py-1 shadow-lg">
+                  <div
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+                    onClick={() => changeLanguage('en')}
+                  >
+                    English
+                  </div>
+                  <div
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+                    onClick={() => changeLanguage('fr')}
+                  >
+                    Français
+                  </div>
+                  <div className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+                    onClick={() => changeLanguage('ar')}>
+                    العربية
+                  </div>
                 </div>
               )}
             </div>

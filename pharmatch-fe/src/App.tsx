@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import useStore from './store';
 
@@ -20,6 +20,7 @@ import AdminDashboard from './pages/AdminDashboard';
 import NotificationsPage from './pages/NotificationsPage';
 import ProfilePage from './pages/ProfilePage';
 import SettingsPage from './pages/SettingsPage';
+import { useTranslation } from 'react-i18next';
 
 // Auth Route wrapper
 const ProtectedRoute: React.FC<{
@@ -40,6 +41,12 @@ const ProtectedRoute: React.FC<{
 };
 
 function App() {
+  const { i18n } = useTranslation();
+
+  useEffect(() => {
+    document.body.dir = i18n.language === 'ar' ? 'rtl' : 'ltr';
+  }, [i18n.language]);
+
   return (
     <Router>
       <Routes>

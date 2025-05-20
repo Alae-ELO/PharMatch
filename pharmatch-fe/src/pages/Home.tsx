@@ -5,11 +5,13 @@ import { Search, Pill, MessageCircle, Heart, MapPin } from 'lucide-react';
 import Button from '../components/ui/Button';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
 import useStore from '../store';
+import { useTranslation } from 'react-i18next';
 
 const Home: React.FC = () => {
   const { bloodDonationRequests } = useStore();
   const urgentRequests = bloodDonationRequests.filter(req => req.urgency === 'high');
 
+  const { t } = useTranslation();
   return (
     <div>
       {/* Hero Section */}
@@ -22,21 +24,22 @@ const Home: React.FC = () => {
               transition={{ duration: 0.5 }}
             >
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-                Find the Right Pharmacy, <br />Right When You Need It
+ {t('home.hero.title1')} <br/>
+ {t('home.hero.title2')}
               </h1>
               <p className="text-lg mb-8 text-cyan-100">
-                Locate nearby pharmacies, check medication availability, get health advice, and contribute to blood donation initiatives.
+ {t('home.hero.description')}
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link to="/pharmacies">
                   <Button variant="secondary" size="lg" icon={<MapPin />} className="w-full sm:w-auto">
-                    Find Pharmacies
+ {t('home.hero.findPharmaciesButton')}
                   </Button>
                 </Link>
                 <Link to="/medications">
-                  <Button variant="danger" size="lg" icon={<Search />} className="w-full sm:w-auto">
-                    Search Medications
-                  </Button>
+ <Button variant="danger" size="lg" icon={<Search />} className="w-full sm:w-auto">
+ {t('home.hero.searchMedicationsButton')}
+ </Button>
                 </Link>
               </div>
             </motion.div>
@@ -62,9 +65,9 @@ const Home: React.FC = () => {
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">How PharMatch Helps You</h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Comprehensive health services at your fingertips.
-            </p>
+ <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+ {t('home.features.subtitle')}
+ </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -77,10 +80,10 @@ const Home: React.FC = () => {
                   <div className="mb-4 inline-flex items-center justify-center rounded-full bg-cyan-100 p-3">
                     <MapPin className="h-6 w-6 text-cyan-700" />
                   </div>
-                  <CardTitle>Find Nearby Pharmacies</CardTitle>
+                  <CardTitle>{t('home.features.findPharmacies.title')}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-gray-600">
+                <p className="text-gray-600">
                     Locate pharmacies in your area based on your location or by searching city names.
                   </p>
                 </CardContent>
@@ -96,10 +99,10 @@ const Home: React.FC = () => {
                   <div className="mb-4 inline-flex items-center justify-center rounded-full bg-emerald-100 p-3">
                     <Pill className="h-6 w-6 text-emerald-700" />
                   </div>
-                  <CardTitle>Check Medication Availability</CardTitle>
+                  <CardTitle>{t('home.features.medicationAvailability.title')}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-gray-600">
+ <p className="text-gray-600">
                     Search for medications and discover which pharmacies have them in stock.
                   </p>
                 </CardContent>
@@ -115,10 +118,10 @@ const Home: React.FC = () => {
                   <div className="mb-4 inline-flex items-center justify-center rounded-full bg-blue-100 p-3">
                     <MessageCircle className="h-6 w-6 text-blue-700" />
                   </div>
-                  <CardTitle>Health Assistant</CardTitle>
+                  <CardTitle>{t('home.features.healthAssistant.title')}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-gray-600">
+ <p className="text-gray-600">
                     Ask health-related questions and get reliable information from our AI assistant.
                   </p>
                 </CardContent>
@@ -134,10 +137,10 @@ const Home: React.FC = () => {
                   <div className="mb-4 inline-flex items-center justify-center rounded-full bg-red-100 p-3">
                     <Heart className="h-6 w-6 text-red-700" />
                   </div>
-                  <CardTitle>Blood Donation</CardTitle>
+                  <CardTitle>{t('home.features.bloodDonation.title')}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-gray-600">
+ <p className="text-gray-600">
                     Register as a blood donor and receive alerts for urgent donation needs in your area.
                   </p>
                 </CardContent>
@@ -152,9 +155,9 @@ const Home: React.FC = () => {
         <section className="py-12 bg-red-50">
           <div className="container mx-auto px-4">
             <div className="text-center mb-8">
-              <h2 className="text-2xl font-bold text-red-700 mb-2">Urgent Blood Donation Needs</h2>
-              <p className="text-gray-700">
-                These blood types are urgently needed at hospitals near you
+ <h2 className="text-2xl font-bold text-red-700 mb-2">{t('home.urgentNeeds.title')}</h2>
+ <p className="text-gray-700">
+ {t('home.urgentNeeds.subtitle')}
               </p>
             </div>
 
@@ -164,10 +167,10 @@ const Home: React.FC = () => {
                   <CardHeader>
                     <div className="flex justify-between items-center">
                       <CardTitle className="text-red-700">
-                        Blood Type: {request.bloodType}
+ {t('home.urgentNeeds.bloodType', { bloodType: request.bloodType })}
                       </CardTitle>
                       <span className="px-3 py-1 bg-red-100 text-red-800 rounded-full text-xs font-medium">
-                        URGENT
+ {t('home.urgentNeeds.urgentLabel')}
                       </span>
                     </div>
                   </CardHeader>
@@ -175,11 +178,11 @@ const Home: React.FC = () => {
                     <div className="space-y-3">
                       <p><strong>Hospital:</strong> {request.hospital}</p>
                       <p><strong>Contact:</strong> {request.contactInfo}</p>
-                      <p className="text-sm text-gray-500">
-                        Posted on {new Date(request.createdAt).toLocaleDateString()}
-                      </p>
+ <p className="text-sm text-gray-500">
+ {t('home.urgentNeeds.postedOn', { date: new Date(request.createdAt).toLocaleDateString() })}
+ </p>
                       <div className="pt-2">
-                        <Link to="/blood-donation">
+ <Link to="/blood-donation">
                           <Button variant="danger" fullWidth>
                             I Want to Donate
                           </Button>
@@ -194,7 +197,7 @@ const Home: React.FC = () => {
             <div className="text-center mt-8">
               <Link to="/blood-donation">
                 <Button variant="outline" size="lg">
-                  View All Blood Donation Requests
+ {t('home.urgentNeeds.viewAllButton')}
                 </Button>
               </Link>
             </div>
@@ -206,9 +209,9 @@ const Home: React.FC = () => {
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">What Our Users Say</h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Join thousands of satisfied users who rely on PharMatch every day.
+ <h2 className="text-3xl font-bold text-gray-900 mb-4">{t('home.testimonials.title')}</h2>
+ <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+ {t('home.testimonials.subtitle')}
             </p>
           </div>
 
@@ -222,10 +225,10 @@ const Home: React.FC = () => {
                     className="rounded-full w-16 h-16 object-cover mb-4"
                   />
                   <p className="text-gray-600 mb-4">
-                    "PharMatch helped me find a pharmacy with my medication in stock when I was traveling. Saved me hours of searching!"
+ {t('home.testimonials.sarah.quote')}
                   </p>
-                  <p className="font-semibold">Sarah Johnson</p>
-                  <p className="text-sm text-gray-500">Regular User</p>
+ <p className="font-semibold">{t('home.testimonials.sarah.name')}</p>
+ <p className="text-sm text-gray-500">{t('home.testimonials.sarah.role')}</p>
                 </div>
               </CardContent>
             </Card>
@@ -239,10 +242,10 @@ const Home: React.FC = () => {
                     className="rounded-full w-16 h-16 object-cover mb-4"
                   />
                   <p className="text-gray-600 mb-4">
-                    "As a pharmacist, this platform has made it easier to update our inventory and connect with patients who need specific medications."
+ {t('home.testimonials.michael.quote')}
                   </p>
-                  <p className="font-semibold">Dr. Michael Chen</p>
-                  <p className="text-sm text-gray-500">Pharmacy Owner</p>
+ <p className="font-semibold">{t('home.testimonials.michael.name')}</p>
+ <p className="text-sm text-gray-500">{t('home.testimonials.michael.role')}</p>
                 </div>
               </CardContent>
             </Card>
@@ -256,10 +259,10 @@ const Home: React.FC = () => {
                     className="rounded-full w-16 h-16 object-cover mb-4"
                   />
                   <p className="text-gray-600 mb-4">
-                    "The health assistant answered all my questions about my medication. It was like having a pharmacist available 24/7!"
+ {t('home.testimonials.emily.quote')}
                   </p>
-                  <p className="font-semibold">Emily Rodriguez</p>
-                  <p className="text-sm text-gray-500">New User</p>
+ <p className="font-semibold">{t('home.testimonials.emily.name')}</p>
+ <p className="text-sm text-gray-500">{t('home.testimonials.emily.role')}</p>
                 </div>
               </CardContent>
             </Card>
@@ -271,17 +274,17 @@ const Home: React.FC = () => {
       <section className="py-16 bg-cyan-800 text-white">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-4">Ready to Find Your Nearest Pharmacy?</h2>
-          <p className="text-xl text-cyan-100 mb-8 max-w-2xl mx-auto">
-            Join PharMatch today and connect with pharmacies, find medications, and contribute to blood donation initiatives.
+ <p className="text-xl text-cyan-100 mb-8 max-w-2xl mx-auto">
+ {t('home.cta.subtitle')}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/pharmacies">
               <Button variant="secondary" size="lg">
-                Find Pharmacies Now
+ {t('home.cta.findPharmaciesButton')}
               </Button>
             </Link>
             <Link to="/register">
-              <Button variant="outline" size="lg" className="bg-transparent border-white text-white hover:bg-white hover:text-cyan-800">
+ <Button variant="outline" size="lg" className="bg-transparent border-white text-white hover:bg-white hover:text-cyan-800">
                 Create an Account
               </Button>
             </Link>
