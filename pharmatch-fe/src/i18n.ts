@@ -70,7 +70,10 @@ i18n
           "home.cta.title": "Ready to Find Your Nearest Pharmacy?",
           "home.cta.description": "Join PharMatch today and connect with pharmacies, find medications, and contribute to blood donation initiatives.",
           "home.cta.findPharmacies": "Find Pharmacies Now",
-          "home.cta.createAccount": "Create an Account"
+          "home.cta.createAccount": "Create an Account",
+
+          //login 
+          "login.title": "Login",
         }
       },
       ar: {
@@ -188,7 +191,7 @@ i18n
           "home.cta.title": "Prêt à trouver votre pharmacie la plus proche ?",
           "home.cta.description": "Rejoignez PharMatch aujourd'hui et connectez-vous avec des pharmacies, trouvez des médicaments et contribuez aux initiatives de don de sang.",
           "home.cta.findPharmacies": "Trouver des pharmacies maintenant",
-          "home.cta.createAccount": "Créer un compte"
+          "home.cta.createAccount": "Créer un compte",
         }
       }
     }
