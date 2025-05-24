@@ -154,18 +154,8 @@
 
 
 
-  "notifications": {
-    "title": "الإشعارات",
-    "markAllAsRead": "تمييز الكل كمقروء",
-    "markAllAsReadAlert": "سيتم تمييز جميع الإشعارات كمقروءة",
-    "noNotifications": "لا توجد إشعارات",
-    "allCaughtUp": "لقد انتهيت من كل شيء!",
-    "new": "جديد",
-    "at": "في",
-    "markAsRead": "تمييز كمقروء",
-    "viewAll": "عرض جميع الإشعارات"
-  }
-,
+ 
+
 
 
 
@@ -540,6 +530,16 @@
 
 
   "notifications": {
+    "title": "الإشعارات",
+    "markAllAsRead": "تمييز الكل كمقروء",
+    "markAllAsReadAlert": "سيتم تمييز جميع الإشعارات كمقروءة",
+    "noNotifications": "لا توجد إشعارات",
+    "allCaughtUp": "لقد انتهيت من كل شيء!",
+    "new": "جديد",
+    "at": "في",
+    "markAsRead": "تمييز كمقروء",
+    "viewAll": "عرض جميع الإشعارات"
+  ,
     "header": {
       "title": "الإشعارات"
     },

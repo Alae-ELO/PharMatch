@@ -132,17 +132,7 @@
     "cancel": "Annuler",
     "register": "S'inscrire"
   },
-  "notifications": {
-    "title": "Notifications",
-    "markAllAsRead": "Marquer tout comme lu",
-    "markAllAsReadAlert": "Toutes les notifications seront marquées comme lues",
-    "noNotifications": "Aucune notification",
-    "allCaughtUp": "Vous êtes à jour !",
-    "new": "Nouveau",
-    "at": "À",
-    "markAsRead": "Marquer comme lu",
-    "viewAll": "Voir toutes les notifications"
-  },
+ 
   "medications": {
     "title": "Rechercher des médicaments",
     "subtitle": "Recherchez des médicaments et vérifiez dans quelles pharmacies ils sont disponibles.",
@@ -472,6 +462,16 @@
     }
   },
   "notifications": {
+    "title": "Notifications",
+    "markAllAsRead": "Marquer tout comme lu",
+    "markAllAsReadAlert": "Toutes les notifications seront marquées comme lues",
+    "noNotifications": "Aucune notification",
+    "allCaughtUp": "Vous êtes à jour !",
+    "new": "Nouveau",
+    "at": "À",
+    "markAsRead": "Marquer comme lu",
+    "viewAll": "Voir toutes les notifications"
+  ,
     "header": {
       "title": "Notifications"
     },

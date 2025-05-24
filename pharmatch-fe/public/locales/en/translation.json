@@ -132,17 +132,7 @@
     "cancel": "Cancel",
     "register": "Register"
   },
-  "notifications": {
-    "title": "Notifications",
-    "markAllAsRead": "Mark All as Read",
-    "markAllAsReadAlert": "All notifications will be marked as read",
-    "noNotifications": "No Notifications",
-    "allCaughtUp": "You’re all caught up!",
-    "new": "New",
-    "at": "At",
-    "markAsRead": "Mark as Read",
-    "viewAll": "View All Notifications"
-  },
+
   "medications": {
     "title": "Search Medications",
     "subtitle": "Search for medications and check which pharmacies have them in stock.",
@@ -472,6 +462,16 @@
     }
   },
   "notifications": {
+    "title": "Notifications",
+    "markAllAsRead": "Mark All as Read",
+    "markAllAsReadAlert": "All notifications will be marked as read",
+    "noNotifications": "No Notifications",
+    "allCaughtUp": "You’re all caught up!",
+    "new": "New",
+    "at": "At",
+    "markAsRead": "Mark as Read",
+    "viewAll": "View All Notifications"
+  ,
     "header": {
       "title": "Notifications"
     },
