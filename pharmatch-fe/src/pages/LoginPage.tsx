@@ -5,8 +5,10 @@ import Button from '../components/ui/Button';
 import Input from '../components/ui/Input';
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '../components/ui/Card';
 import useStore from '../store';
+import { useTranslation } from 'react-i18next';
 
 const LoginPage: React.FC = () => {
+   const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -39,19 +41,23 @@ const LoginPage: React.FC = () => {
     }
   };
 
-  return (
+ return (
     <div className="min-h-[80vh] flex items-center justify-center py-12 px-4">
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
           <div className="flex justify-center">
             <Pill className="h-12 w-12 text-cyan-600" />
           </div>
-          <h2 className="mt-6 text-3xl font-bold text-gray-900">Sign in to PharMatch</h2>
+          <h2 className="mt-6 text-3xl font-bold text-gray-900">
+            {t('login.title')}
+          </h2>
           <p className="mt-2 text-gray-600">
-            Or <Link to="/register" className="font-medium text-cyan-600 hover:text-cyan-500">create a new account</Link>
+            <Link to="/register" className="font-medium text-cyan-600 hover:text-cyan-500">
+              {t('login.createAccount')}
+            </Link>
           </p>
         </div>
-        
+
         <Card>
           <CardContent className="pt-6">
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -60,27 +66,27 @@ const LoginPage: React.FC = () => {
                   {error}
                 </div>
               )}
-              
+
               <Input
-                label="Email Address"
+                label={t('login.emailLabel')}
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your email"
+                placeholder={t('login.emailPlaceholder')}
                 icon={<Mail className="h-5 w-5" />}
                 required
               />
-              
+
               <Input
-                label="Password"
+                label={t('login.passwordLabel')}
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="Enter your password"
+                placeholder={t('login.passwordPlaceholder')}
                 icon={<Lock className="h-5 w-5" />}
                 required
               />
-              
+
               <div className="flex items-center justify-between">
                 <div className="flex items-center">
                   <input
@@ -90,30 +96,24 @@ const LoginPage: React.FC = () => {
                     className="h-4 w-4 text-cyan-600 focus:ring-cyan-500 border-gray-300 rounded"
                   />
                   <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-700">
-                    Remember me
+                    {t('login.rememberMe')}
                   </label>
                 </div>
-                
+
                 <div className="text-sm">
                   <a href="#" className="font-medium text-cyan-600 hover:text-cyan-500">
-                    Forgot your password?
+                    {t('login.forgotPassword')}
                   </a>
                 </div>
               </div>
-              
-              <div>
-                <Button
-                  type="submit"
-                  fullWidth
-                  isLoading={isLoading}
-                >
-                  Sign In
-                </Button>
-              </div>
-              
+
+              <Button type="submit" fullWidth isLoading={isLoading}>
+                {t('login.signIn')}
+              </Button>
+
               <div className="text-center mt-4">
                 <p className="text-sm text-gray-600">
-                  For demo purposes, you can sign in with:
+                  {t('login.demoText')}
                 </p>
                 <div className="mt-2 space-y-2">
                   <Button
@@ -121,30 +121,30 @@ const LoginPage: React.FC = () => {
                     fullWidth
                     onClick={() => {
                       setEmail('john@example.com');
-                      setPassword('password'); // In a real app, this would be secure
+                      setPassword('password');
                     }}
                   >
-                    User Account
+                    {t('login.userAccount')}
                   </Button>
                   <Button
                     variant="outline"
                     fullWidth
                     onClick={() => {
                       setEmail('admin@medicare.com');
-                      setPassword('password'); // In a real app, this would be secure
+                      setPassword('password');
                     }}
                   >
-                    Pharmacy Account
+                    {t('login.pharmacyAccount')}
                   </Button>
                   <Button
                     variant="outline"
                     fullWidth
                     onClick={() => {
                       setEmail('admin@pharmatch.com');
-                      setPassword('password'); // In a real app, this would be secure
+                      setPassword('password');
                     }}
                   >
-                    Admin Account
+                    {t('login.adminAccount')}
                   </Button>
                 </div>
               </div>

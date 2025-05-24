@@ -8,12 +8,11 @@ import {
   User, 
   Edit, 
   Trash2, 
-  ChevronDown,
-  ChevronUp,
   Search,
   Plus,
   X
 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import Button from '../components/ui/Button';
 import Input from '../components/ui/Input';
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '../components/ui/Card';
@@ -21,6 +20,7 @@ import Badge from '../components/ui/Badge';
 import useStore from '../store';
 
 const AdminDashboard: React.FC = () => {
+  const { t } = useTranslation();
   const { currentUser, users, pharmacies, medications, bloodDonationRequests } = useStore();
   const navigate = useNavigate();
   
@@ -80,8 +80,7 @@ const AdminDashboard: React.FC = () => {
   );
 
   const handleAddMedication = () => {
-    // In a real app, this would make an API call
-    alert('In a real app, this would add the medication to the database:\n' + JSON.stringify(newMedication, null, 2));
+    alert(t('Admin.medications.add_alert', { medication: JSON.stringify(newMedication, null, 2) }));
     setNewMedication({
       name: '',
       description: '',
@@ -92,8 +91,7 @@ const AdminDashboard: React.FC = () => {
   };
 
   const handleAddPharmacy = () => {
-    // In a real app, this would make an API call
-    alert('In a real app, this would add the pharmacy to the database:\n' + JSON.stringify(newPharmacy, null, 2));
+    alert(t('Admin.pharmacies.add_alert', { pharmacy: JSON.stringify(newPharmacy, null, 2) }));
     setNewPharmacy({
       name: '',
       address: '',
@@ -106,11 +104,11 @@ const AdminDashboard: React.FC = () => {
   };
   
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8" dir="auto">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Admin Dashboard</h1>
-        <p className="text-gray-600">Manage users, pharmacies, medications, and blood donation requests</p>
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">{t('Admin.title')}</h1>
+        <p className="text-gray-600">{t('Admin.description')}</p>
       </div>
       
       {/* Overview Cards */}
@@ -125,7 +123,7 @@ const AdminDashboard: React.FC = () => {
                 <Users className="h-6 w-6 text-cyan-700" />
               </div>
               <div>
-                <p className="text-sm font-medium text-gray-500">Total Users</p>
+                <p className="text-sm font-medium text-gray-500">{t('Admin.users.total')}</p>
                 <p className="text-2xl font-bold">{users.length}</p>
               </div>
             </div>
@@ -142,7 +140,7 @@ const AdminDashboard: React.FC = () => {
                 <Building2 className="h-6 w-6 text-emerald-700" />
               </div>
               <div>
-                <p className="text-sm font-medium text-gray-500">Pharmacies</p>
+                <p className="text-sm font-medium text-gray-500">{t('Admin.pharmacies.total')}</p>
                 <p className="text-2xl font-bold">{pharmacies.length}</p>
               </div>
             </div>
@@ -159,7 +157,7 @@ const AdminDashboard: React.FC = () => {
                 <Pill className="h-6 w-6 text-blue-700" />
               </div>
               <div>
-                <p className="text-sm font-medium text-gray-500">Medications</p>
+                <p className="text-sm font-medium text-gray-500">{t('Admin.medications.total')}</p>
                 <p className="text-2xl font-bold">{medications.length}</p>
               </div>
             </div>
@@ -176,7 +174,7 @@ const AdminDashboard: React.FC = () => {
                 <HeartPulse className="h-6 w-6 text-red-700" />
               </div>
               <div>
-                <p className="text-sm font-medium text-gray-500">Blood Requests</p>
+                <p className="text-sm font-medium text-gray-500">{t('Admin.blood.total')}</p>
                 <p className="text-2xl font-bold">{bloodDonationRequests.length}</p>
               </div>
             </div>
@@ -187,7 +185,7 @@ const AdminDashboard: React.FC = () => {
       {/* Search */}
       <div className="mb-6">
         <Input
-          placeholder={`Search ${activeTab}...`}
+          placeholder={t(`Admin.${activeTab}.search_placeholder`)}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           icon={<Search className="h-5 w-5" />}
@@ -199,37 +197,37 @@ const AdminDashboard: React.FC = () => {
         <Card className="mb-6">
           <CardHeader>
             <div className="flex justify-between items-center">
-              <CardTitle>Add New Medication</CardTitle>
+              <CardTitle>{t('Admin.medications.add_title')}</CardTitle>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => setShowAddMedicationForm(false)}
                 icon={<X className="h-4 w-4" />}
               >
-                Close
+                {t('Admin.close')}
               </Button>
             </div>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Input
-                label="Medication Name"
+                label={t('Admin.medications.name')}
                 value={newMedication.name}
                 onChange={(e) => setNewMedication({ ...newMedication, name: e.target.value })}
-                placeholder="Enter medication name"
+                placeholder={t('Admin.medications.name_placeholder')}
               />
               <Input
-                label="Category"
+                label={t('Admin.medications.category')}
                 value={newMedication.category}
                 onChange={(e) => setNewMedication({ ...newMedication, category: e.target.value })}
-                placeholder="e.g., Antibiotics, Pain Relief"
+                placeholder={t('Admin.medications.category_placeholder')}
               />
               <div className="md:col-span-2">
                 <Input
-                  label="Description"
+                  label={t('Admin.medications.description')}
                   value={newMedication.description}
                   onChange={(e) => setNewMedication({ ...newMedication, description: e.target.value })}
-                  placeholder="Enter medication description"
+                  placeholder={t('Admin.medications.description_placeholder')}
                 />
               </div>
               <div className="md:col-span-2">
@@ -240,14 +238,14 @@ const AdminDashboard: React.FC = () => {
                     onChange={(e) => setNewMedication({ ...newMedication, prescription: e.target.checked })}
                     className="rounded border-gray-300 text-cyan-600 focus:ring-cyan-500"
                   />
-                  <span className="text-sm font-medium text-gray-700">Requires Prescription</span>
+                  <span className="text-sm font-medium text-gray-700">{t('Admin.medications.prescription')}</span>
                 </label>
               </div>
             </div>
           </CardContent>
           <CardFooter>
             <Button onClick={handleAddMedication} fullWidth>
-              Add Medication
+              {t('Admin.medications.add_button')}
             </Button>
           </CardFooter>
         </Card>
@@ -258,65 +256,65 @@ const AdminDashboard: React.FC = () => {
         <Card className="mb-6">
           <CardHeader>
             <div className="flex justify-between items-center">
-              <CardTitle>Add New Pharmacy</CardTitle>
+              <CardTitle>{t('Admin.pharmacies.add_title')}</CardTitle>
               <Button
                 variant="ghost"
                 size="sm"
                 onClick={() => setShowAddPharmacyForm(false)}
                 icon={<X className="h-4 w-4" />}
               >
-                Close
+                {t('Admin.close')}
               </Button>
             </div>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <Input
-                label="Pharmacy Name"
+                label={t('Admin.pharmacies.name')}
                 value={newPharmacy.name}
                 onChange={(e) => setNewPharmacy({ ...newPharmacy, name: e.target.value })}
-                placeholder="Enter pharmacy name"
+                placeholder={t('Admin.pharmacies.name_placeholder')}
               />
               <Input
-                label="Email"
+                label={t('Admin.pharmacies.email')}
                 type="email"
                 value={newPharmacy.email}
                 onChange={(e) => setNewPharmacy({ ...newPharmacy, email: e.target.value })}
-                placeholder="Enter email address"
+                placeholder={t('Admin.pharmacies.email_placeholder')}
               />
               <Input
-                label="Phone"
+                label={t('Admin.pharmacies.phone')}
                 value={newPharmacy.phone}
                 onChange={(e) => setNewPharmacy({ ...newPharmacy, phone: e.target.value })}
-                placeholder="Enter phone number"
+                placeholder={t('Admin.pharmacies.phone_placeholder')}
               />
               <Input
-                label="City"
+                label={t('Admin.pharmacies.city')}
                 value={newPharmacy.city}
                 onChange={(e) => setNewPharmacy({ ...newPharmacy, city: e.target.value })}
-                placeholder="Enter city"
+                placeholder={t('Admin.pharmacies.city_placeholder')}
               />
               <div className="md:col-span-2">
                 <Input
-                  label="Address"
+                  label={t('Admin.pharmacies.address')}
                   value={newPharmacy.address}
                   onChange={(e) => setNewPharmacy({ ...newPharmacy, address: e.target.value })}
-                  placeholder="Enter full address"
+                  placeholder={t('Admin.pharmacies.address_placeholder')}
                 />
               </div>
               <div className="md:col-span-2">
                 <Input
-                  label="Business Hours"
+                  label={t('Admin.pharmacies.hours')}
                   value={newPharmacy.hours}
                   onChange={(e) => setNewPharmacy({ ...newPharmacy, hours: e.target.value })}
-                  placeholder="e.g., Mon-Fri: 9am-7pm, Sat: 10am-5pm"
+                  placeholder={t('Admin.pharmacies.hours_placeholder')}
                 />
               </div>
             </div>
           </CardContent>
           <CardFooter>
             <Button onClick={handleAddPharmacy} fullWidth>
-              Add Pharmacy
+              {t('Admin.pharmacies.add_button')}
             </Button>
           </CardFooter>
         </Card>
@@ -327,10 +325,7 @@ const AdminDashboard: React.FC = () => {
         <CardHeader>
           <div className="flex justify-between items-center">
             <CardTitle>
-              {activeTab === 'users' && 'User Management'}
-              {activeTab === 'pharmacies' && 'Pharmacy Management'}
-              {activeTab === 'medications' && 'Medication Management'}
-              {activeTab === 'blood' && 'Blood Donation Requests'}
+              {t(`Admin.${activeTab}.title`)}
             </CardTitle>
             <Button 
               size="sm" 
@@ -340,14 +335,11 @@ const AdminDashboard: React.FC = () => {
                 } else if (activeTab === 'pharmacies') {
                   setShowAddPharmacyForm(true);
                 } else {
-                  alert(`This would open a form to add a new ${activeTab.slice(0, -1)}`);
+                  alert(t('Admin.add_alert', { item: activeTab.slice(0, -1) }));
                 }
               }}
             >
-              Add {activeTab === 'users' ? 'User' : 
-                   activeTab === 'pharmacies' ? 'Pharmacy' : 
-                   activeTab === 'medications' ? 'Medication' : 
-                   'Blood Request'}
+              {t(`Admin.${activeTab}.add_button`)}
             </Button>
           </div>
         </CardHeader>
@@ -357,11 +349,11 @@ const AdminDashboard: React.FC = () => {
               <table className="w-full text-left">
                 <thead>
                   <tr className="border-b">
-                    <th className="pb-3 text-sm font-medium text-gray-500">Name</th>
-                    <th className="pb-3 text-sm font-medium text-gray-500">Email</th>
-                    <th className="pb-3 text-sm font-medium text-gray-500">Role</th>
-                    <th className="pb-3 text-sm font-medium text-gray-500">Blood Donor</th>
-                    <th className="pb-3 text-sm font-medium text-gray-500">Actions</th>
+                    <th className="pb-3 text-sm font-medium text-gray-500">{t('Admin.users.name')}</th>
+                    <th className="pb-3 text-sm font-medium text-gray-500">{t('Admin.users.email')}</th>
+                    <th className="pb-3 text-sm font-medium text-gray-500">{t('Admin.users.role')}</th>
+                    <th className="pb-3 text-sm font-medium text-gray-500">{t('Admin.users.blood_donor')}</th>
+                    <th className="pb-3 text-sm font-medium text-gray-500">{t('Admin.users.actions')}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -382,7 +374,7 @@ const AdminDashboard: React.FC = () => {
                                 : 'default'
                           }
                         >
-                          {user.role}
+                          {t(`Admin.users.role_${user.role}`)}
                         </Badge>
                       </td>
                       <td className="py-4">
@@ -399,20 +391,20 @@ const AdminDashboard: React.FC = () => {
                             size="sm" 
                             icon={<Edit className="h-4 w-4" />}
                             onClick={() => {
-                              alert(`This would open a form to edit ${user.name}`);
+                              alert(t('Admin.users.edit_alert', { name: user.name }));
                             }}
                           >
-                            Edit
+                            {t('Admin.users.edit')}
                           </Button>
                           <Button 
                             variant="danger" 
                             size="sm" 
                             icon={<Trash2 className="h-4 w-4" />}
                             onClick={() => {
-                              alert(`This would delete ${user.name}`);
+                              alert(t('Admin.users.delete_alert', { name: user.name }));
                             }}
                           >
-                            Delete
+                            {t('Admin.users.delete')}
                           </Button>
                         </div>
                       </td>
@@ -428,11 +420,11 @@ const AdminDashboard: React.FC = () => {
               <table className="w-full text-left">
                 <thead>
                   <tr className="border-b">
-                    <th className="pb-3 text-sm font-medium text-gray-500">Name</th>
-                    <th className="pb-3 text-sm font-medium text-gray-500">Location</th>
-                    <th className="pb-3 text-sm font-medium text-gray-500">Contact</th>
-                    <th className="pb-3 text-sm font-medium text-gray-500">Medications</th>
-                    <th className="pb-3 text-sm font-medium text-gray-500">Actions</th>
+                    <th className="pb-3 text-sm font-medium text-gray-500">{t('Admin.pharmacies.name')}</th>
+                    <th className="pb-3 text-sm font-medium text-gray-500">{t('Admin.pharmacies.location')}</th>
+                    <th className="pb-3 text-sm font-medium text-gray-500">{t('Admin.pharmacies.contact')}</th>
+                    <th className="pb-3 text-sm font-medium text-gray-500">{t('Admin.pharmacies.medications')}</th>
+                    <th className="pb-3 text-sm font-medium text-gray-500">{t('Admin.pharmacies.actions')}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -449,20 +441,20 @@ const AdminDashboard: React.FC = () => {
                             size="sm" 
                             icon={<Edit className="h-4 w-4" />}
                             onClick={() => {
-                              alert(`This would open a form to edit ${pharmacy.name}`);
+                              alert(t('Admin.pharmacies.edit_alert', { name: pharmacy.name }));
                             }}
                           >
-                            Edit
+                            {t('Admin.pharmacies.edit')}
                           </Button>
                           <Button 
                             variant="danger" 
                             size="sm" 
                             icon={<Trash2 className="h-4 w-4" />}
                             onClick={() => {
-                              alert(`This would delete ${pharmacy.name}`);
+                              alert(t('Admin.pharmacies.delete_alert', { name: pharmacy.name }));
                             }}
                           >
-                            Delete
+                            {t('Admin.pharmacies.delete')}
                           </Button>
                         </div>
                       </td>
@@ -478,11 +470,11 @@ const AdminDashboard: React.FC = () => {
               <table className="w-full text-left">
                 <thead>
                   <tr className="border-b">
-                    <th className="pb-3 text-sm font-medium text-gray-500">Name</th>
-                    <th className="pb-3 text-sm font-medium text-gray-500">Category</th>
-                    <th className="pb-3 text-sm font-medium text-gray-500">Prescription</th>
-                    <th className="pb-3 text-sm font-medium text-gray-500">Available At</th>
-                    <th className="pb-3 text-sm font-medium text-gray-500">Actions</th>
+                    <th className="pb-3 text-sm font-medium text-gray-500">{t('Admin.medications.name')}</th>
+                    <th className="pb-3 text-sm font-medium text-gray-500">{t('Admin.medications.category')}</th>
+                    <th className="pb-3 text-sm font-medium text-gray-500">{t('Admin.medications.prescription')}</th>
+                    <th className="pb-3 text-sm font-medium text-gray-500">{t('Admin.medications.available_at')}</th>
+                    <th className="pb-3 text-sm font-medium text-gray-500">{t('Admin.medications.actions')}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -494,13 +486,16 @@ const AdminDashboard: React.FC = () => {
                       </td>
                       <td className="py-4">
                         {medication.prescription ? (
-                          <Badge variant="warning">Yes</Badge>
+                          <Badge variant="warning">{t('Admin.medications.prescription_yes')}</Badge>
                         ) : (
-                          <Badge variant="success">No</Badge>
+                          <Badge variant="success">{t('Admin.medications.prescription_no')}</Badge>
                         )}
                       </td>
                       <td className="py-4">
-                        {medication.pharmacies.filter(p => p.inStock).length} of {medication.pharmacies.length} pharmacies
+                        {t('Admin.medications.available_count', { 
+                          inStock: medication.pharmacies.filter(p => p.inStock).length, 
+                          total: medication.pharmacies.length 
+                        })}
                       </td>
                       <td className="py-4">
                         <div className="flex space-x-2">
@@ -509,20 +504,20 @@ const AdminDashboard: React.FC = () => {
                             size="sm" 
                             icon={<Edit className="h-4 w-4" />}
                             onClick={() => {
-                              alert(`This would open a form to edit ${medication.name}`);
+                              alert(t('Admin.medications.edit_alert', { name: medication.name }));
                             }}
                           >
-                            Edit
+                            {t('Admin.medications.edit')}
                           </Button>
                           <Button 
                             variant="danger" 
                             size="sm" 
                             icon={<Trash2 className="h-4 w-4" />}
                             onClick={() => {
-                              alert(`This would delete ${medication.name}`);
+                              alert(t('Admin.medications.delete_alert', { name: medication.name }));
                             }}
                           >
-                            Delete
+                            {t('Admin.medications.delete')}
                           </Button>
                         </div>
                       </td>
@@ -538,12 +533,12 @@ const AdminDashboard: React.FC = () => {
               <table className="w-full text-left">
                 <thead>
                   <tr className="border-b">
-                    <th className="pb-3 text-sm font-medium text-gray-500">Blood Type</th>
-                    <th className="pb-3 text-sm font-medium text-gray-500">Hospital</th>
-                    <th className="pb-3 text-sm font-medium text-gray-500">Urgency</th>
-                    <th className="pb-3 text-sm font-medium text-gray-500">Created</th>
-                    <th className="pb-3 text-sm font-medium text-gray-500">Expires</th>
-                    <th className="pb-3 text-sm font-medium text-gray-500">Actions</th>
+                    <th className="pb-3 text-sm font-medium text-gray-500">{t('Admin.blood.blood_type')}</th>
+                    <th className="pb-3 text-sm font-medium text-gray-500">{t('Admin.blood.hospital')}</th>
+                    <th className="pb-3 text-sm font-medium text-gray-500">{t('Admin.blood.urgency')}</th>
+                    <th className="pb-3 text-sm font-medium text-gray-500">{t('Admin.blood.created')}</th>
+                    <th className="pb-3 text-sm font-medium text-gray-500">{t('Admin.blood.expires')}</th>
+                    <th className="pb-3 text-sm font-medium text-gray-500">{t('Admin.blood.actions')}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -561,7 +556,7 @@ const AdminDashboard: React.FC = () => {
                                 : 'info'
                           }
                         >
-                          {request.urgency === 'high' ? 'URGENT' : request.urgency}
+                          {t(`Admin.blood.urgency_${request.urgency}`)}
                         </Badge>
                       </td>
                       <td className="py-4">{new Date(request.createdAt).toLocaleDateString()}</td>
@@ -573,20 +568,20 @@ const AdminDashboard: React.FC = () => {
                             size="sm" 
                             icon={<Edit className="h-4 w-4" />}
                             onClick={() => {
-                              alert(`This would open a form to edit the ${request.bloodType} request`);
+                              alert(t('Admin.blood.edit_alert', { bloodType: request.bloodType }));
                             }}
                           >
-                            Edit
+                            {t('Admin.blood.edit')}
                           </Button>
                           <Button 
                             variant="danger" 
                             size="sm" 
                             icon={<Trash2 className="h-4 w-4" />}
                             onClick={() => {
-                              alert(`This would delete the ${request.bloodType} request`);
+                              alert(t('Admin.blood.delete_alert', { bloodType: request.bloodType }));
                             }}
                           >
-                            Delete
+                            {t('Admin.blood.delete')}
                           </Button>
                         </div>
                       </td>

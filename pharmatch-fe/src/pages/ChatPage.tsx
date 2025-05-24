@@ -4,14 +4,15 @@ import Input from '../components/ui/Input';
 import Button from '../components/ui/Button';
 import useStore from '../store';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 const ChatPage: React.FC = () => {
+  const { t } = useTranslation();
   const { messages, sendMessage } = useStore();
   const [inputMessage, setInputMessage] = useState('');
   const [isSending, setIsSending] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // Auto-scroll to bottom when messages change
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
@@ -40,10 +41,8 @@ const ChatPage: React.FC = () => {
     <div className="container mx-auto px-4 py-8">
       {/* Header Section */}
       <div className="mb-8 text-center">
-        <h1 className="text-3xl font-bold text-gray-900 mb-4">Health Assistant</h1>
-        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-          Ask health-related questions and get reliable information from our AI assistant.
-        </p>
+        <h1 className="text-3xl font-bold text-gray-900 mb-4">{t('health_assistant')}</h1>
+        <p className="text-lg text-gray-600 max-w-2xl mx-auto">{t('ask_health_questions')}</p>
       </div>
 
       {/* Chat Interface */}
@@ -54,34 +53,32 @@ const ChatPage: React.FC = () => {
             {messages.length === 0 ? (
               <div className="flex flex-col items-center justify-center h-full text-center text-gray-500">
                 <Bot className="h-12 w-12 mb-4 text-cyan-600" />
-                <h3 className="text-lg font-medium mb-2">Health Assistant</h3>
-                <p className="max-w-sm">
-                  Ask me anything about medications, symptoms, or general health advice.
-                </p>
+                <h3 className="text-lg font-medium mb-2">{t('health_assistant')}</h3>
+                <p className="max-w-sm">{t('chat_welcome_message')}</p>
                 <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-2">
                   <button 
                     className="text-left px-3 py-2 bg-gray-100 rounded-md hover:bg-gray-200 text-sm"
-                    onClick={() => setInputMessage("What are the side effects of ibuprofen?")}
+                    onClick={() => setInputMessage(t('example_1'))}
                   >
-                    What are the side effects of ibuprofen?
+                    {t('example_1')}
                   </button>
                   <button 
                     className="text-left px-3 py-2 bg-gray-100 rounded-md hover:bg-gray-200 text-sm"
-                    onClick={() => setInputMessage("How often can I take acetaminophen?")}
+                    onClick={() => setInputMessage(t('example_2'))}
                   >
-                    How often can I take acetaminophen?
+                    {t('example_2')}
                   </button>
                   <button 
                     className="text-left px-3 py-2 bg-gray-100 rounded-md hover:bg-gray-200 text-sm"
-                    onClick={() => setInputMessage("What's the difference between a cold and the flu?")}
+                    onClick={() => setInputMessage(t('example_3'))}
                   >
-                    What's the difference between a cold and the flu?
+                    {t('example_3')}
                   </button>
                   <button 
                     className="text-left px-3 py-2 bg-gray-100 rounded-md hover:bg-gray-200 text-sm"
-                    onClick={() => setInputMessage("How do I treat a minor burn?")}
+                    onClick={() => setInputMessage(t('example_4'))}
                   >
-                    How do I treat a minor burn?
+                    {t('example_4')}
                   </button>
                 </div>
               </div>
@@ -121,7 +118,7 @@ const ChatPage: React.FC = () => {
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
                 onKeyDown={handleKeyDown}
-                placeholder="Type your health question..."
+                placeholder={t('type_health_question')}
                 className="flex-grow"
               />
               <Button
@@ -130,12 +127,10 @@ const ChatPage: React.FC = () => {
                 isLoading={isSending}
                 icon={<Send className="h-4 w-4" />}
               >
-                Send
+                {t('send')}
               </Button>
             </div>
-            <p className="text-xs text-gray-500 mt-2">
-              Note: This assistant provides general information only. Always consult a healthcare professional for personal medical advice.
-            </p>
+            <p className="text-xs text-gray-500 mt-2">{t('disclaimer')}</p>
           </div>
         </div>
       </div>

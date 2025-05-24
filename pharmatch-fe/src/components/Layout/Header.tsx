@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useLocation,  } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Bell, User, Menu, X, LogOut, Settings, Pill, Globe } from 'lucide-react';
 import useStore from '../../store';
 import { useTranslation } from 'react-i18next';
@@ -13,15 +13,15 @@ const Header: React.FC = () => {
   const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState(false);
   const location = useLocation();
   const { t, i18n } = useTranslation();
-  
+
   const unreadNotifications = notifications.filter(n => !n.read).length;
-  
+
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const toggleProfile = () => {
     setIsProfileOpen(!isProfileOpen);
     if (isNotificationsOpen) setIsNotificationsOpen(false);
   };
-  
+
   const toggleNotifications = () => {
     setIsNotificationsOpen(!isNotificationsOpen);
     if (isProfileOpen) setIsProfileOpen(false);
@@ -31,7 +31,7 @@ const Header: React.FC = () => {
 
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng);
-    setIsLanguageDropdownOpen(false); // Close dropdown after selection
+    setIsLanguageDropdownOpen(false);
   };
 
   const handleLogout = () => {
@@ -40,11 +40,11 @@ const Header: React.FC = () => {
   };
 
   const navLinks = [
-    { title: 'Home', path: '/' },
-    { title: 'Find Pharmacies', path: '/pharmacies' },
-    { title: 'Medications', path: '/medications' },
-    { title: 'Blood Donation', path: '/blood-donation' },
-    { title: 'Health Assistant', path: '/chat' },
+    { title: t('nav.home'), path: '/' },
+    { title: t('nav.findPharmacies'), path: '/pharmacies' },
+    { title: t('nav.medications'), path: '/medications' },
+    { title: t('nav.bloodDonation'), path: '/blood-donation' },
+    { title: t('nav.healthAssistant'), path: '/chat' },
   ];
 
   return (
@@ -74,11 +74,11 @@ const Header: React.FC = () => {
             ))}
           </nav>
 
-          {/* Right Side Items */} {/* Language Switcher */}
+          {/* Right Side Items */}
           <div className="flex items-center space-x-4">
             {/* Notifications */}
             <div className="relative">
-              <button 
+              <button
                 onClick={toggleNotifications}
                 className="flex items-center justify-center rounded-full p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-900"
               >
@@ -89,19 +89,19 @@ const Header: React.FC = () => {
                   </span>
                 )}
               </button>
-              
+
               {isNotificationsOpen && (
                 <div className="absolute right-0 top-11 w-80 rounded-md border border-gray-200 bg-white p-2 shadow-lg">
-                  <div className="mb-2 px-2 py-1.5 text-sm font-medium">Notifications</div>
+                  <div className="mb-2 px-2 py-1.5 text-sm font-medium">{t('notifications.title')}</div>
                   <div className="max-h-[300px] overflow-y-auto">
                     {notifications.length === 0 ? (
                       <div className="px-4 py-3 text-center text-sm text-gray-500">
-                        No notifications
+                        {t('notifications.noNotifications')}
                       </div>
                     ) : (
                       notifications.slice(0, 5).map((notification) => (
-                        <div 
-                          key={notification.id} 
+                        <div
+                          key={notification.id}
                           className={`mb-2 rounded-md p-3 ${notification.read ? 'bg-gray-50' : 'bg-cyan-50'}`}
                         >
                           <div className="flex items-start justify-between">
@@ -109,7 +109,7 @@ const Header: React.FC = () => {
                               <p className="text-sm font-medium text-gray-900">{notification.title}</p>
                               <p className="text-xs text-gray-500">{notification.message}</p>
                             </div>
-                            {!notification.read && <Badge variant="primary">New</Badge>}
+                            {!notification.read && <Badge variant="primary">{t('notifications.new')}</Badge>}
                           </div>
                         </div>
                       ))
@@ -117,18 +117,19 @@ const Header: React.FC = () => {
                   </div>
                   {notifications.length > 0 && (
                     <div className="mt-2 border-t border-gray-200 pt-2 text-center">
-                      <Link 
-                        to="/notifications" 
+                      <Link
+                        to="/notifications"
                         className="text-xs font-medium text-cyan-600 hover:text-cyan-800"
                         onClick={() => setIsNotificationsOpen(false)}
                       >
-                        View all notifications
+                        {t('notifications.viewAll')}
                       </Link>
                     </div>
                   )}
                 </div>
               )}
             </div>
+
             {/* Language Switcher */}
             <div className="relative inline-block">
               <button
@@ -144,36 +145,36 @@ const Header: React.FC = () => {
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
                     onClick={() => changeLanguage('en')}
                   >
-                    English
+                    {t('languageDropdown.english')}
                   </div>
                   <div
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
                     onClick={() => changeLanguage('fr')}
                   >
-                    Français
-                  </div>
-                  <div className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
-                    onClick={() => changeLanguage('ar')}>
-                    العربية
-                  </div>
+{t('languageDropdown.french')}                  </div>
+                  <div
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+                    onClick={() => changeLanguage('ar')}
+                  >
+{t('languageDropdown.arabic')}                  </div>
                 </div>
               )}
             </div>
 
-            {/* User Menu (Desktop) */}
+            {/* User Menu */}
             {currentUser ? (
               <div className="relative hidden md:block">
                 <button
                   onClick={toggleProfile}
                   className="flex items-center space-x-2 rounded-full p-2 text-gray-700 hover:bg-gray-100"
                 >
-                  <span className="sr-only">Open user menu</span>
+                  <span className="sr-only">{t('profile.openMenu')}</span>
                   <div className="rounded-full bg-cyan-100 p-1">
                     <User className="h-5 w-5 text-cyan-700" />
                   </div>
                   <span className="text-sm font-medium">{currentUser.name}</span>
                 </button>
-                
+
                 {isProfileOpen && (
                   <div className="absolute right-0 top-11 w-48 rounded-md border border-gray-200 bg-white py-1 shadow-lg">
                     <div className="border-b border-gray-200 px-4 py-2">
@@ -185,14 +186,14 @@ const Header: React.FC = () => {
                       className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
                       onClick={() => setIsProfileOpen(false)}
                     >
-                      Profile
+                      {t('profile.profile')}
                     </Link>
                     <Link
                       to="/settings"
                       className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
                       onClick={() => setIsProfileOpen(false)}
                     >
-                      Settings
+                      {t('profile.settings')}
                     </Link>
                     {currentUser.role === 'pharmacy' && (
                       <Link
@@ -200,7 +201,7 @@ const Header: React.FC = () => {
                         className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
                         onClick={() => setIsProfileOpen(false)}
                       >
-                        Pharmacy Dashboard
+                        {t('profile.pharmacyDashboard')}
                       </Link>
                     )}
                     {currentUser.role === 'admin' && (
@@ -209,25 +210,25 @@ const Header: React.FC = () => {
                         className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
                         onClick={() => setIsProfileOpen(false)}
                       >
-                        Admin Panel
+                        {t('profile.adminPanel')}
                       </Link>
                     )}
                     <button
                       className="block w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-gray-100"
                       onClick={handleLogout}
                     >
-                      Logout
+                      {t('profile.logout')}
                     </button>
                   </div>
                 )}
               </div>
             ) : (
               <div className="hidden md:block">
-                <Link 
-                  to="/login" 
+                <Link
+                  to="/login"
                   className="rounded-md bg-cyan-600 px-4 py-2 text-sm font-medium text-white hover:bg-cyan-700"
                 >
-                  Login / Register
+                  {t('auth.loginRegister')}
                 </Link>
               </div>
             )}
@@ -238,7 +239,9 @@ const Header: React.FC = () => {
                 onClick={toggleMenu}
                 className="flex items-center justify-center rounded-md p-2 text-gray-700 hover:bg-gray-100"
               >
-                <span className="sr-only">{isMenuOpen ? 'Close menu' : 'Open menu'}</span>
+                <span className="sr-only">
+                  {isMenuOpen ? t('nav.closeMenu') : t('nav.openMenu')}
+                </span>
                 {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
               </button>
             </div>
@@ -263,7 +266,7 @@ const Header: React.FC = () => {
                   {link.title}
                 </Link>
               ))}
-              
+
               {currentUser ? (
                 <>
                   <div className="border-t border-gray-200 pt-4 pb-3">
@@ -282,14 +285,14 @@ const Header: React.FC = () => {
                         className="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50"
                         onClick={() => setIsMenuOpen(false)}
                       >
-                        Profile
+                        {t('profile.profile')}
                       </Link>
                       <Link
                         to="/settings"
                         className="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50"
                         onClick={() => setIsMenuOpen(false)}
                       >
-                        Settings
+                        {t('profile.settings')}
                       </Link>
                       {currentUser.role === 'pharmacy' && (
                         <Link
@@ -297,7 +300,7 @@ const Header: React.FC = () => {
                           className="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50"
                           onClick={() => setIsMenuOpen(false)}
                         >
-                          Pharmacy Dashboard
+                          {t('profile.pharmacyDashboard')}
                         </Link>
                       )}
                       {currentUser.role === 'admin' && (
@@ -306,7 +309,7 @@ const Header: React.FC = () => {
                           className="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50"
                           onClick={() => setIsMenuOpen(false)}
                         >
-                          Admin Panel
+                          {t('profile.adminPanel')}
                         </Link>
                       )}
                       <button
@@ -316,7 +319,7 @@ const Header: React.FC = () => {
                           setIsMenuOpen(false);
                         }}
                       >
-                        Logout
+                        {t('profile.logout')}
                       </button>
                     </div>
                   </div>
@@ -328,7 +331,7 @@ const Header: React.FC = () => {
                     className="block rounded-md bg-cyan-600 px-3 py-2 text-center text-base font-medium text-white hover:bg-cyan-700"
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    Login / Register
+                    {t('auth.loginRegister')}
                   </Link>
                 </div>
               )}

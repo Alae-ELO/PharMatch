@@ -7,8 +7,10 @@ import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '../compone
 import Badge from '../components/ui/Badge';
 import useStore from '../store';
 import { Medication } from '../types';
+import { useTranslation } from 'react-i18next';
 
 const PharmacyDashboard: React.FC = () => {
+  const { t } = useTranslation();
   const { currentUser, medications, pharmacies } = useStore();
   const navigate = useNavigate();
   
@@ -31,9 +33,9 @@ const PharmacyDashboard: React.FC = () => {
       <div className="container mx-auto px-4 py-8">
         <div className="text-center py-12">
           <AlertTriangle className="h-12 w-12 text-amber-500 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Pharmacy Profile Not Found</h2>
-          <p className="text-gray-600 mb-6">We couldn't find your pharmacy profile. Please contact support.</p>
-          <Button onClick={() => navigate('/')}>Return to Home</Button>
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">{t('pharmacyDashboard.error.title')}</h2>
+          <p className="text-gray-600 mb-6">{t('pharmacyDashboard.error.description')}</p>
+          <Button onClick={() => navigate('/')}>{t('pharmacyDashboard.error.returnHome')}</Button>
         </div>
       </div>
     );
@@ -48,8 +50,8 @@ const PharmacyDashboard: React.FC = () => {
     <div className="container mx-auto px-4 py-8">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">{pharmacyData.name} Dashboard</h1>
-        <p className="text-gray-600">Manage your medications and view statistics</p>
+        <h1 className="text-3xl font-bold text-gray-900 mb-2">{t('pharmacyDashboard.header.title', { pharmacyName: pharmacyData.name })}</h1>
+        <p className="text-gray-600">{t('pharmacyDashboard.header.description')}</p>
       </div>
       
       {/* Stats Cards */}
@@ -61,7 +63,7 @@ const PharmacyDashboard: React.FC = () => {
                 <Package className="h-6 w-6 text-cyan-700" />
               </div>
               <div>
-                <p className="text-sm font-medium text-gray-500">Available Medications</p>
+                <p className="text-sm font-medium text-gray-500">{t('pharmacyDashboard.stats.availableMedications')}</p>
                 <p className="text-2xl font-bold">{pharmacyMedications.length}</p>
               </div>
             </div>
@@ -75,7 +77,7 @@ const PharmacyDashboard: React.FC = () => {
                 <Users className="h-6 w-6 text-emerald-700" />
               </div>
               <div>
-                <p className="text-sm font-medium text-gray-500">Customer Interactions</p>
+                <p className="text-sm font-medium text-gray-500">{t('pharmacyDashboard.stats.customerInteractions')}</p>
                 <p className="text-2xl font-bold">342</p>
               </div>
             </div>
@@ -89,7 +91,7 @@ const PharmacyDashboard: React.FC = () => {
                 <Bell className="h-6 w-6 text-amber-700" />
               </div>
               <div>
-                <p className="text-sm font-medium text-gray-500">Pending Notifications</p>
+                <p className="text-sm font-medium text-gray-500">{t('pharmacyDashboard.stats.pendingNotifications')}</p>
                 <p className="text-2xl font-bold">5</p>
               </div>
             </div>
@@ -100,15 +102,15 @@ const PharmacyDashboard: React.FC = () => {
       {/* Medication Management */}
       <Card className="mb-8">
         <CardHeader className="flex flex-row items-center justify-between">
-          <CardTitle>Medication Inventory</CardTitle>
+          <CardTitle>{t('pharmacyDashboard.medication.title')}</CardTitle>
           <Button 
             size="sm" 
             icon={<Plus className="h-4 w-4" />}
             onClick={() => {
-              alert("This would open a form to add a new medication to your inventory.");
+              alert(t('pharmacyDashboard.medication.add'));
             }}
           >
-            Add Medication
+           {t('pharmacyDashboard.medication.add')}
           </Button>
         </CardHeader>
         <CardContent>
@@ -116,11 +118,11 @@ const PharmacyDashboard: React.FC = () => {
             <table className="w-full text-left">
               <thead>
                 <tr className="border-b">
-                  <th className="pb-3 text-sm font-medium text-gray-500">Name</th>
-                  <th className="pb-3 text-sm font-medium text-gray-500">Category</th>
-                  <th className="pb-3 text-sm font-medium text-gray-500">Price</th>
-                  <th className="pb-3 text-sm font-medium text-gray-500">Status</th>
-                  <th className="pb-3 text-sm font-medium text-gray-500">Actions</th>
+                  <th className="pb-3 text-sm font-medium text-gray-500">{t('pharmacyDashboard.medication.name')}</th>
+                  <th className="pb-3 text-sm font-medium text-gray-500">{t('pharmacyDashboard.medication.category')}</th>
+                  <th className="pb-3 text-sm font-medium text-gray-500">{t('pharmacyDashboard.medication.price')}</th>
+                  <th className="pb-3 text-sm font-medium text-gray-500">{t('pharmacyDashboard.medication.status')}</th>
+                  <th className="pb-3 text-sm font-medium text-gray-500">{t('pharmacyDashboard.medication.actions')}</th>
                 </tr>
               </thead>
               <tbody>
@@ -130,7 +132,7 @@ const PharmacyDashboard: React.FC = () => {
                     <tr key={med.id} className="border-b">
                       <td className="py-4">
                         <div className="font-medium">{med.name}</div>
-                        <div className="text-sm text-gray-500">{med.prescription ? 'Prescription' : 'OTC'}</div>
+                        <div className="text-sm text-gray-500">{med.prescription ?t('pharmacyDashboard.medication.prescription') : t('pharmacyDashboard.medication.otc')}</div>
                       </td>
                       <td className="py-4">
                         <Badge variant="secondary">{med.category}</Badge>
@@ -140,9 +142,9 @@ const PharmacyDashboard: React.FC = () => {
                       </td>
                       <td className="py-4">
                         {pharmacyInfo?.inStock ? (
-                          <Badge variant="success">In Stock</Badge>
+                          <Badge variant="success">{t('pharmacyDashboard.medication.inStock')}</Badge>
                         ) : (
-                          <Badge variant="danger">Out of Stock</Badge>
+                          <Badge variant="danger">{t('pharmacyDashboard.medication.outOfStock')}</Badge>
                         )}
                       </td>
                       <td className="py-4">
@@ -152,10 +154,10 @@ const PharmacyDashboard: React.FC = () => {
                             size="sm" 
                             icon={<Edit className="h-4 w-4" />}
                             onClick={() => {
-                              alert(`This would open a form to edit ${med.name}`);
+                              alert((t('pharmacyDashboard.medication.edit') + ` ${med.name}`));
                             }}
                           >
-                            Edit
+                           {t('pharmacyDashboard.medication.edit')}
                           </Button>
                           {!pharmacyInfo?.inStock ? (
                             <Button 
@@ -163,10 +165,10 @@ const PharmacyDashboard: React.FC = () => {
                               size="sm" 
                               icon={<Check className="h-4 w-4" />}
                               onClick={() => {
-                                alert(`This would mark ${med.name} as in stock`);
+                                alert(t('pharmacyDashboard.medication.markInStock') + ` ${med.name}`);
                               }}
                             >
-                              Mark In Stock
+                             {t('pharmacyDashboard.medication.markInStock')}
                             </Button>
                           ) : (
                             <Button 
@@ -174,10 +176,10 @@ const PharmacyDashboard: React.FC = () => {
                               size="sm" 
                               icon={<Trash2 className="h-4 w-4" />}
                               onClick={() => {
-                                alert(`This would remove ${med.name} from your inventory`);
+                                alert(t('pharmacyDashboard.medication.remove') + ` ${med.name}`);
                               }}
                             >
-                              Remove
+                            {t('pharmacyDashboard.medication.remove')}
                             </Button>
                           )}
                         </div>
@@ -194,33 +196,33 @@ const PharmacyDashboard: React.FC = () => {
       {/* Pharmacy Information Card */}
       <Card>
         <CardHeader>
-          <CardTitle>Pharmacy Information</CardTitle>
+          <CardTitle>{t('pharmacyDashboard.info.title')}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Input 
-              label="Pharmacy Name"
+              label={t('pharmacyDashboard.info.name')}
               value={pharmacyData.name}
               readOnly
             />
             <Input 
-              label="Email Address"
+              label={t('pharmacyDashboard.info.email')}
               value={pharmacyData.email}
               readOnly
             />
             <Input 
-              label="Phone Number"
+              label={t('pharmacyDashboard.info.phone')}
               value={pharmacyData.phone}
               readOnly
             />
             <Input 
-              label="Address"
+              label={t('pharmacyDashboard.info.address')}
               value={`${pharmacyData.address}, ${pharmacyData.city}`}
               readOnly
             />
             <div className="col-span-1 md:col-span-2">
               <Input 
-                label="Business Hours"
+                label={t('pharmacyDashboard.info.hours')}
                 value={pharmacyData.hours}
                 readOnly
               />
@@ -231,10 +233,10 @@ const PharmacyDashboard: React.FC = () => {
           <Button 
             variant="outline"
             onClick={() => {
-              alert("This would open a form to update your pharmacy information.");
+              alert(t('pharmacyDashboard.info.edit'));
             }}
           >
-            Edit Information
+          {t('pharmacyDashboard.info.edit')}
           </Button>
         </CardFooter>
       </Card>

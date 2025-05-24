@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Search, CheckCircle, XCircle } from 'lucide-react';
 import Input from '../components/ui/Input';
 import Button from '../components/ui/Button';
@@ -7,33 +8,31 @@ import Badge from '../components/ui/Badge';
 import useStore from '../store';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+
 const MedicationsPage: React.FC = () => {
+  const { t } = useTranslation();
   const { medications, searchMedications, fetchMedications } = useStore();
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearching, setIsSearching] = useState(false);
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
 
   const navigate = useNavigate();
-  // Get all unique categories
   const categories = Array.from(new Set(medications.map(m => m.category)));
 
   const handleSearch = () => {
     if (searchQuery.trim()) {
       setIsSearching(true);
-      searchMedications(searchQuery.trim())
-        .finally(() => setIsSearching(false));
+      searchMedications(searchQuery.trim()).finally(() => setIsSearching(false));
       setActiveCategory(null);
     } else {
       setIsSearching(true);
-      fetchMedications()
-        .finally(() => setIsSearching(false));
+      fetchMedications().finally(() => setIsSearching(false));
       setActiveCategory(null);
     }
   };
 
   const handleCategoryFilter = (category: string) => {
     if (activeCategory === category) {
-      // If clicking active category, clear filter
       setActiveCategory(null);
       fetchMedications();
     } else {
@@ -50,21 +49,17 @@ const MedicationsPage: React.FC = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      {/* Header Section */}
       <div className="mb-8 text-center">
-        <h1 className="text-3xl font-bold text-gray-900 mb-4">Search Medications</h1>
-        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-          Find medications and check which pharmacies have them in stock.
-        </p>
+        <h1 className="text-3xl font-bold text-gray-900 mb-4">{t('medications.title')}</h1>
+        <p className="text-lg text-gray-600 max-w-2xl mx-auto">{t('medications.subtitle')}</p>
       </div>
 
-      {/* Search Section */}
       <div className="max-w-xl mx-auto mb-8">
         <div className="flex flex-col sm:flex-row gap-4">
           <div className="flex-grow">
             <Input
               type="text"
-              placeholder="Search by medication name..."
+              placeholder={t('medications.searchPlaceholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               onKeyDown={handleKeyDown}
@@ -72,31 +67,25 @@ const MedicationsPage: React.FC = () => {
               className="w-full"
             />
           </div>
-          <Button
-            onClick={handleSearch}
-            isLoading={isSearching}
-            className="w-full sm:w-auto"
-          >
-            Search
+          <Button onClick={handleSearch} isLoading={isSearching} className="w-full sm:w-auto">
+            {t('medications.searchButton')}
           </Button>
         </div>
       </div>
 
-      {/* Categories Filter */}
       <div className="mb-8">
         <div className="flex flex-wrap gap-2">
           {categories.map((category) => (
             <button
               key={category}
               className={`cursor-pointer px-3 py-1 text-sm ${
-                activeCategory === category 
-                ? 'border border-cyan-600' 
-                : 'border border-transparent'
+                activeCategory === category ? 'border border-cyan-600' : 'border border-transparent'
               }`}
               value={category}
               onClick={() => handleCategoryFilter(category)}
-            />
-            
+            >
+              {category}
+            </button>
           ))}
           {activeCategory && (
             <Button
@@ -108,25 +97,24 @@ const MedicationsPage: React.FC = () => {
               }}
               className="text-xs"
             >
-              Clear Filters
+              {t('medications.clearFilters')}
             </Button>
           )}
         </div>
       </div>
 
-      {/* Results Section */}
       <div>
         {medications.length === 0 ? (
           <div className="text-center py-8">
-            <p className="text-gray-600 mb-4">No medications found matching your search.</p>
+            <p className="text-gray-600 mb-4">{t('medications.noResults')}</p>
             <Button onClick={() => fetchMedications()} variant="outline">
-              View All Medications
+              {t('medications.viewAll')}
             </Button>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {medications.map((medication, index) => (
-              <motion.div 
+              <motion.div
                 key={medication.id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -137,16 +125,20 @@ const MedicationsPage: React.FC = () => {
                     <div className="flex justify-between items-start">
                       <CardTitle>{medication.name}</CardTitle>
                       <Badge variant={medication.prescription ? 'warning' : 'success'}>
-                        {medication.prescription ? 'Prescription' : 'OTC'}
+                        {medication.prescription
+                          ? t('medications.prescription')
+                          : t('medications.otc')}
                       </Badge>
                     </div>
                   </CardHeader>
                   <CardContent className="space-y-3">
                     <p className="text-gray-700">{medication.description}</p>
                     <Badge variant="secondary">{medication.category}</Badge>
-                    
+
                     <div className="mt-4">
-                      <h4 className="text-sm font-medium text-gray-700 mb-2">Available at:</h4>
+                      <h4 className="text-sm font-medium text-gray-700 mb-2">
+                        {t('medications.availableAt')}
+                      </h4>
                       <ul className="space-y-2">
                         {medication.pharmacies.map((pharmacy) => (
                           <li key={pharmacy.id} className="flex items-center justify-between border-b pb-2">
@@ -155,15 +147,17 @@ const MedicationsPage: React.FC = () => {
                               {pharmacy.inStock ? (
                                 <>
                                   <CheckCircle className="h-4 w-4 text-green-500 mr-1" />
-                                  <span className="text-sm text-green-600">In Stock</span>
+                                  <span className="text-sm text-green-600">{t('medications.inStock')}</span>
                                   {pharmacy.price && (
-                                    <span className="ml-2 text-sm font-medium">${pharmacy.price.toFixed(2)}</span>
+                                    <span className="ml-2 text-sm font-medium">
+                                      ${pharmacy.price.toFixed(2)}
+                                    </span>
                                   )}
                                 </>
                               ) : (
                                 <>
                                   <XCircle className="h-4 w-4 text-red-500 mr-1" />
-                                  <span className="text-sm text-red-600">Out of Stock</span>
+                                  <span className="text-sm text-red-600">{t('medications.outOfStock')}</span>
                                 </>
                               )}
                             </div>
@@ -173,12 +167,8 @@ const MedicationsPage: React.FC = () => {
                     </div>
                   </CardContent>
                   <CardFooter>
-                    <Button 
-                      onClick={() => navigate(`/medications/${medication.id}`)}
-                      
-                      fullWidth
-                    >
-                      View Details
+                    <Button onClick={() => navigate(`/medications/${medication.id}`)} fullWidth>
+                      {t('medications.viewDetails')}
                     </Button>
                   </CardFooter>
                 </Card>

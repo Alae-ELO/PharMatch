@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate, Link } from 'react-router-dom';
 import { User, Mail, Lock, Pill, ChevronsRight } from 'lucide-react';
 import Button from '../components/ui/Button';
@@ -6,6 +7,7 @@ import Input from '../components/ui/Input';
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '../components/ui/Card';
 
 const RegisterPage: React.FC = () => {
+  const { t } = useTranslation();
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     name: '',
@@ -42,23 +44,23 @@ const RegisterPage: React.FC = () => {
     const newErrors: Record<string, string> = {};
     
     if (!formData.name.trim()) {
-      newErrors.name = 'Name is required';
+      newErrors.name = t('register.step1.errors.nameRequired');
     }
     
     if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
+      newErrors.email = t('register.step1.errors.emailRequired');
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Email is invalid';
+      newErrors.email =t('register.step1.errors.emailInvalid');
     }
     
     if (!formData.password) {
-      newErrors.password = 'Password is required';
+      newErrors.password = t('register.step1.errors.passwordRequired');
     } else if (formData.password.length < 6) {
-      newErrors.password = 'Password must be at least 6 characters';
+      newErrors.password = t('register.step1.errors.passwordLength');
     }
     
     if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = 'Passwords do not match';
+      newErrors.confirmPassword = t('register.step1.errors.passwordsMismatch');
     }
     
     setErrors(newErrors);
@@ -71,23 +73,23 @@ const RegisterPage: React.FC = () => {
     const newErrors: Record<string, string> = {};
     
     if (!formData.pharmacyName.trim()) {
-      newErrors.pharmacyName = 'Pharmacy name is required';
+      newErrors.pharmacyName = t('register.step2.errors.pharmacyNameRequired');
     }
     
     if (!formData.address.trim()) {
-      newErrors.address = 'Address is required';
+      newErrors.address = t('register.step2.errors.addressRequired');
     }
     
     if (!formData.city.trim()) {
-      newErrors.city = 'City is required';
+      newErrors.city = t('register.step2.errors.cityRequired');
     }
     
     if (!formData.phone.trim()) {
-      newErrors.phone = 'Phone number is required';
+      newErrors.phone = t('register.step2.errors.phoneRequired');
     }
     
     if (!formData.hours.trim()) {
-      newErrors.hours = 'Business hours are required';
+      newErrors.hours = t('register.step2.errors.hoursRequired');
     }
     
     setErrors(newErrors);
@@ -118,7 +120,7 @@ const RegisterPage: React.FC = () => {
       // Simulate registration process
       setTimeout(() => {
         setIsLoading(false);
-        alert(`Account registered successfully! In a real application, this would create a ${formData.accountType} account and redirect to login.`);
+        alert(t('register.successMessage', { accountType: formData.accountType }));
         navigate('/login');
       }, 1500);
     }
@@ -131,9 +133,9 @@ const RegisterPage: React.FC = () => {
           <div className="flex justify-center">
             <Pill className="h-12 w-12 text-cyan-600" />
           </div>
-          <h2 className="mt-6 text-3xl font-bold text-gray-900">Create your account</h2>
+          <h2 className="mt-6 text-3xl font-bold text-gray-900">{t('register.header.title')}</h2>
           <p className="mt-2 text-gray-600">
-            Or <Link to="/login" className="font-medium text-cyan-600 hover:text-cyan-500">sign in to your existing account</Link>
+             {t('register.header.signIn')}{' '} <Link to="/login" className="font-medium text-cyan-600 hover:text-cyan-500">{t('register.header.signInLink')}</Link>
           </p>
         </div>
         
@@ -144,15 +146,22 @@ const RegisterPage: React.FC = () => {
               1
             </div>
             <div className="flex-grow mx-2 h-1 bg-gray-200">
-              <div className={`h-full ${step >= 2 ? 'bg-cyan-600' : 'bg-gray-200'} transition-all duration-300`} style={{ width: step === 1 ? '0%' : '100%' }}></div>
+              <div
+                className={`h-full transition-all duration-300 ${step >= 2 ? 'bg-cyan-600' : 'bg-gray-200'}`}
+                style={{ width: step >= 2 ? '100%' : '0%' }}
+              />
             </div>
-            <div className={`w-10 h-10 rounded-full ${step >= 2 ? 'bg-cyan-600 text-white' : 'bg-gray-200 text-gray-500'} flex items-center justify-center transition-all duration-300`}>
+            <div
+              className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
+                step >= 2 ? 'bg-cyan-600 text-white' : 'bg-gray-200 text-gray-500'
+              }`}
+            >
               2
             </div>
           </div>
           <div className="flex justify-between mt-2">
-            <span className="text-xs text-center w-10">Account</span>
-            <span className="text-xs text-center w-10">Details</span>
+            <span className="text-xs text-center w-10">{t('register.steps.account')}</span>
+            <span className="text-xs text-center w-10">{t('register.steps.details')}</span>
           </div>
         </div>
         
@@ -162,47 +171,47 @@ const RegisterPage: React.FC = () => {
               {step === 1 && (
                 <>
                   <Input
-                    label="Full Name"
+                    label={t('register.step1.fullName')}
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    placeholder="Enter your full name"
+                    placeholder={t('register.step1.fullNamePlaceholder')}
                     icon={<User className="h-5 w-5" />}
                     error={errors.name}
                     required
                   />
                   
                   <Input
-                    label="Email Address"
+                    label={t('register.step1.email')}
                     type="email"
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    placeholder="Enter your email"
+                    placeholder={t('register.step1.emailPlaceholder')}
                     icon={<Mail className="h-5 w-5" />}
                     error={errors.email}
                     required
                   />
                   
                   <Input
-                    label="Password"
+                    label={t('register.step1.password')}
                     type="password"
                     name="password"
                     value={formData.password}
                     onChange={handleChange}
-                    placeholder="Create a password"
+                    placeholder={t('register.step1.passwordPlaceholder')}
                     icon={<Lock className="h-5 w-5" />}
                     error={errors.password}
                     required
                   />
                   
                   <Input
-                    label="Confirm Password"
+                    label={t('register.step1.confirmPassword')}
                     type="password"
                     name="confirmPassword"
                     value={formData.confirmPassword}
                     onChange={handleChange}
-                    placeholder="Confirm your password"
+                    placeholder={t('register.step1.confirmPasswordPlaceholder')}
                     icon={<Lock className="h-5 w-5" />}
                     error={errors.confirmPassword}
                     required
@@ -210,7 +219,7 @@ const RegisterPage: React.FC = () => {
                   
                   <div>
                     <label htmlFor="accountType" className="block text-sm font-medium text-gray-700 mb-1">
-                      Account Type
+                      {t('register.step1.accountType')}
                     </label>
                     <select
                       id="accountType"
@@ -219,8 +228,8 @@ const RegisterPage: React.FC = () => {
                       onChange={handleChange}
                       className="block w-full rounded-md border border-gray-300 bg-white px-4 py-2 text-gray-900 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
                     >
-                      <option value="user">Regular User</option>
-                      <option value="pharmacy">Pharmacy Owner</option>
+                      <option value="user">{t('register.step1.accountType.user')}</option>
+                      <option value="pharmacy">{t('register.step1.accountType.pharmacy')}</option>
                     </select>
                     {errors.accountType && <p className="text-sm text-red-600 mt-1">{errors.accountType}</p>}
                   </div>
@@ -231,7 +240,7 @@ const RegisterPage: React.FC = () => {
                     onClick={nextStep}
                     icon={<ChevronsRight className="h-5 w-5" />}
                   >
-                    Continue
+                   {t('register.step1.continue')}
                   </Button>
                 </>
               )}
@@ -241,54 +250,53 @@ const RegisterPage: React.FC = () => {
                   {formData.accountType === 'pharmacy' ? (
                     <>
                       <Input
-                        label="Pharmacy Name"
+                        label={t('register.step2.pharmacyName')}
                         name="pharmacyName"
                         value={formData.pharmacyName}
                         onChange={handleChange}
-                        placeholder="Enter pharmacy name"
+                        placeholder={t('register.step2.pharmacyNamePlaceholder')}
                         error={errors.pharmacyName}
                       />
                       
                       <Input
-                        label="Address"
+                        label={t('register.step2.address')}
                         name="address"
                         value={formData.address}
                         onChange={handleChange}
-                        placeholder="Enter street address"
+                        placeholder={t('register.step2.addressPlaceholder')}
                         error={errors.address}
                       />
                       
                       <Input
-                        label="City"
+                        label={t('register.step2.city')}
                         name="city"
                         value={formData.city}
                         onChange={handleChange}
-                        placeholder="Enter city"
+                        placeholder={t('register.step2.cityPlaceholder')}
                         error={errors.city}
                       />
                       
                       <Input
-                        label="Phone Number"
-                        name="phone"
+                        label={t('register.step2.phone')}
                         value={formData.phone}
                         onChange={handleChange}
-                        placeholder="Enter phone number"
+                        placeholder={t('register.step2.phonePlaceholder')}
                         error={errors.phone}
                       />
                       
                       <Input
-                        label="Business Hours"
+                        label={t('register.step2.hours')}
                         name="hours"
                         value={formData.hours}
                         onChange={handleChange}
-                        placeholder="e.g., Mon-Fri: 9am-7pm, Sat: 10am-5pm"
+                        placeholder={t('register.step2.hoursPlaceholder')}
                         error={errors.hours}
                       />
                     </>
                   ) : (
                     <div className="py-8 text-center">
-                      <h3 className="text-lg font-medium text-gray-900 mb-2">Ready to Create Your Account!</h3>
-                      <p className="text-gray-600">Click the button below to complete registration.</p>
+                      <h3 className="text-lg font-medium text-gray-900 mb-2">{t('register.step2.readyTitle')}</h3>
+                      <p className="text-gray-600">{t('register.step2.readyDescription')}</p>
                     </div>
                   )}
                   
@@ -299,14 +307,14 @@ const RegisterPage: React.FC = () => {
                       onClick={prevStep}
                       className="flex-1"
                     >
-                      Back
+                      {t('register.step2.back')}
                     </Button>
                     <Button
                       type="submit"
                       className="flex-1"
                       isLoading={isLoading}
                     >
-                      Create Account
+                      {t('register.step2.createAccount')}
                     </Button>
                   </div>
                 </>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Heart, PlusCircle, Clock, AlertCircle, MapPin, Phone } from 'lucide-react';
 import Button from '../components/ui/Button';
 import Input from '../components/ui/Input';
@@ -9,48 +10,44 @@ import { motion } from 'framer-motion';
 import { BloodDonationRequest } from '../types';
 
 const BloodDonationPage: React.FC = () => {
+  const { t } = useTranslation();
   const { 
     bloodDonationRequests, 
     createBloodDonationRequest,
     currentUser,
     registerAsBloodDonor
   } = useStore();
-  
+
   const [showDonorForm, setShowDonorForm] = useState(false);
   const [showRequestForm, setShowRequestForm] = useState(false);
   const [showContactModal, setShowContactModal] = useState(false);
   const [selectedRequest, setSelectedRequest] = useState<BloodDonationRequest | null>(null);
   const [bloodType, setBloodType] = useState('');
   const [isRegistering, setIsRegistering] = useState(false);
-  
-  // New request form state
+
   const [newRequest, setNewRequest] = useState({
     bloodType: '',
     hospital: '',
     urgency: 'medium' as 'low' | 'medium' | 'high',
     contactInfo: ''
   });
-  
+
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
+
   const handleRegisterDonor = async () => {
     if (!bloodType) return;
-    
     setIsRegistering(true);
     await registerAsBloodDonor(bloodType);
     setIsRegistering(false);
     setShowDonorForm(false);
   };
-  
+
   const handleCreateRequest = async () => {
     if (!newRequest.bloodType || !newRequest.hospital || !newRequest.contactInfo) return;
-    
     setIsSubmitting(true);
     await createBloodDonationRequest(newRequest);
     setIsSubmitting(false);
     setShowRequestForm(false);
-    
-    // Reset form
     setNewRequest({
       bloodType: '',
       hospital: '',
@@ -58,7 +55,7 @@ const BloodDonationPage: React.FC = () => {
       contactInfo: ''
     });
   };
-  
+
   const handleShowContactModal = (request: BloodDonationRequest) => {
     setSelectedRequest(request);
     setShowContactModal(true);
@@ -71,8 +68,7 @@ const BloodDonationPage: React.FC = () => {
       [name]: value
     }));
   };
-  
-  // Sort by urgency and date
+
   const sortedRequests = [...bloodDonationRequests].sort((a, b) => {
     const urgencyOrder = { high: 0, medium: 1, low: 2 };
     if (a.urgency !== b.urgency) {
@@ -80,17 +76,19 @@ const BloodDonationPage: React.FC = () => {
     }
     return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
   });
-  
+
   return (
     <div className="container mx-auto px-4 py-8">
-      {/* Header Section */}
+      {/* Header */}
       <div className="mb-8 text-center">
-        <h1 className="text-3xl font-bold text-gray-900 mb-4">Blood Donation</h1>
+        <h1 className="text-3xl font-bold text-gray-900 mb-4">
+          {t('bloodDonation.title')}
+        </h1>
         <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-          Register as a blood donor or view current blood donation requests.
+          {t('bloodDonation.subtitle')}
         </p>
       </div>
-      
+
       {/* Action Buttons */}
       <div className="flex flex-col sm:flex-row justify-center gap-4 mb-10">
         {!currentUser?.bloodDonor && (
@@ -99,34 +97,28 @@ const BloodDonationPage: React.FC = () => {
             size="lg" 
             icon={<Heart className="h-5 w-5" />}
             onClick={() => {
-              if (showRequestForm) {
-                setShowRequestForm(false);
-              }
-              // Also hide the modal if it's open
+              setShowRequestForm(false);
               setShowContactModal(false);
               setShowDonorForm(!showDonorForm);
             }}
           >
-            Register as Blood Donor
+            {t('bloodDonation.register')}
           </Button>
         )}
-        
+
         <Button 
           size="lg" 
           icon={<PlusCircle className="h-5 w-5" />}
           onClick={() => {
-              if (showDonorForm) {
-                setShowDonorForm(false);
-              }
-              // Also hide the modal if it's open
-              setShowContactModal(false);
-              setShowRequestForm(!showRequestForm);
-            }}
+            setShowDonorForm(false);
+            setShowContactModal(false);
+            setShowRequestForm(!showRequestForm);
+          }}
         >
-          Create Donation Request
+          {t('bloodDonation.createRequest')}
         </Button>
       </div>
-      
+
       {/* Donor Registration Form */}
       {showDonorForm && (
         <motion.div
@@ -136,20 +128,20 @@ const BloodDonationPage: React.FC = () => {
         >
           <Card>
             <CardHeader>
-              <CardTitle>Register as Blood Donor</CardTitle>
+              <CardTitle>{t('bloodDonation.registerTitle')}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
                 <label htmlFor="bloodType" className="block text-sm font-medium text-gray-700 mb-1">
-                  Your Blood Type
+                  {t('bloodDonation.yourBloodType')}
                 </label>
                 <select
                   id="bloodType"
                   value={bloodType}
                   onChange={(e) => setBloodType(e.target.value)}
-                  className="block w-full rounded-md border border-gray-300 bg-white px-4 py-2 text-gray-900 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
+                  className="block w-full rounded-md border px-4 py-2"
                 >
-                  <option value="">Select Blood Type</option>
+                  <option value="">{t('bloodDonation.selectBloodType')}</option>
                   <option value="A+">A+</option>
                   <option value="A-">A-</option>
                   <option value="B+">B+</option>
@@ -160,27 +152,26 @@ const BloodDonationPage: React.FC = () => {
                   <option value="O-">O-</option>
                 </select>
               </div>
-              
-              <div className="text-sm text-gray-600">
-                <p>By registering as a donor, you'll receive notifications when your blood type is needed in your area.</p>
-              </div>
+              <p className="text-sm text-gray-600">
+                {t('bloodDonation.registerInfo')}
+              </p>
             </CardContent>
             <CardFooter className="flex justify-between">
               <Button variant="ghost" onClick={() => setShowDonorForm(false)}>
-                Cancel
+                {t('common.cancel')}
               </Button>
               <Button 
                 onClick={handleRegisterDonor} 
                 disabled={!bloodType || isRegistering}
                 isLoading={isRegistering}
               >
-                Register
+                {t('common.register')}
               </Button>
             </CardFooter>
           </Card>
         </motion.div>
       )}
-      
+
       {/* Create Request Form */}
       {showRequestForm && (
         <motion.div
@@ -190,21 +181,21 @@ const BloodDonationPage: React.FC = () => {
         >
           <Card>
             <CardHeader>
-              <CardTitle>Create Blood Donation Request</CardTitle>
+              <CardTitle>{t('bloodDonation.createRequestTitle')}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
                 <label htmlFor="requestBloodType" className="block text-sm font-medium text-gray-700 mb-1">
-                  Blood Type Needed
+                  {t('bloodDonation.bloodTypeNeeded')}
                 </label>
                 <select
                   id="requestBloodType"
                   name="bloodType"
                   value={newRequest.bloodType}
                   onChange={handleRequestChange}
-                  className="block w-full rounded-md border border-gray-300 bg-white px-4 py-2 text-gray-900 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
+                  className="block w-full rounded-md border px-4 py-2"
                 >
-                  <option value="">Select Blood Type</option>
+                  <option value="">{t('bloodDonation.selectBloodType')}</option>
                   <option value="A+">A+</option>
                   <option value="A-">A-</option>
                   <option value="B+">B+</option>
@@ -217,265 +208,52 @@ const BloodDonationPage: React.FC = () => {
               </div>
               
               <Input
-                label="Hospital/Location"
+                label={t('bloodDonation.hospital')}
                 name="hospital"
                 value={newRequest.hospital}
                 onChange={handleRequestChange}
-                placeholder="Enter hospital or donation center name"
+                placeholder={t('bloodDonation.hospitalPlaceholder')}
               />
               
               <div>
                 <label htmlFor="urgency" className="block text-sm font-medium text-gray-700 mb-1">
-                  Urgency Level
+                  {t('bloodDonation.urgency')}
                 </label>
                 <select
                   id="urgency"
                   name="urgency"
                   value={newRequest.urgency}
                   onChange={handleRequestChange}
-                  className="block w-full rounded-md border border-gray-300 bg-white px-4 py-2 text-gray-900 focus:border-cyan-500 focus:outline-none focus:ring-1 focus:ring-cyan-500"
+                  className="block w-full rounded-md border px-4 py-2"
                 >
-                  <option value="low">Low - Within weeks</option>
-                  <option value="medium">Medium - Within days</option>
-                  <option value="high">High - URGENT (hours)</option>
+                  <option value="low">{t('bloodDonation.urgencyLow')}</option>
+                  <option value="medium">{t('bloodDonation.urgencyMedium')}</option>
+                  <option value="high">{t('bloodDonation.urgencyHigh')}</option>
                 </select>
               </div>
               
               <Input
-                label="Contact Information"
+                label={t('bloodDonation.contactInfo')}
                 name="contactInfo"
                 value={newRequest.contactInfo}
                 onChange={handleRequestChange}
-                placeholder="Phone number or email for contact"
+                placeholder={t('bloodDonation.contactPlaceholder')}
               />
             </CardContent>
             <CardFooter className="flex justify-between">
               <Button variant="ghost" onClick={() => setShowRequestForm(false)}>
-                Cancel
+                {t('common.cancel')}
               </Button>
               <Button 
                 onClick={handleCreateRequest} 
                 disabled={!newRequest.bloodType || !newRequest.hospital || !newRequest.contactInfo || isSubmitting}
                 isLoading={isSubmitting}
               >
-                Create Request
+                {t('bloodDonation.create')}
               </Button>
             </CardFooter>
           </Card>
         </motion.div>
-      )}
-      
-      {/* Current User Status */}
-      {currentUser?.bloodDonor && (
-        <div className="max-w-md mx-auto mb-10">
-          <Card>
-            <CardHeader>
-              <CardTitle>Your Donor Status</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex items-center justify-between mb-4">
-                <p className="font-medium">Blood Type:</p>
-                <Badge variant="primary" className="px-3 py-1 text-sm">
-                  {currentUser.bloodDonor.bloodType}
-                </Badge>
-              </div>
-              
-              {currentUser.bloodDonor.lastDonation && (
-                <div className="flex items-center justify-between mb-4">
-                  <p className="font-medium">Last Donation:</p>
-                  <Badge variant="default" className="px-3 py-1 text-sm">
-                    {new Date(currentUser.bloodDonor.lastDonation).toLocaleDateString()}
-                  </Badge>
-                </div>
-              )}
-              
-              <div className="flex items-center justify-between">
-                <p className="font-medium">Status:</p>
-                <Badge variant="success" className="px-3 py-1 text-sm">
-                  Eligible to Donate
-                </Badge>
-              </div>
-            </CardContent>
-            <CardFooter>
-              <Button 
-                variant="outline" 
-                fullWidth
-                onClick={() => {
-                  // This would record a donation in a real app
-                  alert("In a real app, this would record your donation and update your eligibility status.");
-                }}
-              >
-                Record a Donation
-              </Button>
-            </CardFooter>
-          </Card>
-        </div>
-      )}
-      
-      {/* Blood Requests Section */}
-      <div className="mt-8">
-        <h2 className="text-2xl font-bold text-gray-900 mb-6">Current Blood Donation Requests</h2>
-        
-        {sortedRequests.length === 0 ? (
-          <div className="text-center py-8">
-            <p className="text-gray-600">No blood donation requests at this time.</p>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {sortedRequests.map((request, index) => (
-              <motion.div
-                key={request.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: index * 0.1 }}
-              >
-                <Card className={request.urgency === 'high' ? 'border-red-400' : ''}>
-                  <CardHeader className={request.urgency === 'high' ? 'bg-red-50' : ''}>
-                    <div className="flex justify-between items-center">
-                      <CardTitle className="flex items-center">
-                        <Heart className={`h-5 w-5 mr-2 ${request.urgency === 'high' ? 'text-red-600' : 'text-red-500'}`} />
-                        {request.bloodType}
-                      </CardTitle>
-                      <Badge 
-                        variant={
-                          request.urgency === 'high' 
-                            ? 'danger' 
-                            : request.urgency === 'medium' 
-                              ? 'warning' 
-                              : 'info'
-                        }
-                      >
-                        {request.urgency === 'high' 
-                          ? 'URGENT' 
-                          : request.urgency === 'medium' 
-                            ? 'Medium' 
-                            : 'Low'
-                        }
-                      </Badge>
-                    </div>
-                  </CardHeader>
-                  <CardContent className="space-y-3">
-                    <div className="flex items-start">
-                      <MapPin className="h-5 w-5 text-gray-500 mr-2 mt-0.5 flex-shrink-0" />
-                      <p className="text-gray-700">{request.hospital}</p>
-                    </div>
-                    <div className="flex items-center">
-                      <Phone className="h-5 w-5 text-gray-500 mr-2 flex-shrink-0" />
-                      <p className="text-gray-700">{request.contactInfo}</p>
-                    </div>
-                    <div className="flex items-center">
-                      <Clock className="h-5 w-5 text-gray-500 mr-2 flex-shrink-0" />
-                      <p className="text-sm text-gray-600">Posted {new Date(request.createdAt).toLocaleDateString()}</p>
-                    </div>
-                    
-                    {request.urgency === 'high' && (
-                      <div className="flex items-start mt-2 bg-red-50 p-2 rounded-md">
-                        <AlertCircle className="h-5 w-5 text-red-500 mr-2 mt-0.5 flex-shrink-0" />
-                        <p className="text-sm text-red-700">Urgent need! Please contact immediately if you can donate.</p>
-                      </div>
-                    )}
-                  </CardContent>
-                  <CardFooter>
-                    <Button 
-                      variant={request.urgency === 'high' ? 'danger' : 'primary'}
-                      fullWidth
-                      onClick={() => handleShowContactModal(request)}
-                    >
-                      I Want to Donate
-                    </Button>
-                  </CardFooter>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        )}
-      </div>
-      
-      {/* Information Section */}
-      <div className="mt-16 max-w-3xl mx-auto">
-        <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">Blood Donation Information</h2>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <Card>
-            <CardHeader>
-              <CardTitle>Eligibility Requirements</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ul className="space-y-2 text-gray-700">
-                <li>• Be at least 17 years old (16 with parental consent)</li>
-                <li>• Weigh at least 110 pounds</li>
-                <li>• Be in good general health</li>
-                <li>• Wait at least 8 weeks between whole blood donations</li>
-                <li>• No fever or illness at time of donation</li>
-                <li>• Maintain adequate iron levels</li>
-              </ul>
-            </CardContent>
-          </Card>
-          
-          <Card>
-            <CardHeader>
-              <CardTitle>Blood Type Compatibility</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-2 text-gray-700">
-                <p><strong>Type O-:</strong> Universal donor (can donate to all types)</p>
-                <p><strong>Type O+:</strong> Can donate to O+, A+, B+, AB+</p>
-                <p><strong>Type A-:</strong> Can donate to A-, A+, AB-, AB+</p>
-                <p><strong>Type A+:</strong> Can donate to A+, AB+</p>
-                <p><strong>Type B-:</strong> Can donate to B-, B+, AB-, AB+</p>
-                <p><strong>Type B+:</strong> Can donate to B+, AB+</p>
-                <p><strong>Type AB-:</strong> Can donate to AB-, AB+</p>
-                <p><strong>Type AB+:</strong> Can donate to AB+ only</p>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-
-      {/* Contact Modal Overlay and Content */}
-      {showContactModal && selectedRequest && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.9 }}
-            className="relative p-8 border max-w-sm w-full shadow-lg rounded-md bg-white"
-          >
-            {/* Close Button */}
-            <button
-              className="absolute top-3 right-3 text-gray-500 hover:text-gray-700"
-              onClick={() => {
-                setShowContactModal(false);
-                setSelectedRequest(null);
-              }}
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-            
-            <div className="text-center">
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">Contact Information</h3>
-              <div className="mt-2 px-7 py-3">
-                <p className="text-lg text-gray-700 mb-2 text-left"><strong>Hospital:</strong> {selectedRequest.hospital}</p>
-                <p className="text-lg text-gray-700 mb-2 text-left"><strong>Blood Type Needed:</strong> {selectedRequest.bloodType}</p>
-                <p className="text-lg text-gray-700 mb-4 text-left break-words"><strong>Contact:</strong> {selectedRequest.contactInfo}</p>
-                <p className="text-sm text-gray-600 mt-4">Please contact the hospital directly if you are able to donate.</p>
-              </div>
-              <div className="flex justify-center mt-6">
-                <Button 
-                  variant="secondary" 
-                  onClick={() => {
-                    setShowContactModal(false);
-                    setSelectedRequest(null);
-                  }}
-                >
-                  Close
-                </Button>
-              </div>
-            </div>
-          </motion.div>
-        </div>
       )}
     </div>
   );

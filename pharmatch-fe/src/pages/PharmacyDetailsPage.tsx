@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useParams, Link} from 'react-router-dom';
 import { MapPin, Phone, Mail, Clock, ArrowLeft, ExternalLink } from 'lucide-react';
 import Button from '../components/ui/Button';
@@ -8,6 +9,7 @@ import useStore from '../store';
 import { useLoadScript } from '@react-google-maps/api';
 
 const PharmacyDetailsPage: React.FC = () => {
+  const { t } = useTranslation();
   useLoadScript({ googleMapsApiKey: "YOUR_GOOGLE_MAPS_API_KEY" }); // Replace with your API key
 
   const { id } = useParams<{ id: string }>();
@@ -20,9 +22,9 @@ const PharmacyDetailsPage: React.FC = () => {
   if (!pharmacy) {
     return (
       <div className="container mx-auto px-4 py-8 text-center">
-        <h1 className="text-2xl font-bold mb-4">Pharmacy Not Found</h1>
+        <h1 className="text-2xl font-bold mb-4">{t('pharmacyDetails.error.title')}</h1>
         <Link to="/pharmacies">
-          <Button variant="outline">Back to Pharmacies</Button>
+          <Button variant="outline">{t('pharmacyDetails.back')}</Button>
         </Link>
       </div>
     );
@@ -42,7 +44,7 @@ const PharmacyDetailsPage: React.FC = () => {
     <div className="container mx-auto px-4 py-8">
       <Link to="/pharmacies" className="inline-flex items-center text-cyan-600 hover:text-cyan-700 mb-6">
         <ArrowLeft className="h-4 w-4 mr-2" />
-        Back to Pharmacies
+       {t('pharmacyDetails.back')}
       </Link>
       
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -82,16 +84,16 @@ const PharmacyDetailsPage: React.FC = () => {
               
               <div className="flex space-x-4 pt-4">
                 <Button onClick={openInMaps} icon={<ExternalLink className="h-4 w-4" />}>
-                  Open in Maps
+                  {t('pharmacyDetails.actions.openInMaps')}
                 </Button>
                 <Button 
                   variant="outline"
                   onClick={() => {
                     // This would get directions in a real app
-                    alert("In a real app, this would get directions to the pharmacy");
+                    alert(t('pharmacyDetails.actions.getDirections'));
                   }}
                 >
-                  Get Directions
+                  {t('pharmacyDetails.actions.getDirections')}
                 </Button>
               </div>
             </CardContent>
@@ -100,7 +102,7 @@ const PharmacyDetailsPage: React.FC = () => {
           {/* Medications */}
           <Card className="mt-8">
             <CardHeader>
-              <CardTitle>Available Medications</CardTitle>
+              <CardTitle>{t('pharmacyDetails.medications.title')}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
@@ -113,10 +115,10 @@ const PharmacyDetailsPage: React.FC = () => {
                         <p className="text-sm text-gray-500">{med.category}</p>
                         <div className="flex space-x-2 mt-1">
                           <Badge variant={med.prescription ? 'warning' : 'success'}>
-                            {med.prescription ? 'Prescription' : 'OTC'}
+                            {med.prescription ? t('pharmacyDetails.medications.prescription') : t('pharmacyDetails.medications.otc')}
                           </Badge>
                           <Badge variant={pharmacyInfo?.inStock ? 'success' : 'danger'}>
-                            {pharmacyInfo?.inStock ? 'In Stock' : 'Out of Stock'}
+                            {pharmacyInfo?.inStock ?t('pharmacyDetails.medications.inStock') : t('pharmacyDetails.medications.outOfStock')}
                           </Badge>
                         </div>
                       </div>
@@ -140,7 +142,7 @@ const PharmacyDetailsPage: React.FC = () => {
                 {/* Use the pharmacy.coordinates.lat and pharmacy.coordinates.lng to center the map */}
                 <div className="absolute inset-0 flex items-center justify-center">
                   <p className="text-gray-500">
-                    Map would be displayed here using Google Maps or a similar service
+                    {t('pharmacyMapView.loading')}
                   </p>
                 </div>
               </div>

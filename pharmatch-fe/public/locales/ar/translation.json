@@ -1,0 +1,640 @@
+{
+       
+ 
+  "home": {
+    "hero": {
+      "title1": "مرحبا بكم في PharMatch",
+      "title2": "رابطك الأول للصيدليات والأدوية",
+      "description": "ابحث عن الصيدليات والأدوية القريبة منك بسهولة وسرعة.",
+      "findPharmaciesButton": "ابحث عن الصيدليات",
+      "searchMedicationsButton": "ابحث عن الأدوية",
+      "imageAlt": "صورة تعبيرية للصيدليات والأدوية"
+    },
+    "features": {
+      "title": "مميزاتنا",
+      "subtitle": "اكتشف كيف يساعدك فارماتش في العثور على الصيدليات، توفر الأدوية، المساعدة الصحية، والتبرع بالدم.",
+      "findPharmacies": {
+        "title": "ابحث عن الصيدليات",
+        "description": "اعثر على أقرب الصيدليات في منطقتك بسهولة."
+      },
+      "medicationAvailability": {
+        "title": "توفر الأدوية",
+        "description": "تحقق من توفر الأدوية في الصيدليات المختلفة."
+      },
+      "healthAssistant": {
+        "title": "مساعد صحي",
+        "description": "احصل على استشارات صحية ومساعدة مباشرة عبر التطبيق."
+      },
+      "bloodDonation": {
+        "title": "التبرع بالدم",
+        "description": "ساهم في إنقاذ الأرواح من خلال التبرع بالدم."
+      }
+    },
+    "urgentNeeds": {
+      "title": "طلبات الدم العاجلة",
+      "subtitle": "هذه الطلبات تتطلب تبرعات دم فورية. ساهم في إنقاذ حياة اليوم!",
+      "bloodType": "فصيلة الدم: {{bloodType}}",
+      "urgentLabel": "عاجل",
+      "hospital": "المستشفى",
+      "contact": "معلومات الاتصال",
+      "postedOn": "نُشر بتاريخ {{date}}",
+      "donateButton": "تبرع الآن",
+      "viewAllButton": "عرض كل الطلبات"
+    },
+    "testimonials": {
+      "title": "ماذا يقول المستخدمون عنا",
+      "subtitle": "قصص وتجارب من مستخدمينا الذين استفادوا من خدماتنا.",
+      "sarah": {
+        "quote": "فارماتش جعل من السهل العثور على الأدوية التي أحتاجها بسرعة.",
+        "name": "سارة أحمد",
+        "role": "مستخدم راضٍ"
+      },
+      "michael": {
+        "quote": "المساعد الصحي الافتراضي كان مفيدًا للغاية في الإجابة عن استفساراتي.",
+        "name": "مايكل جونز",
+        "role": "مستخدم راضٍ"
+      },
+      "emily": {
+        "quote": "التبرع بالدم عبر فارماتش كان تجربة رائعة وموثوقة.",
+        "name": "إميلي براون",
+        "role": "مستخدم راضٍ"
+      }
+    },
+    "cta": {
+      "title": "ابدأ اليوم",
+      "subtitle": "ابدأ اليوم في العثور على أقرب صيدلية واستمتع بخدماتنا.",
+      "findPharmaciesButton": "ابحث عن الصيدليات",
+      "createAccountButton": "إنشاء حساب"
+    }
+  }
+
+  
+
+
+,
+
+         
+  
+ 
+  "login": {
+    "title": "تسجيل الدخول إلى فارماتش",
+    "createAccount": "أو أنشئ حسابًا جديدًا",
+    "emailLabel": "البريد الإلكتروني",
+    "emailPlaceholder": "أدخل بريدك الإلكتروني",
+    "passwordLabel": "كلمة المرور",
+    "passwordPlaceholder": "أدخل كلمة المرور",
+    "rememberMe": "تذكرني",
+    "forgotPassword": "هل نسيت كلمة المرور؟",
+    "signIn": "تسجيل الدخول",
+    "demoText": "لأغراض العرض، يمكنك تسجيل الدخول باستخدام:",
+    "userAccount": "حساب المستخدم",
+    "pharmacyAccount": "حساب الصيدلية",
+    "adminAccount": "حساب المدير",
+    "errorEmpty": "البريد الإلكتروني وكلمة المرور مطلوبان",
+    "errorInvalid": "البريد الإلكتروني أو كلمة المرور غير صحيحة",
+    "errorGeneral": "حدث خطأ أثناء تسجيل الدخول"
+  }
+,
+          
+          
+  "medication_not_found": "الدواء غير موجود",
+  "description": "الوصف",
+  "category": "الفئة",
+  "pharmacy_availability": "توفره في الصيدليات",
+  "in_stock": "متوفر",
+  "out_of_stock": "غير متوفر",
+  "view_pharmacy": "عرض الصيدلية",
+  "important_info": "معلومات هامة",
+  "info_disclaimer": "المعلومات المقدمة هنا مرجعية فقط. استشر دائماً طبيباً أو صيدلياً من أجل:",
+  "dosage": "الجرعة وطريقة الاستعمال المناسبة",
+  "side_effects": "الآثار الجانبية المحتملة",
+  "interactions": "التفاعلات الدوائية",
+  "contraindications": "موانع الاستخدام",
+  "emergency": "إذا شعرت بأي أعراض خطيرة، اتصل بمقدم الرعاية الصحية فورًا أو اذهب إلى الطوارئ."
+
+,
+
+  "health_assistant": "مساعد الصحة",
+  "ask_health_questions": "اطرح أسئلة متعلقة بالصحة واحصل على معلومات موثوقة من مساعدنا الذكي.",
+  "chat_welcome_message": "اسألني عن الأدوية أو الأعراض أو النصائح الصحية العامة.",
+  "example_1": "ما هي الآثار الجانبية للإيبوبروفين؟",
+  "example_2": "كم مرة يمكنني تناول الباراسيتامول؟",
+  "example_3": "ما الفرق بين نزلة البرد والانفلونزا؟",
+  "example_4": "كيف أعالج حرقًا طفيفًا؟",
+  "type_health_question": "اكتب سؤالك الصحي...",
+  "send": "إرسال",
+  "disclaimer": "ملاحظة: هذا المساعد يقدم معلومات عامة فقط. استشر دائمًا متخصصًا صحيًا للحصول على نصيحة طبية شخصية.",
+
+  "bloodDonation": {
+    "title": "التبرع بالدم",
+    "subtitle": "سجل كمتبرع بالدم أو اعرض طلبات التبرع الحالية.",
+    "register": "سجل كمتبرع بالدم",
+    "createRequest": "إنشاء طلب تبرع",
+    "registerTitle": "التسجيل كمتبرع بالدم",
+    "yourBloodType": "فصيلة دمك",
+    "selectBloodType": "اختر فصيلة الدم",
+    "registerInfo": "من خلال التسجيل، ستتلقى إشعارات عند الحاجة إلى فصيلة دمك.",
+    "createRequestTitle": "إنشاء طلب تبرع بالدم",
+    "bloodTypeNeeded": "فصيلة الدم المطلوبة",
+    "hospital": "المستشفى / الموقع",
+    "hospitalPlaceholder": "أدخل اسم المستشفى أو مركز التبرع",
+    "urgency": "مستوى الاستعجال",
+    "urgencyLow": "منخفض - خلال أسابيع",
+    "urgencyMedium": "متوسط - خلال أيام",
+    "urgencyHigh": "عالي - عاجل (ساعات)",
+    "contactInfo": "معلومات الاتصال",
+    "contactPlaceholder": "رقم الهاتف أو البريد الإلكتروني",
+    "create": "إنشاء الطلب"
+  },
+  "common": {
+    "cancel": "إلغاء",
+    "register": "تسجيل"
+  }
+,
+
+
+
+  "notifications": {
+    "title": "الإشعارات",
+    "markAllAsRead": "تمييز الكل كمقروء",
+    "markAllAsReadAlert": "سيتم تمييز جميع الإشعارات كمقروءة",
+    "noNotifications": "لا توجد إشعارات",
+    "allCaughtUp": "لقد انتهيت من كل شيء!",
+    "new": "جديد",
+    "at": "في",
+    "markAsRead": "تمييز كمقروء",
+    "viewAll": "عرض جميع الإشعارات"
+  }
+,
+
+
+
+
+  "medications": {
+    "title": "البحث عن الأدوية",
+    "subtitle": "ابحث عن الأدوية وتحقق من الصيدليات التي تتوفر بها.",
+    "searchPlaceholder": "ابحث باسم الدواء...",
+    "searchButton": "بحث",
+    "clearFilters": "مسح الفلاتر",
+    "noResults": "لم يتم العثور على أدوية مطابقة لبحثك.",
+    "viewAll": "عرض جميع الأدوية",
+    "prescription": "بوصفة طبية",
+    "otc": "بدون وصفة طبية",
+    "availableAt": "متوفر في:",
+    "inStock": "متوفر",
+    "outOfStock": "غير متوفر",
+    "viewDetails": "عرض التفاصيل"
+  }
+,
+
+
+
+  "pharmacies": {
+    "title": "الصيدليات",
+    "subtitle": "ابحث عن أقرب صيدلية في مدينتك بسهولة.",
+    "placeholder": "ابحث عن مدينة أو عنوان...",
+    "searchButton": "بحث",
+    "useMyLocation": "استخدم موقعي الحالي",
+    "pharmaciesIn": "الصيدليات في {{city}}",
+    "noResults": "لا توجد صيدليات في هذا الموقع.",
+    "viewAll": "عرض الكل"
+  },
+  "errors": {
+    "geolocationNotSupported": "ميزة تحديد الموقع غير مدعومة في متصفحك."
+  },
+  "card": {
+    "viewOnMap": "عرض على الخريطة",
+    "viewDetails": "عرض التفاصيل",
+    "location": "الموقع"
+  },
+  "mapModal": {
+    "close": "إغلاق"
+  },
+  "search": {
+    "useMyLocation": "موقعي الحالي"
+  }
+
+,
+  "pharmacyDashboard": {
+    "header": {
+      "title": "لوحة تحكم {{pharmacyName}}",
+      "description": "قم بإدارة أدويتك واطلع على الإحصائيات"
+    },
+    "stats": {
+      "availableMedications": "الأدوية المتوفرة",
+      "customerInteractions": "تفاعلات العملاء",
+      "pendingNotifications": "الإشعارات المعلقة"
+    },
+    "medication": {
+      "title": "جرد الأدوية",
+      "add": "إضافة دواء",
+      "name": "الاسم",
+      "category": "الفئة",
+      "price": "السعر",
+      "status": "الحالة",
+      "actions": "الإجراءات",
+      "prescription": "بوصفة طبية",
+      "otc": "بدون وصفة",
+      "inStock": "متوفر في المخزون",
+      "outOfStock": "غير متوفر",
+      "edit": "تعديل",
+      "markInStock": "وضع في المخزون",
+      "remove": "حذف"
+    },
+    "info": {
+      "title": "معلومات الصيدلية",
+      "name": "اسم الصيدلية",
+      "email": "البريد الإلكتروني",
+      "phone": "رقم الهاتف",
+      "address": "العنوان",
+      "hours": "ساعات العمل",
+      "edit": "تعديل المعلومات"
+    },
+    "error": {
+      "title": "ملف الصيدلية غير موجود",
+      "description": "لم نتمكن من العثور على ملف الصيدلية الخاص بك. يرجى الاتصال بالدعم.",
+      "returnHome": "العودة إلى الصفحة الرئيسية"
+    }
+  },
+
+  "pharmacyDetails": {
+    "back": "العودة إلى الصيدليات",
+    "error": {
+      "title": "الصيدلية غير موجودة"
+    },
+    "actions": {
+      "openInMaps": "افتح في الخرائط",
+      "getDirections": "الحصول على الاتجاهات"
+    },
+    "medications": {
+      "title": "الأدوية المتوفرة",
+      "prescription": "بوصفة طبية",
+      "otc": "بدون وصفة",
+      "inStock": "متوفر في المخزون",
+      "outOfStock": "غير متوفر"
+    }
+  },
+
+  "pharmacyMapView": {
+    "error": "حدث خطأ أثناء تحميل الخرائط",
+    "loading": "جار تحميل الخرائط..."
+  },
+
+ 
+  
+
+
+
+  
+ 
+  "profile": {
+     "openMenu": "فتح قائمة المستخدم",
+    "profile": "الملف الشخصي",
+    "settings": "الإعدادات",
+    "pharmacyDashboard": "لوحة الصيدلية",
+    "adminPanel": "لوحة الإدارة",
+    "logout": "تسجيل الخروج",
+    "header": "ملف المستخدم",
+    "personalTitle": "المعلومات الشخصية",
+    "fullName": "الاسم الكامل",
+    "email": "البريد الإلكتروني",
+    "phone": "رقم الهاتف",
+    "address": "العنوان",
+    "pharmacyTitle": "معلومات الصيدلية",
+    "pharmacyLicense": "رخصة الصيدلية",
+    "pharmacyAddress": "عنوان الصيدلية",
+    "pharmacyPhone": "هاتف الصيدلية",
+    "bloodDonorTitle": "معلومات المتبرع بالدم",
+    "bloodType": "فصيلة الدم: {{bloodType}}",
+    "lastDonation": "آخر تبرع",
+    "eligibleSince": "مؤهل للتبرع منذ",
+    "accountTitle": "إعدادات الحساب",
+    "emailNotifications": "إشعارات البريد الإلكتروني",
+    "bloodDonationRequests": "تلقي طلبات التبرع بالدم",
+    "medicationUpdates": "تلقي تحديثات الأدوية",
+    "privacySettings": "إعدادات الخصوصية",
+    "showBloodDonorStatus": "عرض حالة المتبرع بالدم"
+  },
+  "actions": {
+    "edit": "تعديل",
+    "save": "حفظ",
+    "cancel": "إلغاء"
+  },
+  "danger": {
+    "title": "منطقة الخطر",
+    "description": "سيؤدي حذف حسابك إلى إزالة جميع بياناتك نهائيًا.",
+    "delete": "حذف الحساب"
+  }
+
+
+
+
+  
+  
+  
+  
+  
+  
+  ,
+
+  "register": {
+    "header": {
+      "title": "أنشئ حسابك",
+      "signIn": "أو سجل الدخول إلى حسابك الحالي"
+    },
+    "steps": {
+      "account": "الحساب",
+      "details": "التفاصيل"
+    },
+    "step1": {
+      "fullName": "الاسم الكامل",
+      "fullNamePlaceholder": "أدخل اسمك الكامل",
+      "email": "البريد الإلكتروني",
+      "emailPlaceholder": "أدخل بريدك الإلكتروني",
+      "password": "كلمة المرور",
+      "passwordPlaceholder": "أنشئ كلمة مرور",
+      "confirmPassword": "تأكيد كلمة المرور",
+      "confirmPasswordPlaceholder": "أكد كلمة المرور",
+      "accountType": "نوع الحساب",
+      "accountType": {
+        "user": "مستخدم عادي",
+        "pharmacy": "مالك صيدلية"
+      },
+      "continue": "متابعة",
+      "errors": {
+        "nameRequired": "الاسم مطلوب",
+        "emailRequired": "البريد الإلكتروني مطلوب",
+        "emailInvalid": "البريد الإلكتروني غير صالح",
+        "passwordRequired": "كلمة المرور مطلوبة",
+        "passwordLength": "يجب أن تحتوي كلمة المرور على 6 أحرف على الأقل",
+        "passwordsMismatch": "كلمتا المرور غير متطابقتين"
+      }
+    },
+    "step2": {
+      "pharmacyName": "اسم الصيدلية",
+      "pharmacyNamePlaceholder": "أدخل اسم الصيدلية",
+      "address": "العنوان",
+      "addressPlaceholder": "أدخل العنوان",
+      "city": "المدينة",
+      "cityPlaceholder": "أدخل المدينة",
+      "phone": "رقم الهاتف",
+      "phonePlaceholder": "أدخل رقم الهاتف",
+      "hours": "ساعات العمل",
+      "hoursPlaceholder": "مثال: الإثنين-الجمعة: 9ص-7م، السبت: 10ص-5م",
+      "back": "عودة",
+      "createAccount": "إنشاء حساب",
+      "readyTitle": "جاهز لإنشاء حسابك!",
+      "readyDescription": "انقر على الزر أدناه لإتمام التسجيل.",
+      "errors": {
+        "pharmacyNameRequired": "اسم الصيدلية مطلوب",
+        "addressRequired": "العنوان مطلوب",
+        "cityRequired": "المدينة مطلوبة",
+        "phoneRequired": "رقم الهاتف مطلوب",
+        "hoursRequired": "ساعات العمل مطلوبة"
+      }
+    }
+  },
+
+
+
+  "Admin": {
+    "title": "لوحة تحكم الإدارة",
+    "description": "إدارة المستخدمين والصيدليات والأدوية وطلبات التبرع بالدم",
+    "close": "إغلاق",
+    "add_alert": "سيؤدي هذا إلى فتح نموذج لإضافة {{item}} جديد",
+    "users": {
+      "title": "إدارة المستخدمين",
+      "total": "إجمالي المستخدمين",
+      "search_placeholder": "البحث عن المستخدمين...",
+      "name": "الاسم",
+      "email": "البريد الإلكتروني",
+      "role": "الدور",
+      "role_admin": "مدير",
+      "role_pharmacy": "صيدلية",
+      "role_user": "مستخدم",
+      "blood_donor": "متبرع بالدم",
+      "actions": "الإجراءات",
+      "edit": "تعديل",
+      "delete": "حذف",
+      "add_button": "إضافة مستخدم",
+      "edit_alert": "سيؤدي هذا إلى فتح نموذج لتعديل {{name}}",
+      "delete_alert": "سيؤدي هذا إلى حذف {{name}}"
+    },
+    "pharmacies": {
+      "title": "إدارة الصيدليات",
+      "total": "الصيدليات",
+      "search_placeholder": "البحث عن الصيدليات...",
+      "name": "الاسم",
+      "location": "الموقع",
+      "contact": "الاتصال",
+      "medications": "الأدوية",
+      "actions": "الإجراءات",
+      "edit": "تعديل",
+      "delete": "حذف",
+      "add_title": "إضافة صيدلية جديدة",
+      "add_button": "إضافة صيدلية",
+      "add_alert": "في تطبيق حقيقي، سيؤدي هذا إلى إضافة الصيدلية إلى قاعدة البيانات:\n{{pharmacy}}",
+      "name_placeholder": "أدخل اسم الصيدلية",
+      "email": "البريد الإلكتروني",
+      "email_placeholder": "أدخل عنوان البريد الإلكتروني",
+      "phone": "الهاتف",
+      "phone_placeholder": "أدخل رقم الهاتف",
+      "city": "المدينة",
+      "city_placeholder": "أدخل المدينة",
+      "address": "العنوان",
+      "address_placeholder": "أدخل العنوان الكامل",
+      "hours": "ساعات العمل",
+      "hours_placeholder": "مثال: من الإثنين إلى الجمعة: 9 صباحًا - 7 مساءً، السبت: 10 صباحًا - 5 مساءً",
+      "edit_alert": "سيؤدي هذا إلى فتح نموذج لتعديل {{name}}",
+      "delete_alert": "سيؤدي هذا إلى حذف {{name}}"
+    },
+    "medications": {
+      "title": "إدارة الأدوية",
+      "total": "الأدوية",
+      "search_placeholder": "البحث عن الأدوية...",
+      "name": "الاسم",
+      "category": "الفئة",
+      "prescription": "يتطلب وصفة طبية",
+      "prescription_yes": "نعم",
+      "prescription_no": "لا",
+      "available_at": "متوفر في",
+      "available_count": "{{inStock}} من {{total}} صيدليات",
+      "actions": "الإجراءات",
+      "edit": "تعديل",
+      "delete": "حذف",
+      "add_title": "إضافة دواء جديد",
+      "add_button": "إضافة دواء",
+      "add_alert": "في تطبيق حقيقي، سيؤدي هذا إلى إضافة الدواء إلى قاعدة البيانات:\n{{medication}}",
+      "name_placeholder": "أدخل اسم الدواء",
+      "category_placeholder": "مثال: مضادات حيوية، مسكنات الألم",
+      "description": "الوصف",
+      "description_placeholder": "أدخل وصف الدواء",
+      "edit_alert": "سيؤدي هذا إلى فتح نموذج لتعديل {{name}}",
+      "delete_alert": "سيؤدي هذا إلى حذف {{name}}"
+    },
+    "blood": {
+      "title": "طلبات التبرع بالدم",
+      "total": "طلبات الدم",
+      "search_placeholder": "البحث عن طلبات الدم...",
+      "blood_type": "فصيلة الدم",
+      "hospital": "المستشفى",
+      "urgency": "الأهمية",
+      "urgency_high": "عاجل",
+      "urgency_medium": "متوسط",
+      "urgency_low": "منخفض",
+      "created": "تاريخ الإنشاء",
+      "expires": "تاريخ الانتهاء",
+      "actions": "الإجراءات",
+      "edit": "تعديل",
+      "delete": "حذف",
+      "add_button": "إضافة طلب دم",
+      "edit_alert": "سيؤدي هذا إلى فتح نموذج لتعديل طلب {{bloodType}}",
+      "delete_alert": "سيؤدي هذا إلى حذف طلب {{bloodType}}"
+    }
+  }
+,
+
+  
+  "settings": {
+    "header": "الإعدادات",
+    "notifications": {
+      "title": "إعدادات الإشعارات",
+      "emailNotifications": "إشعارات البريد الإلكتروني",
+      "bloodDonationRequests": "تلقي طلبات التبرع بالدم",
+      "medicationUpdates": "تلقي تحديثات الأدوية",
+      "systemAnnouncements": "إعلانات النظام",
+      "pushNotifications": "إشعارات الدفع",
+      "enablePush": "تفعيل إشعارات الدفع"
+    },
+    "security": {
+      "title": "الأمان",
+      "currentPassword": "كلمة المرور الحالية",
+      "newPassword": "كلمة المرور الجديدة",
+      "confirmNewPassword": "تأكيد كلمة المرور الجديدة",
+      "changePassword": "تغيير كلمة المرور",
+      "changePasswordSuccess": "تم تغيير كلمة المرور بنجاح"
+    },
+    "privacy": {
+      "title": "الخصوصية",
+      "profileVisibility": "رؤية الملف الشخصي",
+      "showBloodDonorStatus": "عرض حالة المتبرع بالدم",
+      "allowPharmacyContact": "السماح للصيدلية بالتواصل",
+      "dataUsage": "استخدام البيانات",
+      "allowLocationTracking": "السماح بتتبع الموقع",
+      "shareAnonymousData": "مشاركة البيانات المجهولة"
+    },
+    "sessions": {
+      "title": "إدارة الجلسات",
+      "currentSession": "الجلسة الحالية",
+      "currentSessionDetails": "تفاصيل الجلسة الحالية",
+      "active": "نشطة",
+      "logoutOthers": "تسجيل خروج الجلسات الأخرى",
+      "logoutOthersSuccess": "تم تسجيل خروج جميع الجلسات الأخرى بنجاح"
+    }
+  }
+
+,
+
+
+
+
+
+  "notifications": {
+    "header": {
+      "title": "الإشعارات"
+    },
+    "empty": "لا توجد لديك إشعارات.",
+    "markAllRead": "وضع الجميع كمقروء",
+    "loadMore": "تحميل المزيد",
+    "types": {
+      "bloodDonationRequest": "طلب تبرع بالدم",
+      "medicationAvailable": "دواء متوفر",
+      "pharmacyMessage": "رسالة من الصيدلية",
+      "system": "إعلان النظام"
+    }
+  }
+
+,
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+  "nav": {
+    "home": "الرئيسية",
+    "findPharmacies": "البحث عن صيدليات",
+    "medications": "الأدوية",
+    "bloodDonation": "التبرع بالدم",
+    "healthAssistant": "المساعد الصحي",
+    "openMenu": "فتح القائمة",
+    "closeMenu": "إغلاق القائمة"
+  },
+
+
+  "auth": {
+    "loginRegister": "تسجيل الدخول / التسجيل"
+  }
+
+,
+
+  "footer": {
+    "about_description": "ربطك بالصيدليات، المعلومات الصحية، وخدمات التبرع بالدم الحيوية.",
+    "quick_links": {
+      "title": "روابط سريعة",
+      "home": "الرئيسية",
+      "find_pharmacies": "ابحث عن الصيدليات",
+      "medications": "الأدوية",
+      "blood_donation": "التبرع بالدم",
+      "health_assistant": "مساعد صحي"
+    },
+    "support": {
+      "title": "الدعم",
+      "faq": "الأسئلة الشائعة",
+      "contact_us": "اتصل بنا",
+      "privacy_policy": "سياسة الخصوصية",
+      "terms_of_service": "شروط الخدمة"
+    },
+    "contact_info": {
+      "title": "اتصل بنا",
+      "address": "123 شارع الصحة، الحي الطبي، المدينة، الدولة",
+      "phone": "+1 (555) 123-4567",
+      "email": "info@pharmatch.com"
+    },
+    "bottom_section": {
+      "copyright": "© {year} فارماتش. جميع الحقوق محفوظة.",
+      "social_media": {
+        "facebook": "فيسبوك",
+        "instagram": "إنستغرام",
+        "twitter": "تويتر"
+      },
+      "made_with_love": "صُنع بحب بواسطة فريق فارماتش"
+    }
+  }
+
+  ,
+  
+  "languageDropdown": {
+    "english": "الإنجليزية",
+    "french": "الفرنسية",
+    "arabic": "العربية"
+  }
+
+}

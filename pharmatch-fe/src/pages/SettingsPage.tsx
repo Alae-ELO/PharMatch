@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Bell, Lock, Eye, EyeOff, Shield } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardContent } from '../components/ui/Card';
 import Button from '../components/ui/Button';
@@ -7,6 +8,7 @@ import useStore from '../store';
 import Badge from '../components/ui/Badge';
 
 const SettingsPage: React.FC = () => {
+  const { t } = useTranslation();
   const { currentUser } = useStore();
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
@@ -24,13 +26,13 @@ const SettingsPage: React.FC = () => {
   const handlePasswordChange = (e: React.FormEvent) => {
     e.preventDefault();
     // This would update the password in a real app
-    alert("In a real app, this would update your password");
+    alert(t('settings.security.changePasswordSuccess'));
   };
 
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="max-w-3xl mx-auto">
-        <h1 className="text-3xl font-bold text-gray-900 mb-8">Settings</h1>
+        <h1 className="text-3xl font-bold text-gray-900 mb-8">{t('settings.header')}</h1>
         
         <div className="space-y-6">
           {/* Notification Settings */}
@@ -38,13 +40,13 @@ const SettingsPage: React.FC = () => {
             <CardHeader>
               <CardTitle className="flex items-center">
                 <Bell className="h-5 w-5 mr-2" />
-                Notification Preferences
+               {t('settings.notifications.title')}
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
                 <div>
-                  <h3 className="text-sm font-medium text-gray-700 mb-2">Email Notifications</h3>
+                  <h3 className="text-sm font-medium text-gray-700 mb-2">{t('settings.notifications.emailNotifications')}</h3>
                   <div className="space-y-2">
                     <label className="flex items-center">
                       <input
@@ -53,7 +55,7 @@ const SettingsPage: React.FC = () => {
                         defaultChecked
                       />
                       <span className="ml-2 text-sm text-gray-600">
-                        Blood donation requests in your area
+                       {t('settings.notifications.bloodDonationRequests')}
                       </span>
                     </label>
                     <label className="flex items-center">
@@ -63,7 +65,7 @@ const SettingsPage: React.FC = () => {
                         defaultChecked
                       />
                       <span className="ml-2 text-sm text-gray-600">
-                        Medication availability updates
+                        {t('settings.notifications.medicationUpdates')}
                       </span>
                     </label>
                     <label className="flex items-center">
@@ -73,14 +75,14 @@ const SettingsPage: React.FC = () => {
                         defaultChecked
                       />
                       <span className="ml-2 text-sm text-gray-600">
-                        System announcements
+                      {t('settings.notifications.systemAnnouncements')}
                       </span>
                     </label>
                   </div>
                 </div>
                 
                 <div>
-                  <h3 className="text-sm font-medium text-gray-700 mb-2">Push Notifications</h3>
+                  <h3 className="text-sm font-medium text-gray-700 mb-2">{t('settings.notifications.pushNotifications')}</h3>
                   <div className="space-y-2">
                     <label className="flex items-center">
                       <input
@@ -89,7 +91,7 @@ const SettingsPage: React.FC = () => {
                         defaultChecked
                       />
                       <span className="ml-2 text-sm text-gray-600">
-                        Enable push notifications
+                        {t('settings.notifications.enablePush')}
                       </span>
                     </label>
                   </div>
@@ -103,13 +105,13 @@ const SettingsPage: React.FC = () => {
             <CardHeader>
               <CardTitle className="flex items-center">
                 <Lock className="h-5 w-5 mr-2" />
-                Security
+               {t('settings.security.title')}
               </CardTitle>
             </CardHeader>
             <CardContent>
               <form onSubmit={handlePasswordChange} className="space-y-4">
                 <Input
-                  label="Current Password"
+                  label={t('settings.security.currentPassword')}
                   type={showCurrentPassword ? 'text' : 'password'}
                   value={passwordForm.currentPassword}
                   onChange={(e) => setPasswordForm({ ...passwordForm, currentPassword: e.target.value })}
@@ -129,7 +131,7 @@ const SettingsPage: React.FC = () => {
                 />
                 
                 <Input
-                  label="New Password"
+                  label={t('settings.security.newPassword')}
                   type={showNewPassword ? 'text' : 'password'}
                   value={passwordForm.newPassword}
                   onChange={(e) => setPasswordForm({ ...passwordForm, newPassword: e.target.value })}
@@ -149,14 +151,14 @@ const SettingsPage: React.FC = () => {
                 />
                 
                 <Input
-                  label="Confirm New Password"
+                  label={t('settings.security.confirmNewPassword')}
                   type="password"
                   value={passwordForm.confirmPassword}
                   onChange={(e) => setPasswordForm({ ...passwordForm, confirmPassword: e.target.value })}
                 />
                 
                 <Button type="submit">
-                  Change Password
+                 {t('settings.security.changePassword')}
                 </Button>
               </form>
             </CardContent>
@@ -167,13 +169,13 @@ const SettingsPage: React.FC = () => {
             <CardHeader>
               <CardTitle className="flex items-center">
                 <Shield className="h-5 w-5 mr-2" />
-                Privacy
+               {t('settings.privacy.title')}
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
                 <div>
-                  <h3 className="text-sm font-medium text-gray-700 mb-2">Profile Visibility</h3>
+                  <h3 className="text-sm font-medium text-gray-700 mb-2">{t('settings.privacy.profileVisibility')}</h3>
                   <div className="space-y-2">
                     <label className="flex items-center">
                       <input
@@ -182,7 +184,7 @@ const SettingsPage: React.FC = () => {
                         defaultChecked
                       />
                       <span className="ml-2 text-sm text-gray-600">
-                        Show my blood donor status to others
+                        {t('settings.privacy.showBloodDonorStatus')}
                       </span>
                     </label>
                     <label className="flex items-center">
@@ -192,14 +194,14 @@ const SettingsPage: React.FC = () => {
                         defaultChecked
                       />
                       <span className="ml-2 text-sm text-gray-600">
-                        Allow pharmacies to contact me about medication availability
+                         {t('settings.privacy.allowPharmacyContact')}
                       </span>
                     </label>
                   </div>
                 </div>
                 
                 <div>
-                  <h3 className="text-sm font-medium text-gray-700 mb-2">Data Usage</h3>
+                  <h3 className="text-sm font-medium text-gray-700 mb-2">{t('settings.privacy.dataUsage')}</h3>
                   <div className="space-y-2">
                     <label className="flex items-center">
                       <input
@@ -208,7 +210,7 @@ const SettingsPage: React.FC = () => {
                         defaultChecked
                       />
                       <span className="ml-2 text-sm text-gray-600">
-                        Allow location tracking for finding nearby pharmacies
+                         {t('settings.privacy.allowLocationTracking')}
                       </span>
                     </label>
                     <label className="flex items-center">
@@ -218,7 +220,7 @@ const SettingsPage: React.FC = () => {
                         defaultChecked
                       />
                       <span className="ml-2 text-sm text-gray-600">
-                        Share anonymous usage data to improve services
+                        {t('settings.privacy.shareAnonymousData')}
                       </span>
                     </label>
                   </div>
@@ -230,25 +232,25 @@ const SettingsPage: React.FC = () => {
           {/* Session Management */}
           <Card>
             <CardHeader>
-              <CardTitle>Active Sessions</CardTitle>
+              <CardTitle>{t('settings.sessions.title')}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
                 <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
                   <div>
-                    <p className="font-medium">Current Session</p>
-                    <p className="text-sm text-gray-500">Chrome on Windows • IP: 192.168.1.1</p>
+                    <p className="font-medium">{t('settings.sessions.currentSession')}</p>
+                    <p className="text-sm text-gray-500">{t('settings.sessions.currentSessionDetails')}</p>
                   </div>
-                  <Badge variant="success">Active</Badge>
+                  <Badge variant="success">{t('settings.sessions.active')}</Badge>
                 </div>
                 <Button 
                   variant="outline" 
                   onClick={() => {
                     // This would log out other sessions in a real app
-                    alert("This would log out all other sessions");
+                    alert(t('settings.sessions.logoutOthersSuccess'));
                   }}
                 >
-                  Log Out All Other Sessions
+                  {t('settings.sessions.logoutOthers')}
                 </Button>
               </div>
             </CardContent>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { GoogleMap, Marker, useLoadScript } from '@react-google-maps/api';
 
 interface PharmacyMapViewProps {
@@ -7,6 +8,7 @@ interface PharmacyMapViewProps {
 }
 
 const PharmacyMapView: React.FC<PharmacyMapViewProps> = (props) => {
+  const { t } = useTranslation();
   // TODO: Implement the pop-up functionality (e.g., using InfoWindow)
 
   const { isLoaded, loadError } = useLoadScript({
@@ -23,8 +25,8 @@ const PharmacyMapView: React.FC<PharmacyMapViewProps> = (props) => {
     lng: props.longitude,
   };
 
-  if (loadError) return <div>Error loading maps</div>;
-  if (!isLoaded) return <div>Loading Maps...</div>;
+  if (loadError) return <div>{t('pharmacyMapView.error')}</div>;
+  if (!isLoaded) return <div>{t('pharmacyMapView.loading')}</div>;
 
   return (
     <div style={{ width: '100%', height: '400px' }}>
