@@ -4,7 +4,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { User, Mail, Lock, Pill, ChevronsRight } from 'lucide-react';
 import Button from '../components/ui/Button';
 import Input from '../components/ui/Input';
-import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '../components/ui/Card';
+import { Card, CardContent } from '../components/ui/Card';
 
 const RegisterPage: React.FC = () => {
   const { t } = useTranslation();
@@ -106,7 +106,7 @@ const RegisterPage: React.FC = () => {
     setStep(1);
   };
   
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (step === 1) {
@@ -116,15 +116,53 @@ const RegisterPage: React.FC = () => {
     
     if (validateStep2()) {
       setIsLoading(true);
+try{      
+      // Prepare the data based on account type
+      const userData = {
+        name: formData.name,
+        email: formData.email,
+        password: formData.password,
+        role: formData.accountType
+      };
       
-      // Simulate registration process
-      setTimeout(() => {
-        setIsLoading(false);
-        alert(t('register.successMessage', { accountType: formData.accountType }));
-        navigate('/login');
-      }, 1500);
+      // Add pharmacy data if account type is pharmacy
+      if (formData.accountType === 'pharmacy') {
+        Object.assign(userData, {
+          pharmacyName: formData.pharmacyName,
+          address: formData.address,
+          city: formData.city,
+          phone: formData.phone,
+          hours: formData.hours
+        });
+      }
+      
+      // Send registration request to backend
+      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/auth/register`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+      });
+      
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.message || 'Registration failed');
+      }
+      
+      // Registration successful
+      alert(t('register.successMessage', { accountType: formData.accountType }));
+      navigate('/login');
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'Registration failed';
+      setErrors(prev => ({ ...prev, submit: errorMessage }));
+      console.error(err);
+    } finally {
+      setIsLoading(false);
     }
-  };
+  }
+};
 
   return (
     <div className="min-h-[80vh] flex items-center justify-center py-12 px-4">
@@ -135,7 +173,7 @@ const RegisterPage: React.FC = () => {
           </div>
           <h2 className="mt-6 text-3xl font-bold text-gray-900">{t('register.header.title')}</h2>
           <p className="mt-2 text-gray-600">
-             {t('register.header.signIn')}{' '} <Link to="/login" className="font-medium text-cyan-600 hover:text-cyan-500">{t('register.header.signInLink')}</Link>
+             {t('register.header.signIn')}{' '} <Link to="/login" className="font-medium text-cyan-600 hover:text-cyan-500">{t('register.header.signIn')}</Link>
           </p>
         </div>
         
@@ -168,6 +206,12 @@ const RegisterPage: React.FC = () => {
         <Card>
           <CardContent className="pt-6">
             <form onSubmit={handleSubmit} className="space-y-6">
+              {errors.submit && (
+                <div className="bg-red-50 text-red-700 p-3 rounded-md text-sm">
+                  {errors.submit}
+                </div>
+              )}
+              
               {step === 1 && (
                 <>
                   <Input
@@ -278,6 +322,7 @@ const RegisterPage: React.FC = () => {
                       
                       <Input
                         label={t('register.step2.phone')}
+                        name="phone" // Adding the missing name attribute
                         value={formData.phone}
                         onChange={handleChange}
                         placeholder={t('register.step2.phonePlaceholder')}

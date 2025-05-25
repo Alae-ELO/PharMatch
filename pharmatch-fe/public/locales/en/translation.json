@@ -153,7 +153,7 @@
     "subtitle": "Easily find the nearest pharmacy in your city.",
     "placeholder": "Search for a city or address...",
     "searchButton": "Search",
-    "useMyLocation": "Use My Current Location",
+    "useMyLocation": "Use My Location",
     "pharmaciesIn": "Pharmacies in {{city}}",
     "noResults": "No pharmacies found in this location.",
     "viewAll": "View All"
