@@ -27,6 +27,7 @@ interface PharMatchState {
   
   // Authentication
   currentUser: User | null;
+  token: string | null;
   login: (email: string, password: string) => Promise<boolean>;
   logout: () => void;
   
@@ -55,24 +56,48 @@ const useStore = create<PharMatchState>((set, get) => ({
   notifications: mockNotifications,
   messages: mockMessages,
   currentUser: null,
+  token: localStorage.getItem('token'),
   cityFilter: null,
   medicationFilter: null,
   
   // Auth actions
   login: async (email: string, password: string) => {
-    // In a real app, this would be an API call
-    const user = mockUsers.find(u => u.email === email);
-    
-    if (user) {
-      set({ currentUser: user });
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/auth/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+      
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.message || 'Login failed');
+      }
+      
+      // Store the token
+      localStorage.setItem('token', data.token);
+      
+      // Get user data from the token or make another request to get user details
+      const userData = data.user || { email }; // Adjust based on your API response
+      
+      set({ 
+        currentUser: userData as User,
+        token: data.token
+      });
+      
       return true;
+    } catch (error) {
+      console.error('Login error:', error);
+      return false;
     }
-    
-    return false;
   },
   
   logout: () => {
-    set({ currentUser: null });
+    localStorage.removeItem('token');
+    set({ currentUser: null, token: null });
   },
   
   // Data fetching actions

@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { User, Lock, Mail, Pill } from 'lucide-react';
+import { Lock, Mail, Pill } from 'lucide-react';
 import Button from '../components/ui/Button';
 import Input from '../components/ui/Input';
-import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '../components/ui/Card';
+import { Card, CardContent } from '../components/ui/Card';
 import useStore from '../store';
 import { useTranslation } from 'react-i18next';
 
 const LoginPage: React.FC = () => {
-   const { t } = useTranslation();
+  const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -41,7 +41,7 @@ const LoginPage: React.FC = () => {
     }
   };
 
- return (
+  return (
     <div className="min-h-[80vh] flex items-center justify-center py-12 px-4">
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
@@ -111,46 +111,11 @@ const LoginPage: React.FC = () => {
                 {t('login.signIn')}
               </Button>
 
-              <div className="text-center mt-4">
-                <p className="text-sm text-gray-600">
-                  {t('login.demoText')}
-                </p>
-                <div className="mt-2 space-y-2">
-                  <Button
-                    variant="outline"
-                    fullWidth
-                    onClick={() => {
-                      setEmail('john@example.com');
-                      setPassword('password');
-                    }}
-                  >
-                    {t('login.userAccount')}
-                  </Button>
-                  <Button
-                    variant="outline"
-                    fullWidth
-                    onClick={() => {
-                      setEmail('admin@medicare.com');
-                      setPassword('password');
-                    }}
-                  >
-                    {t('login.pharmacyAccount')}
-                  </Button>
-                  <Button
-                    variant="outline"
-                    fullWidth
-                    onClick={() => {
-                      setEmail('admin@pharmatch.com');
-                      setPassword('password');
-                    }}
-                  >
-                    {t('login.adminAccount')}
-                  </Button>
-                </div>
-              </div>
-            </form>
-          </CardContent>
-        </Card>
+              {/* Removing the demo login section */}
+              
+              </form>
+            </CardContent>
+            </Card>
       </div>
     </div>
   );
