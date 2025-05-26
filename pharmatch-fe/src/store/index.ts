@@ -28,6 +28,7 @@ interface PharMatchState {
   // Authentication
   currentUser: User | null;
   token: string | null;
+  user: User | null; // Add this line to fix the error
   login: (email: string, password: string) => Promise<boolean>;
   logout: () => void;
   
@@ -57,6 +58,7 @@ const useStore = create<PharMatchState>((set, get) => ({
   messages: mockMessages,
   currentUser: null,
   token: localStorage.getItem('token'),
+  user: null, // Add this line to initialize the user property
   cityFilter: null,
   medicationFilter: null,
   
@@ -85,7 +87,8 @@ const useStore = create<PharMatchState>((set, get) => ({
       
       set({ 
         currentUser: userData as User,
-        token: data.token
+        token: data.token,
+        user: userData as User // Also set the user property
       });
       
       return true;
@@ -97,7 +100,7 @@ const useStore = create<PharMatchState>((set, get) => ({
   
   logout: () => {
     localStorage.removeItem('token');
-    set({ currentUser: null, token: null });
+    set({ currentUser: null, token: null, user: null }); // Also clear the user property
   },
   
   // Data fetching actions

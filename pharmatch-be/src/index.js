@@ -15,6 +15,7 @@ const pharmacyRoutes = require('./routes/pharmacy.routes');
 const medicationRoutes = require('./routes/medication.routes');
 const bloodDonationRoutes = require('./routes/bloodDonation.routes');
 const notificationRoutes = require('./routes/notification.routes');
+const aiRoutes = require('./routes/ai.routes'); // Add AI routes
 
 // Initialize express app
 const app = express();
@@ -37,6 +38,7 @@ app.use('/api/pharmacies', pharmacyRoutes);
 app.use('/api/medications', medicationRoutes);
 app.use('/api/blood-donation', bloodDonationRoutes);
 app.use('/api/notifications', notificationRoutes);
+app.use('/api/ai', aiRoutes); // Add AI routes
 
 // Error handling middleware
 app.use((err, req, res, next) => {
