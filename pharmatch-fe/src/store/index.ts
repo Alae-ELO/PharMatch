@@ -1,20 +1,12 @@
 import { create } from 'zustand';
 import { 
-  User, 
-  Pharmacy, 
-  Medication, 
-  BloodDonationRequest, 
-  Notification, 
-  Message 
+  User,
+  Pharmacy,
+  Medication,
+  BloodDonationRequest,
+  Notification,
+  Message
 } from '../types';
-import { 
-  pharmacies as mockPharmacies, 
-  medications as mockMedications, 
-  users as mockUsers,
-  bloodDonationRequests as mockBloodRequests,
-  notifications as mockNotifications,
-  sampleMessages as mockMessages
-} from '../data/mockData';
 
 interface PharMatchState {
   // Data
@@ -38,23 +30,27 @@ interface PharMatchState {
   // Actions
   fetchPharmacies: () => Promise<void>;
   fetchPharmaciesByCity: (city: string) => Promise<void>;
-  fetchMedications: () => Promise<void>;
-  searchMedications: (query: string) => Promise<void>;
+  fetchMedications: (page?: number) => Promise<{ pagination?: { total: number; pages: number; page: number; limit: number } }>;
+  fetchMedication: (id: string) => Promise<void>;
+  searchMedications: (query: string) => Promise<{ pagination?: { total: number; pages: number; page: number; limit: number } }>;
   fetchNotifications: () => Promise<void>;
-  markNotificationAsRead: (id: string) => void;
+  markNotificationAsRead: (id: string) => Promise<void>;
+  respondToNotification: (id: string, response: { inStock: boolean; price?: number }) => Promise<void>;
   sendMessage: (content: string) => Promise<void>;
   registerAsBloodDonor: (bloodType: string) => Promise<void>;
   createBloodDonationRequest: (request: Omit<BloodDonationRequest, 'id' | 'createdAt' | 'expiresAt'>) => Promise<void>;
 }
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+
 const useStore = create<PharMatchState>((set, get) => ({
   // Initial state
-  pharmacies: mockPharmacies,
-  medications: mockMedications,
-  users: mockUsers,
-  bloodDonationRequests: mockBloodRequests,
-  notifications: mockNotifications,
-  messages: mockMessages,
+  pharmacies: [],
+  medications: [],
+  users: [],
+  bloodDonationRequests: [],
+  notifications: [],
+  messages: [],
   currentUser: null,
   token: localStorage.getItem('token'),
   cityFilter: null,
@@ -63,7 +59,7 @@ const useStore = create<PharMatchState>((set, get) => ({
   // Auth actions
   login: async (email: string, password: string) => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/auth/login`, {
+      const response = await fetch(`${API_URL}/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -77,14 +73,10 @@ const useStore = create<PharMatchState>((set, get) => ({
         throw new Error(data.message || 'Login failed');
       }
       
-      // Store the token
       localStorage.setItem('token', data.token);
       
-      // Get user data from the token or make another request to get user details
-      const userData = data.user || { email }; // Adjust based on your API response
-      
       set({ 
-        currentUser: userData as User,
+        currentUser: data.user,
         token: data.token
       });
       
@@ -102,127 +94,273 @@ const useStore = create<PharMatchState>((set, get) => ({
   
   // Data fetching actions
   fetchPharmacies: async () => {
-    // In a real app, this would be an API call
-    set({ pharmacies: mockPharmacies, cityFilter: null });
+    try {
+      const response = await fetch(`${API_URL}/pharmacies`, {
+        headers: {
+          'Authorization': `Bearer ${get().token}`
+        }
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to fetch pharmacies');
+      }
+      
+      const data = await response.json();
+      set({ pharmacies: data.data, cityFilter: null });
+    } catch (error) {
+      console.error('Error fetching pharmacies:', error);
+      throw error;
+    }
   },
   
   fetchPharmaciesByCity: async (city: string) => {
-    // In a real app, this would be an API call with filtering
-    const filteredPharmacies = mockPharmacies.filter(
-      p => p.city.toLowerCase() === city.toLowerCase()
-    );
-    
-    set({ pharmacies: filteredPharmacies, cityFilter: city });
+    try {
+      const response = await fetch(`${API_URL}/pharmacies/city/${city}`, {
+        headers: {
+          'Authorization': `Bearer ${get().token}`
+        }
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to fetch pharmacies by city');
+      }
+      
+      const data = await response.json();
+      set({ pharmacies: data.data, cityFilter: city });
+    } catch (error) {
+      console.error('Error fetching pharmacies by city:', error);
+      throw error;
+    }
   },
   
-  fetchMedications: async () => {
-    // In a real app, this would be an API call
-    set({ medications: mockMedications, medicationFilter: null });
+  fetchMedications: async (page = 1) => {
+    try {
+      const response = await fetch(`${API_URL}/medications?page=${page}`, {
+        headers: {
+          'Authorization': `Bearer ${get().token}`
+        }
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to fetch medications');
+      }
+      
+      const data = await response.json();
+      set({ medications: data.data, medicationFilter: null });
+      return { pagination: data.pagination };
+    } catch (error) {
+      console.error('Error fetching medications:', error);
+      throw error;
+    }
+  },
+  
+  fetchMedication: async (id: string) => {
+    try {
+      const response = await fetch(`${API_URL}/medications/${id}`, {
+        headers: {
+          'Authorization': `Bearer ${get().token}`
+        }
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to fetch medication');
+      }
+      
+      const data = await response.json();
+      
+      set(state => ({
+        medications: state.medications.map(med => 
+          med.id === id ? data.data : med
+        )
+      }));
+    } catch (error) {
+      console.error('Error fetching medication:', error);
+      throw error;
+    }
   },
   
   searchMedications: async (query: string) => {
-    // In a real app, this would be an API call with filtering
-    const filteredMedications = mockMedications.filter(
-      m => m.name.toLowerCase().includes(query.toLowerCase()) || 
-           m.description.toLowerCase().includes(query.toLowerCase()) ||
-           m.category.toLowerCase().includes(query.toLowerCase())
-    );
-    
-    set({ medications: filteredMedications, medicationFilter: query });
+    try {
+      const response = await fetch(`${API_URL}/medications?search=${encodeURIComponent(query)}`, {
+        headers: {
+          'Authorization': `Bearer ${get().token}`
+        }
+      });
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to search medications');
+      }
+      
+      const data = await response.json();
+      set({ medications: data.data, medicationFilter: query });
+      return { pagination: data.pagination };
+    } catch (error) {
+      console.error('Error searching medications:', error);
+      throw error;
+    }
   },
   
   fetchNotifications: async () => {
-    // In a real app, this would be an API call
-    set({ notifications: mockNotifications });
+    try {
+      const response = await fetch(`${API_URL}/notifications`, {
+        headers: {
+          'Authorization': `Bearer ${get().token}`
+        }
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to fetch notifications');
+      }
+      
+      const data = await response.json();
+      set({ notifications: data.data });
+    } catch (error) {
+      console.error('Error fetching notifications:', error);
+      throw error;
+    }
   },
   
-  markNotificationAsRead: (id: string) => {
-    set(state => ({
-      notifications: state.notifications.map(notification => 
-        notification.id === id 
-          ? { ...notification, read: true } 
-          : notification
-      )
-    }));
+  markNotificationAsRead: async (id: string) => {
+    try {
+      const notification = get().notifications.find(n => n.id === id);
+      
+      // If notification requires response, don't allow marking as read
+      if (notification?.requiresResponse) {
+        throw new Error('This notification requires a response before it can be marked as read');
+      }
+
+      const response = await fetch(`${API_URL}/notifications/${id}/read`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${get().token}`
+        }
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to mark notification as read');
+      }
+      
+      set(state => ({
+        notifications: state.notifications.map(notification => 
+          notification.id === id 
+            ? { ...notification, read: true } 
+            : notification
+        )
+      }));
+    } catch (error) {
+      console.error('Error marking notification as read:', error);
+      throw error;
+    }
+  },
+  
+  respondToNotification: async (id: string, responseData: { inStock: boolean; price?: number }) => {
+    try {
+      const notification = get().notifications.find(n => n.id === id);
+      
+      if (!notification?.requiresResponse) {
+        throw new Error('This notification does not require a response');
+      }
+
+      if (notification.type === 'medication') {
+        const apiResponse = await fetch(`${API_URL}/medications/${notification.relatedItem?.itemId}/respond`, {
+          method: 'PUT',
+          headers: {
+            'Authorization': `Bearer ${get().token}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(responseData)
+        });
+
+        if (!apiResponse.ok) {
+          throw new Error('Failed to respond to medication notification');
+        }
+
+        // Remove the notification from the list since it's been responded to
+        set(state => ({
+          notifications: state.notifications.filter(n => n.id !== id)
+        }));
+      }
+    } catch (error) {
+      console.error('Error responding to notification:', error);
+      throw error;
+    }
   },
   
   sendMessage: async (content: string) => {
-    const newMessage: Message = {
-      id: `user-${Date.now()}`,
-      sender: 'user',
-      content,
-      timestamp: new Date().toISOString()
-    };
-    
-    // Add user message
-    set(state => ({
-      messages: [...state.messages, newMessage]
-    }));
-    
-    // In a real app, this would be an API call to get a response
-    // Simulate AI response (with a delay)
-    setTimeout(() => {
-      const aiResponse: Message = {
-        id: `ai-${Date.now()}`,
-        sender: 'ai',
-        content: `This is a simulated response to your question: "${content}". In the full implementation, this would be connected to the Gemini API or another AI service to provide accurate health information.`,
-        timestamp: new Date().toISOString()
-      };
+    try {
+      const response = await fetch(`${API_URL}/messages`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${get().token}`
+        },
+        body: JSON.stringify({ content })
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to send message');
+      }
+      
+      const data = await response.json();
       
       set(state => ({
-        messages: [...state.messages, aiResponse]
+        messages: [...state.messages, data.data]
       }));
-    }, 1000);
+    } catch (error) {
+      console.error('Error sending message:', error);
+      throw error;
+    }
   },
   
   registerAsBloodDonor: async (bloodType: string) => {
-    if (!get().currentUser) return;
-    
-    const updatedUser = {
-      ...get().currentUser!,
-      bloodDonor: {
-        bloodType,
-        lastDonation: undefined,
-        eligibleToDonateSince: new Date().toISOString()
+    try {
+      const response = await fetch(`${API_URL}/users/blood-donor`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${get().token}`
+        },
+        body: JSON.stringify({ bloodType })
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to register as blood donor');
       }
-    };
-    
-    // Update the current user
-    set({ currentUser: updatedUser });
-    
-    // Update the user in the users array
-    set(state => ({
-      users: state.users.map(user => 
-        user.id === updatedUser.id ? updatedUser : user
-      )
-    }));
+      
+      const data = await response.json();
+      
+      set({ currentUser: data.data });
+    } catch (error) {
+      console.error('Error registering as blood donor:', error);
+      throw error;
+    }
   },
   
   createBloodDonationRequest: async (request) => {
-    const newRequest: BloodDonationRequest = {
-      ...request,
-      id: `request-${Date.now()}`,
-      createdAt: new Date().toISOString(),
-      expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString() // 7 days from now
-    };
-    
-    set(state => ({
-      bloodDonationRequests: [...state.bloodDonationRequests, newRequest]
-    }));
-    
-    // Create a notification for this request
-    const newNotification: Notification = {
-      id: `notif-${Date.now()}`,
-      type: 'blood',
-      title: `${request.urgency === 'high' ? 'URGENT: ' : ''}${request.bloodType} Blood Needed`,
-      message: `${request.hospital} needs ${request.bloodType} blood donations. Please contact ${request.contactInfo} if you can help.`,
-      read: false,
-      createdAt: new Date().toISOString()
-    };
-    
-    set(state => ({
-      notifications: [...state.notifications, newNotification]
-    }));
+    try {
+      const response = await fetch(`${API_URL}/blood-donation-requests`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${get().token}`
+        },
+        body: JSON.stringify(request)
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to create blood donation request');
+      }
+      
+      const data = await response.json();
+      
+      set(state => ({
+        bloodDonationRequests: [...state.bloodDonationRequests, data.data]
+      }));
+    } catch (error) {
+      console.error('Error creating blood donation request:', error);
+      throw error;
+    }
   }
 }));
 
