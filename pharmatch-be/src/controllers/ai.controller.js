@@ -8,7 +8,6 @@ require('dotenv').config();
 exports.generateResponse = async (req, res, next) => {
   try {
     const { message, conversationId } = req.body;
-    
     if (!message) {
       return res.status(400).json({
         success: false,
@@ -25,6 +24,7 @@ exports.generateResponse = async (req, res, next) => {
           {
             role: "user",
             content: '(if anythink follow this not a medical question say i only answer to medical questions)' +message
+
           }
         ],
         max_tokens: 500
@@ -33,7 +33,7 @@ exports.generateResponse = async (req, res, next) => {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY || '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'}`,
-          'HTTP-Referer': 'https://pharmatch.com',
+         'HTTP-Referer': 'https://pharmatch.com',
           'X-Title': 'PharMatch Health Assistant'
         }
       }

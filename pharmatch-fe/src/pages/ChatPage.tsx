@@ -182,6 +182,7 @@ const ChatPage: React.FC = () => {
           conversationId: conversationId,
           userId: user.id // Add user ID to request body
         },
+
         {
           headers: {
             'Content-Type': 'application/json',
