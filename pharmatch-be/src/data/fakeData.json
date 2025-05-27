@@ -1,0 +1,161 @@
+{
+  "users": [
+    {
+      "name": "John Doe",
+      "email": "john@example.com",
+      "password": "password123",
+      "role": "admin",
+      "bloodDonor": {
+        "bloodType": "A+",
+        "lastDonation": "2024-01-15",
+        "eligibleToDonateSince": "2024-07-15"
+      }
+    },
+    {
+      "name": "Jane Smith",
+      "email": "jane@example.com",
+      "password": "password123",
+      "role": "user",
+      "bloodDonor": {
+        "bloodType": "O+",
+        "lastDonation": "2023-12-20",
+        "eligibleToDonateSince": "2024-06-20"
+      }
+    },
+    {
+      "name": "Pharmacy Owner",
+      "email": "pharmacy@example.com",
+      "password": "password123",
+      "role": "pharmacy",
+      "bloodDonor": {
+        "bloodType": "B+",
+        "lastDonation": "2024-02-01",
+        "eligibleToDonateSince": "2024-08-01"
+      }
+    }
+  ],
+  "pharmacies": [
+    {
+      "name": "City Center Pharmacy",
+      "address": "123 Main Street",
+      "city": "Beirut",
+      "phone": "+961 1 234 567",
+      "email": "citycenter@pharmacy.com",
+      "hours": "8:00 AM - 10:00 PM",
+      "coordinates": {
+        "lat": 33.8938,
+        "lng": 35.5018
+      }
+    },
+    {
+      "name": "Health Plus Pharmacy",
+      "address": "456 Hamra Street",
+      "city": "Beirut",
+      "phone": "+961 1 765 432",
+      "email": "healthplus@pharmacy.com",
+      "hours": "24/7",
+      "coordinates": {
+        "lat": 33.8997,
+        "lng": 35.5042
+      }
+    }
+  ],
+  "medications": [
+    {
+      "name": "Paracetamol 500mg",
+      "description": "Pain reliever and fever reducer",
+      "category": "Pain Relief",
+      "prescription": false,
+      "pharmacies": [
+        {
+          "inStock": true,
+          "price": 5.99
+        },
+        {
+          "inStock": true,
+          "price": 6.50
+        }
+      ]
+    },
+    {
+      "name": "Amoxicillin 500mg",
+      "description": "Antibiotic for bacterial infections",
+      "category": "Antibiotics",
+      "prescription": true,
+      "pharmacies": [
+        {
+          "inStock": true,
+          "price": 15.99
+        },
+        {
+          "inStock": false,
+          "price": 16.50
+        }
+      ]
+    },
+    {
+      "name": "Vitamin D3 1000IU",
+      "description": "Vitamin D supplement",
+      "category": "Vitamins",
+      "prescription": false,
+      "pharmacies": [
+        {
+          "inStock": true,
+          "price": 12.99
+        },
+        {
+          "inStock": true,
+          "price": 13.50
+        }
+      ]
+    }
+  ],
+  "bloodDonations": [
+    {
+      "bloodType": "A+",
+      "hospital": "Beirut Medical Center",
+      "urgency": "high",
+      "contactInfo": "+961 3 123 456",
+      "expiresAt": "2024-04-01",
+      "status": "active",
+      "donors": [
+        {
+          "donationDate": "2024-03-15",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "bloodType": "O-",
+      "hospital": "Mount Lebanon Hospital",
+      "urgency": "medium",
+      "contactInfo": "+961 3 789 012",
+      "expiresAt": "2024-04-15",
+      "status": "active",
+      "donors": []
+    }
+  ],
+  "notifications": [
+    {
+      "type": "blood",
+      "title": "Urgent Blood Donation Needed",
+      "message": "Urgent need for A+ blood type at Beirut Medical Center",
+      "read": false,
+      "expiresAt": "2024-04-01"
+    },
+    {
+      "type": "medication",
+      "title": "New Medication Available",
+      "message": "Paracetamol 500mg is now in stock at City Center Pharmacy",
+      "read": true,
+      "expiresAt": "2024-04-15"
+    },
+    {
+      "type": "system",
+      "title": "Welcome to PharMatch",
+      "message": "Thank you for joining our community!",
+      "read": false,
+      "expiresAt": "2024-05-01"
+    }
+  ]
+} 
