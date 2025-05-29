@@ -187,9 +187,7 @@
     "useMyLocation": "استخدم موقعي الحالي",
     "pharmaciesIn": "الصيدليات في {{city}}",
     "noResults": "لا توجد صيدليات في هذا الموقع.",
-    "viewAll": "عرض الكل",
-    "enterCityMessage": "يرجى إدخال المدينة للبحث عن الصيدليات."
-
+    "viewAll": "عرض الكل"
   },
   "errors": {
     "geolocationNotSupported": "ميزة تحديد الموقع غير مدعومة في متصفحك."
