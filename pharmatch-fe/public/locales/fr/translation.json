@@ -157,7 +157,8 @@
     "pharmaciesIn": "Pharmacies à {{city}}",
     "noResults": "Aucune pharmacie trouvée à cet endroit.",
     "viewAll": "Voir tout",
-        "enterCityMessage": "Veuillez saisir une ville pour rechercher des pharmacies."
+            "allPharmacies": "Toutes les pharmacies"
+
 
   },
   "errors": {

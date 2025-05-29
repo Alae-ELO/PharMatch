@@ -188,7 +188,7 @@
     "pharmaciesIn": "الصيدليات في {{city}}",
     "noResults": "لا توجد صيدليات في هذا الموقع.",
     "viewAll": "عرض الكل",
-    "enterCityMessage": "يرجى إدخال المدينة للبحث عن الصيدليات."
+    "allPharmacies": "جميع الصيدليات"
 
   },
   "errors": {

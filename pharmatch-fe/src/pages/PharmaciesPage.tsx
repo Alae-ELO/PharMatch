@@ -16,11 +16,10 @@ const PharmaciesPage: React.FC = () => {
   const navigate = useNavigate();
 
   const {
-    pharmacies,
-    setPharmacies,
-    fetchPharmacies,        // Général, par ex. fetch all
-    fetchPharmaciesByCity,  // Ici on va réutiliser pour la recherche
     pharmacies: allPharmacies,
+    setPharmacies,
+    fetchPharmacies,
+    fetchPharmaciesByCity,
   } = useStore();
 
   const [searchCity, setSearchCity] = useState('');
@@ -30,8 +29,8 @@ const PharmaciesPage: React.FC = () => {
   const [showMapModal, setShowMapModal] = useState(false);
   const [selectedPharmacy, setSelectedPharmacy] = useState<Pharmacy | null>(null);
   const [isLocating, setIsLocating] = useState(false);
-  const [searchAttempted, setSearchAttempted] = useState(false);
 
+  // Calculate distance between two lat/lng points in km
   const getDistance = useCallback((lat1: number, lon1: number, lat2: number, lon2: number) => {
     const R = 6371;
     const dLat = ((lat2 - lat1) * Math.PI) / 180;
@@ -45,29 +44,28 @@ const PharmaciesPage: React.FC = () => {
     return R * c;
   }, []);
 
-  // Nouveau : on utilise la recherche par texte générique ici
-  const handleSearch = useCallback(() => {
-    const trimmedSearch = searchCity.trim();
+  useEffect(() => {
+    fetchPharmacies();
+  }, [fetchPharmacies]);
 
-    if (!trimmedSearch) {
-      alert(t('pharmacies.enterCityMessage'));
-      return;
+  useEffect(() => {
+    if (allPharmacies.length) {
+      const uniqueCities = Array.from(new Set(allPharmacies.map((p) => p.city)));
+      setCityOptions(uniqueCities);
     }
+  }, [allPharmacies]);
 
-    setIsSearching(true);
-    setSearchAttempted(true);
+  const filteredPharmacies = searchCity.trim()
+    ? allPharmacies.filter((p) =>
+        p.city.toLowerCase().includes(searchCity.trim().toLowerCase())
+      )
+    : allPharmacies;
 
-    // Utilisation d'une fonction fetch adaptée (exemple générique, à adapter si nécessaire)
-    // Si fetchPharmaciesByCity fait que la recherche par ville, créer une fonction fetchPharmaciesBySearch pour rechercher par nom, adresse ou ville.
-    fetchPharmaciesByCity(trimmedSearch)
-      .catch(() => {
-        // Gestion d'erreur simple
-        setPharmacies([]);
-      })
-      .finally(() => setIsSearching(false));
-
-    setShowCityOptions(false);
-  }, [fetchPharmaciesByCity, searchCity, setPharmacies, t]);
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value;
+    setSearchCity(val);
+    setShowCityOptions(val.trim().length > 0);
+  };
 
   const handleCitySelect = (city: string) => {
     setSearchCity(city);
@@ -75,12 +73,7 @@ const PharmaciesPage: React.FC = () => {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') handleSearch();
-  };
-
-  const handleViewMap = (pharmacy: Pharmacy) => {
-    setSelectedPharmacy(pharmacy);
-    setShowMapModal(true);
+    if (e.key === 'Enter') setShowCityOptions(false);
   };
 
   const handleUseMyLocation = () => {
@@ -100,7 +93,6 @@ const PharmaciesPage: React.FC = () => {
         );
         setPharmacies(nearbyPharmacies);
         setSearchCity(t('search.useMyLocation'));
-        setSearchAttempted(true);
         setIsLocating(false);
       },
       () => {
@@ -110,20 +102,12 @@ const PharmaciesPage: React.FC = () => {
     );
   };
 
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = e.target.value;
-    setSearchCity(val);
-    setShowCityOptions(val.trim().length > 0);
-  };
-
   const handleCloseMapModal = () => setShowMapModal(false);
 
-  useEffect(() => {
-    if (allPharmacies.length) {
-      const uniqueCities = Array.from(new Set(allPharmacies.map((p) => p.city)));
-      setCityOptions(uniqueCities);
-    }
-  }, [allPharmacies]);
+  const handleViewMap = (pharmacy: Pharmacy) => {
+    setSelectedPharmacy(pharmacy);
+    setShowMapModal(true);
+  };
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -163,14 +147,6 @@ const PharmaciesPage: React.FC = () => {
             )}
           </div>
           <Button
-            onClick={handleSearch}
-            isLoading={isSearching}
-            icon={<Search className="h-5 w-5" />}
-            className="md:w-auto"
-          >
-            {t('pharmacies.searchButton')}
-          </Button>
-          <Button
             variant="secondary"
             onClick={handleUseMyLocation}
             icon={<MapPin className="h-5 w-5" />}
@@ -183,19 +159,21 @@ const PharmaciesPage: React.FC = () => {
       </section>
 
       <section>
-        {searchCity && (
+        {searchCity.trim() ? (
           <h2 className="text-xl font-semibold mb-4">
             {t('pharmacies.pharmaciesIn', { city: searchCity })}
           </h2>
+        ) : (
+          <h2 className="text-xl font-semibold mb-4">{t('pharmacies.allPharmacies')}</h2>
         )}
 
-        {searchAttempted && pharmacies.length === 0 ? (
-          <div className="text-center py-8">
-            <p className="text-gray-600 mb-4">{t('pharmacies.noResults')}</p>
-          </div>
+        {isSearching ? (
+          <p className="text-center text-gray-500">{t('pharmacies.loading')}</p>
+        ) : filteredPharmacies.length === 0 ? (
+          <p className="text-center text-gray-600">{t('pharmacies.noResults')}</p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {pharmacies.map((pharmacy, i) => (
+            {filteredPharmacies.map((pharmacy, i) => (
               <motion.div
                 key={pharmacy.id}
                 initial={{ opacity: 0, y: 20 }}
