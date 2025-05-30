@@ -616,13 +616,14 @@
     },
     "contact_info": {
       "title": "اتصل بنا",
-      "address": "123 شارع الصحة، الحي الطبي، المدينة، الدولة",
+      "address": "123 شارع الصحة، الحي الطبي، تطوان، المغرب",
       "phone": "+1 (555) 123-4567",
       "email": "info@pharmatch.com"
     },
     "bottom_section": {
-      "copyright": "© {year} فارماتش. جميع الحقوق محفوظة.",
+      "copyright": "© 2025 فارماتش. جميع الحقوق محفوظة.",
       "social_media": {
+                "title": "وسائل التواصل الاجتماعي",
         "facebook": "فيسبوك",
         "instagram": "إنستغرام",
         "twitter": "تويتر"

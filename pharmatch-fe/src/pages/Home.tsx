@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Search, Pill, MessageCircle, Heart, MapPin } from 'lucide-react';
-import Button from '../components/ui/Button';
+import  Button  from '../components/ui/Button';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/Card';
 import useStore from '../store';
 import { useTranslation } from 'react-i18next';
@@ -10,254 +10,175 @@ import { useTranslation } from 'react-i18next';
 const Home: React.FC = () => {
   const { bloodDonationRequests } = useStore();
   const urgentRequests = bloodDonationRequests.filter(req => req.urgency === 'high');
-
   const { t } = useTranslation();
 
   return (
-    <div>
+    <div className="space-y-16">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-cyan-700 to-cyan-900 text-white">
-        <div className="container mx-auto px-4 py-16 md:py-24">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-                {t('home.hero.title1')} <br />
-                {t('home.hero.title2')}
-              </h1>
-              <p className="text-lg mb-8 text-cyan-100">
-                {t('home.hero.description')}
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Link to="/pharmacies">
-                  <Button variant="secondary" size="lg" icon={<MapPin />} className="w-full sm:w-auto">
-                    {t('home.hero.findPharmaciesButton')}
-                  </Button>
-                </Link>
-                <Link to="/medications">
-                  <Button variant="danger" size="lg" icon={<Search />} className="w-full sm:w-auto">
-                    {t('home.hero.searchMedicationsButton')}
-                  </Button>
-                </Link>
-              </div>
-            </motion.div>
+      <section className="relative bg-gradient-to-br from-cyan-800 to-cyan-950 text-white overflow-hidden rounded-2xl shadow-lg">
+        <div className="container mx-auto px-6 py-24 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+            <h1 className="text-4xl md:text-5xl font-extrabold mb-6 leading-tight">
+              {t('home.hero.title1')} <br /> <span className="text-cyan-300">{t('home.hero.title2')}</span>
+            </h1>
+            <p className="text-lg text-cyan-200 mb-8 max-w-lg">
+              {t('home.hero.description')}
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <Link to="/pharmacies">
+                <Button size="lg" className="bg-cyan-600 hover:bg-cyan-700">
+                  <MapPin className="mr-2 h-5 w-5" /> {t('home.hero.findPharmaciesButton')}
+                </Button>
+              </Link>
+              <Link to="/medications">
+                <Button variant="destructive" size="lg">
+                  <Search className="mr-2 h-5 w-5" /> {t('home.hero.searchMedicationsButton')}
+                </Button>
+              </Link>
+            </div>
+          </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="hidden md:block"
-            >
-              <img 
-                src="https://images.pexels.com/photos/5699475/pexels-photo-5699475.jpeg" 
-                alt={t('home.hero.imageAlt')}
-                className="rounded-lg shadow-xl w-full"
-              />
-            </motion.div>
-          </div>
+          <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6, delay: 0.2 }} className="hidden md:block">
+            <img src="./image.jpg" alt={t('home.hero.imageAlt')} className="rounded-2xl shadow-xl" />
+          </motion.div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">{t('home.features.title')}</h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              {t('home.features.subtitle')}
-            </p>
-          </div>
+      <section className="container mx-auto px-6 py-16 bg-gradient-to-r from-green-50 via-teal-50 to-cyan-50 rounded-3xl shadow-lg">
+  <div className="text-center mb-14">
+    <h2 className="text-4xl font-extrabold text-cyan-900 mb-3 tracking-wide">{t('home.features.title')}</h2>
+    <p className="text-xl text-cyan-700 max-w-xl mx-auto leading-relaxed">{t('home.features.subtitle')}</p>
+  </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <motion.div whileHover={{ y: -10 }} transition={{ type: "spring", stiffness: 300 }}>
-              <Card className="h-full">
-                <CardHeader>
-                  <div className="mb-4 inline-flex items-center justify-center rounded-full bg-cyan-100 p-3">
-                    <MapPin className="h-6 w-6 text-cyan-700" />
-                  </div>
-                  <CardTitle>{t('home.features.findPharmacies.title')}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600">{t('home.features.findPharmacies.description')}</p>
-                </CardContent>
-              </Card>
-            </motion.div>
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+    {[
+      { icon: <MapPin className="h-8 w-8 text-cyan-600" />, bg: 'bg-cyan-100', title: 'findPharmacies' },
+      { icon: <Pill className="h-8 w-8 text-emerald-600" />, bg: 'bg-emerald-100', title: 'medicationAvailability' },
+      { icon: <MessageCircle className="h-8 w-8 text-sky-600" />, bg: 'bg-sky-100', title: 'healthAssistant' },
+      { icon: <Heart className="h-8 w-8 text-rose-600" />, bg: 'bg-rose-100', title: 'bloodDonation' }
+    ].map((feature, index) => (
+      <motion.div key={index} whileHover={{ y: -10 }} transition={{ type: 'spring', stiffness: 300 }}>
+        <Card className="rounded-2xl shadow-md hover:shadow-xl transition duration-500 bg-white border border-cyan-200 h-full">
+          <CardHeader className="flex flex-col items-center text-center">
+            <div className={`mb-4 p-4 rounded-full inline-flex items-center justify-center ${feature.bg}`}>
+              {feature.icon}
+            </div>
+            <CardTitle className="text-lg font-semibold text-cyan-900">{t(`home.features.${feature.title}.title`)}</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-cyan-700 text-center">{t(`home.features.${feature.title}.description`)}</p>
+          </CardContent>
+        </Card>
+      </motion.div>
+    ))}
+  </div>
+</section>
 
-            <motion.div whileHover={{ y: -10 }} transition={{ type: "spring", stiffness: 300 }}>
-              <Card className="h-full">
-                <CardHeader>
-                  <div className="mb-4 inline-flex items-center justify-center rounded-full bg-emerald-100 p-3">
-                    <Pill className="h-6 w-6 text-emerald-700" />
-                  </div>
-                  <CardTitle>{t('home.features.medicationAvailability.title')}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600">{t('home.features.medicationAvailability.description')}</p>
-                </CardContent>
-              </Card>
-            </motion.div>
-
-            <motion.div whileHover={{ y: -10 }} transition={{ type: "spring", stiffness: 300 }}>
-              <Card className="h-full">
-                <CardHeader>
-                  <div className="mb-4 inline-flex items-center justify-center rounded-full bg-blue-100 p-3">
-                    <MessageCircle className="h-6 w-6 text-blue-700" />
-                  </div>
-                  <CardTitle>{t('home.features.healthAssistant.title')}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600">{t('home.features.healthAssistant.description')}</p>
-                </CardContent>
-              </Card>
-            </motion.div>
-
-            <motion.div whileHover={{ y: -10 }} transition={{ type: "spring", stiffness: 300 }}>
-              <Card className="h-full">
-                <CardHeader>
-                  <div className="mb-4 inline-flex items-center justify-center rounded-full bg-red-100 p-3">
-                    <Heart className="h-6 w-6 text-red-700" />
-                  </div>
-                  <CardTitle>{t('home.features.bloodDonation.title')}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600">{t('home.features.bloodDonation.description')}</p>
-                </CardContent>
-              </Card>
-            </motion.div>
-          </div>
-        </div>
-      </section>
 
       {/* Urgent Blood Needs Section */}
       {urgentRequests.length > 0 && (
-        <section className="py-12 bg-red-50">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-8">
-              <h2 className="text-2xl font-bold text-red-700 mb-2">{t('home.urgentNeeds.title')}</h2>
-              <p className="text-gray-700">{t('home.urgentNeeds.subtitle')}</p>
-            </div>
+        <section className="bg-red-50 py-12 rounded-2xl container mx-auto px-6 shadow">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl md:text-3xl font-bold text-red-700 mb-2">{t('home.urgentNeeds.title')}</h2>
+            <p className="text-gray-700">{t('home.urgentNeeds.subtitle')}</p>
+          </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {urgentRequests.map((request) => (
-                <Card key={request.id} className="border-red-200">
-                  <CardHeader>
-                    <div className="flex justify-between items-center">
-                      <CardTitle className="text-red-700">
-                        {t('home.urgentNeeds.bloodType', { bloodType: request.bloodType })}
-                      </CardTitle>
-                      <span className="px-3 py-1 bg-red-100 text-red-800 rounded-full text-xs font-medium">
-                        {t('home.urgentNeeds.urgentLabel')}
-                      </span>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {urgentRequests.map(request => (
+              <Card key={request.id} className="border border-red-200 rounded-2xl shadow-sm hover:shadow-md transition duration-300">
+                <CardHeader>
+                  <div className="flex justify-between items-center">
+                    <CardTitle className="text-red-700">
+                      {t('home.urgentNeeds.bloodType', { bloodType: request.bloodType })}
+                    </CardTitle>
+                    <span className="px-3 py-1 bg-red-100 text-red-800 rounded-full text-xs font-semibold">
+                      {t('home.urgentNeeds.urgentLabel')}
+                    </span>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-2 text-sm">
+                    <p><strong>{t('home.urgentNeeds.hospital')}:</strong> {request.hospital}</p>
+                    <p><strong>{t('home.urgentNeeds.contact')}:</strong> {request.contactInfo}</p>
+                    <p className="text-gray-500">
+                      {t('home.urgentNeeds.postedOn', { date: new Date(request.createdAt).toLocaleDateString() })}
+                    </p>
+                    <div className="pt-3">
+                      <Link to="/blood-donation">
+                        <Button variant="destructive" className="w-full">
+                          {t('home.urgentNeeds.donateButton')}
+                        </Button>
+                      </Link>
                     </div>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-3">
-                      <p><strong>{t('home.urgentNeeds.hospital')}:</strong> {request.hospital}</p>
-                      <p><strong>{t('home.urgentNeeds.contact')}:</strong> {request.contactInfo}</p>
-                      <p className="text-sm text-gray-500">
-                        {t('home.urgentNeeds.postedOn', { date: new Date(request.createdAt).toLocaleDateString() })}
-                      </p>
-                      <div className="pt-2">
-                        <Link to="/blood-donation">
-                          <Button variant="danger" fullWidth>
-                            {t('home.urgentNeeds.donateButton')}
-                          </Button>
-                        </Link>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
 
-            <div className="text-center mt-8">
-              <Link to="/blood-donation">
-                <Button variant="outline" size="lg">
-                  {t('home.urgentNeeds.viewAllButton')}
-                </Button>
-              </Link>
-            </div>
+          <div className="text-center mt-8">
+            <Link to="/blood-donation">
+              <Button variant="outline" size="lg" className="border-red-700 text-red-700 hover:bg-red-700 hover:text-white">
+                {t('home.urgentNeeds.viewAllButton')}
+              </Button>
+            </Link>
           </div>
         </section>
       )}
 
-      {/* Testimonial Section */}
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">{t('home.testimonials.title')}</h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">{t('home.testimonials.subtitle')}</p>
+      {/* Testimonials Section */}
+<section className="container mx-auto px-6 py-16 bg-gradient-to-r from-cyan-50 via-teal-50 to-green-50 rounded-3xl shadow-lg">
+  <div className="text-center mb-14">
+    <h2 className="text-4xl font-extrabold text-teal-900 mb-3 tracking-wide">{t('home.testimonials.title')}</h2>
+    <p className="text-xl text-teal-700 max-w-xl mx-auto leading-relaxed">{t('home.testimonials.subtitle')}</p>
+  </div>
+
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+    {[ 'sarah', 'michael', 'emily' ].map(person => (
+      <Card
+        key={person}
+        className="rounded-3xl shadow-md hover:shadow-xl transition-shadow duration-500 bg-white border border-teal-200"
+      >
+        <CardContent className="pt-8 pb-10 px-8">
+          <div className="flex flex-col items-center text-center">
+            <img
+              src={`https://images.pexels.com/photos/${person === 'sarah' ? '733872' : person === 'michael' ? '220453' : '1181686'}/pexels-photo-${person === 'sarah' ? '733872' : person === 'michael' ? '220453' : '1181686'}.jpeg`}
+              alt={t(`home.testimonials.${person}.name`)}
+              className="rounded-full w-24 h-24 object-cover mb-6 border-4 border-teal-400 shadow-sm"
+            />
+            <p className="text-teal-700 mb-5 italic text-lg leading-relaxed">“{t(`home.testimonials.${person}.quote`)}”</p>
+            <p className="font-bold text-teal-900 text-xl">{t(`home.testimonials.${person}.name`)}</p>
+            <p className="text-sm text-teal-600 uppercase tracking-widest">{t(`home.testimonials.${person}.role`)}</p>
           </div>
+        </CardContent>
+      </Card>
+    ))}
+  </div>
+</section>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <Card>
-              <CardContent className="pt-6">
-                <div className="flex flex-col items-center text-center">
-                  <img 
-                    src="https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg" 
-                    alt={t('home.testimonials.sarah.name')}
-                    className="rounded-full w-16 h-16 object-cover mb-4"
-                  />
-                  <p className="text-gray-600 mb-4">{t('home.testimonials.sarah.quote')}</p>
-                  <p className="font-semibold">{t('home.testimonials.sarah.name')}</p>
-                  <p className="text-sm text-gray-500">{t('home.testimonials.sarah.role')}</p>
-                </div>
-              </CardContent>
-            </Card>
 
-            <Card>
-              <CardContent className="pt-6">
-                <div className="flex flex-col items-center text-center">
-                  <img 
-                    src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg" 
-                    alt={t('home.testimonials.michael.name')}
-                    className="rounded-full w-16 h-16 object-cover mb-4"
-                  />
-                  <p className="text-gray-600 mb-4">{t('home.testimonials.michael.quote')}</p>
-                  <p className="font-semibold">{t('home.testimonials.michael.name')}</p>
-                  <p className="text-sm text-gray-500">{t('home.testimonials.michael.role')}</p>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardContent className="pt-6">
-                <div className="flex flex-col items-center text-center">
-                  <img 
-                    src="https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg" 
-                    alt={t('home.testimonials.emily.name')}
-                    className="rounded-full w-16 h-16 object-cover mb-4"
-                  />
-                  <p className="text-gray-600 mb-4">{t('home.testimonials.emily.quote')}</p>
-                  <p className="font-semibold">{t('home.testimonials.emily.name')}</p>
-                  <p className="text-sm text-gray-500">{t('home.testimonials.emily.role')}</p>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-cyan-800 text-white">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-4">{t('home.cta.title')}</h2>
+      <section className="bg-gradient-to-br from-cyan-700 to-cyan-900 text-white py-16 rounded-2xl shadow">
+        <div className="container mx-auto px-6 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">{t('home.cta.title')}</h2>
           <p className="text-xl text-cyan-100 mb-8 max-w-2xl mx-auto">{t('home.cta.subtitle')}</p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-wrap justify-center gap-4">
             <Link to="/pharmacies">
-              <Button variant="secondary" size="lg">{t('home.cta.findPharmaciesButton')}</Button>
+              <Button size="lg" className="border-white bg-cyan text-cyan-800 ">
+                {t('home.cta.findPharmaciesButton')}
+              </Button>
             </Link>
             <Link to="/register">
-              <Button variant="outline" size="lg" className="bg-transparent border-white text-white hover:bg-white hover:text-cyan-800">
+              <Button variant="outline" size="lg" className="border-white text-white hover:bg-white hover:text-cyan-800">
                 {t('home.cta.createAccountButton')}
               </Button>
             </Link>
           </div>
         </div>
       </section>
+
     </div>
   );
 };

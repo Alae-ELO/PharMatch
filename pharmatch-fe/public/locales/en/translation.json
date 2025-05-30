@@ -518,13 +518,14 @@
     },
     "contact_info": {
       "title": "Contact Us",
-      "address": "123 Health Street, Medical District, City, Country",
+      "address": "123 Health Street, Medical District, TETOUAN, MOROCCO",
       "phone": "+1 (555) 123-4567",
       "email": "info@pharmatch.com"
     },
     "bottom_section": {
-      "copyright": "© {year} PharMatch. All rights reserved.",
+      "copyright": "© 2025 PharMatch. All rights reserved.",
       "social_media": {
+        "title": "Social Media",
         "facebook": "Facebook",
         "instagram": "Instagram",
         "twitter": "Twitter"
