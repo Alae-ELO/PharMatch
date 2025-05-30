@@ -364,27 +364,7 @@ const useStore = create<PharMatchState>((set, get) => ({
       console.error('Error creating blood donation request:', error);
       throw error;
     }
-  },
-  
-  respondToBloodDonationRequest: async (requestId: string) => {
-    try {
-      const response = await api.post(`/api/blood-donations/${requestId}/respond`);
-      
-      // Update the blood donation request in the state
-      set(state => {
-        const updatedRequests = state.bloodDonationRequests.map(request => 
-          request._id === requestId ? { ...request, donors: [...(request.donors || []), state.user?._id] } : request
-        );
-        
-        return { ...state, bloodDonationRequests: updatedRequests };
-      });
-      
-      return response.data;
-    } catch (error) {
-      console.error('Error responding to blood donation request:', error);
-      throw error;
-    }
-  },
+  }
 }));
 
 export default useStore;
