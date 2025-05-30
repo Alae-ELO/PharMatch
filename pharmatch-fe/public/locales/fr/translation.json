@@ -518,13 +518,14 @@
     },
     "contact_info": {
       "title": "Contactez-nous",
-      "address": "123 Rue de la Santé, Quartier Médical, Ville, Pays",
+      "address": "123 Rue de la Santé, Quartier Médical, TETOUAN, MAROC",
       "phone": "+1 (555) 123-4567",
       "email": "info@pharmatch.com"
     },
     "bottom_section": {
-      "copyright": "© {year} PharMatch. Tous droits réservés.",
+      "copyright": "© 2025 PharMatch. Tous droits réservés.",
       "social_media": {
+        "title": "Réseaux sociaux",
         "facebook": "Facebook",
         "instagram": "Instagram",
         "twitter": "Twitter"
