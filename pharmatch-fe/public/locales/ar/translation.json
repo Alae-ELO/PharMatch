@@ -129,7 +129,6 @@
     "title": "التبرع بالدم",
     "subtitle": "سجل كمتبرع بالدم أو اعرض طلبات التبرع الحالية.",
     "register": "سجل كمتبرع بالدم",
-    "becomePermanentDonor": "كن متبرعًا دائمًا",
     "createRequest": "إنشاء طلب تبرع",
     "registerTitle": "التسجيل كمتبرع بالدم",
     "yourBloodType": "فصيلة دمك",
@@ -137,23 +136,16 @@
     "registerInfo": "من خلال التسجيل، ستتلقى إشعارات عند الحاجة إلى فصيلة دمك.",
     "createRequestTitle": "إنشاء طلب تبرع بالدم",
     "bloodTypeNeeded": "فصيلة الدم المطلوبة",
-    "hospital": "المستشفى / المكان",
+    "hospital": "المستشفى / الموقع",
     "hospitalPlaceholder": "أدخل اسم المستشفى أو مركز التبرع",
-    "urgency": "مستوى الإلحاح",
-    "urgencyLow": "منخفض",
-    "urgencyMedium": "متوسط",
-    "urgencyHigh": "عالي",
+    "urgency": "مستوى الاستعجال",
+    "urgencyLow": "منخفض - خلال أسابيع",
+    "urgencyMedium": "متوسط - خلال أيام",
+    "urgencyHigh": "عالي - عاجل (ساعات)",
     "contactInfo": "معلومات الاتصال",
-    "contactPlaceholder": "رقم الهاتف أو البريد الإلكتروني للمتبرعين المحتملين",
-    "create": "إنشاء الطلب",
-    "availableRequests": "طلبات التبرع المتاحة",
-    "noRequests": "لا توجد طلبات تبرع متاحة حاليًا.",
-    "viewContactInfo": "عرض معلومات الاتصال",
-    "sendDonationRequest": "إرسال طلب تبرع",
-    "requestSentSuccess": "تم إرسال طلب التبرع الخاص بك بنجاح.",
-    "requestSentError": "حدث خطأ أثناء إرسال طلب التبرع الخاص بك."
+    "contactPlaceholder": "رقم الهاتف أو البريد الإلكتروني",
+    "create": "إنشاء الطلب"
   },
-
   "common": {
     "cancel": "إلغاء",
     "register": "تسجيل"
@@ -329,7 +321,6 @@
 
 
 
-  
   
   
   
