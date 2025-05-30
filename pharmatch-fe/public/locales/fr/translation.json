@@ -159,7 +159,6 @@
     "viewAll": "Voir tout",
             "allPharmacies": "Toutes les pharmacies"
 
-
   },
   "errors": {
     "geolocationNotSupported": "La géolocalisation n'est pas prise en charge par votre navigateur."
