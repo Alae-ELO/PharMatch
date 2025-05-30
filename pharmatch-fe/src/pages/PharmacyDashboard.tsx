@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { FaClock, FaMapMarkerAlt, FaPhone, FaEnvelope, FaCalendarAlt, FaStore, FaDoorOpen, FaDoorClosed, FaChevronDown, FaChevronUp, FaEdit, FaSave, FaTimes } from 'react-icons/fa';
+import { FaClock,FaEnvelope, FaCalendarAlt, FaStore, FaDoorOpen, FaDoorClosed, FaChevronDown, FaChevronUp, FaEdit, FaSave, FaTimes } from 'react-icons/fa';
 import useStore from '../store';
 
 interface PharmacyStats {
@@ -27,15 +27,6 @@ interface PharmacyProfile {
   licenseNumber: string;
   ownerName: string;
 }
-
-interface RecentOrder {
-  id: string;
-  customerName: string;
-  status: string;
-  date: string;
-  amount: number;
-}
-
 interface NewMedication {
   id: string;
   name: string;
@@ -66,7 +57,6 @@ const PharmacyDashboard: React.FC = () => {
     licenseNumber: '',
     ownerName: '',
   });
-  const [recentOrders, setRecentOrders] = useState<RecentOrder[]>([]);
   const [newMedications, setNewMedications] = useState<NewMedication[]>([]);
   const [loading, setLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
@@ -81,7 +71,6 @@ const PharmacyDashboard: React.FC = () => {
         });
         setStats(response.data.stats);
         setPharmacyProfile(response.data.pharmacyProfile);
-        setRecentOrders(response.data.recentOrders);
         setNewMedications(response.data.newMedications);
         setLoading(false);
       } catch (error) {
@@ -382,8 +371,8 @@ const OpeningHoursSection: React.FC<{
       ) : (
         <>
           <div className="space-y-3">
-            {entriesToShow.map((entry: [string, { open: string; close: string; }], index: number) => {
-              const [day, hours] = entry;
+            {entriesToShow.map((entry, index) => {
+              const [day, hours] = entry as [string, { open: string; close: string }];
               return (
                 <div key={index} className={`p-3 rounded-lg ${day === capitalizedCurrentDay ? 'bg-blue-50 border-l-4 border-blue-500' : ''}`}>
                   <div className="flex justify-between items-center">
