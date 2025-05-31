@@ -16,11 +16,13 @@
     "dotenv": "^16.5.0",
     "express": "^4.21.2",
     "express-validator": "^7.0.1",
+    "ipapi.co": "^0.3.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.15.0",
     "mongoose-paginate-v2": "^1.7.4",
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
+    "node-geocoder": "^4.4.1",
     "nodemailer": "^6.9.7"
   },
   "devDependencies": {
