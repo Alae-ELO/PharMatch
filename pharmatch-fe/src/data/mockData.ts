@@ -146,6 +146,79 @@ export const medications: Medication[] = [
       { id: '5', name: 'Family Health Pharmacy', inStock: true, price: 5.75 },
     ],
   },
+    {
+    id: '7',
+    name: 'Atorvastatin',
+    description: 'Used to lower cholesterol levels',
+    category: 'Cholesterol',
+    prescription: true,
+    pharmacies: [
+      { id: '1', name: 'MediCare Pharmacy', inStock: true, price: 29.99 },
+      { id: '3', name: 'City Pharmaceuticals', inStock: false },
+      { id: '4', name: 'Central Pharmacy', inStock: true, price: 30.50 },
+    ],
+  },
+  {
+    id: '8',
+    name: 'Omeprazole',
+    description: 'Used to treat acid reflux and ulcers',
+    category: 'Gastrointestinal',
+    prescription: false,
+    pharmacies: [
+      { id: '2', name: 'Wellness Drugstore', inStock: true, price: 19.99 },
+      { id: '3', name: 'City Pharmaceuticals', inStock: true, price: 18.75 },
+      { id: '5', name: 'Family Health Pharmacy', inStock: true, price: 20.25 },
+    ],
+  },
+  {
+    id: '9',
+    name: 'Amlodipine',
+    description: 'Used to treat high blood pressure and chest pain',
+    category: 'Blood Pressure',
+    prescription: true,
+    pharmacies: [
+      { id: '1', name: 'MediCare Pharmacy', inStock: true, price: 23.50 },
+      { id: '2', name: 'Wellness Drugstore', inStock: false },
+      { id: '4', name: 'Central Pharmacy', inStock: true, price: 24.75 },
+    ],
+  },
+  {
+    id: '10',
+    name: 'Hydrochlorothiazide',
+    description: 'Diuretic used to treat high blood pressure and swelling',
+    category: 'Blood Pressure',
+    prescription: true,
+    pharmacies: [
+      { id: '3', name: 'City Pharmaceuticals', inStock: true, price: 15.99 },
+      { id: '4', name: 'Central Pharmacy', inStock: true, price: 16.25 },
+      { id: '5', name: 'Family Health Pharmacy', inStock: false },
+    ],
+  },
+  {
+    id: '11',
+    name: 'Simvastatin',
+    description: 'Used to lower cholesterol and triglyceride levels',
+    category: 'Cholesterol',
+    prescription: true,
+    pharmacies: [
+      { id: '1', name: 'MediCare Pharmacy', inStock: true, price: 28.50 },
+      { id: '2', name: 'Wellness Drugstore', inStock: true, price: 27.95 },
+      { id: '3', name: 'City Pharmaceuticals', inStock: false },
+    ],
+  },
+  {
+    id: '12',
+    name: 'Albuterol',
+    description: 'Inhaler used to treat asthma and breathing problems',
+    category: 'Respiratory',
+    prescription: true,
+    pharmacies: [
+      { id: '2', name: 'Wellness Drugstore', inStock: true, price: 32.99 },
+      { id: '4', name: 'Central Pharmacy', inStock: true, price: 33.50 },
+      { id: '5', name: 'Family Health Pharmacy', inStock: true, price: 31.75 },
+    ],
+  },
+
 ];
 
 export const users: User[] = [
