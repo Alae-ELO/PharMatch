@@ -102,7 +102,7 @@
   "chat_welcome_message": "Ask me about medications, symptoms, or general health advice.",
   "example_1": "What are the side effects of ibuprofen?",
   "example_2": "How often can I take paracetamol?",
-  "example_3": "What’s the difference between a cold and the flu?",
+  "example_3": "What's the difference between a cold and the flu?",
   "example_4": "How do I treat a minor burn?",
   "type_health_question": "Type your health question...",
   "send": "Send",
@@ -115,7 +115,7 @@
     "registerTitle": "Register as a Blood Donor",
     "yourBloodType": "Your Blood Type",
     "selectBloodType": "Select Blood Type",
-    "registerInfo": "By registering, you’ll receive notifications when your blood type is needed.",
+    "registerInfo": "By registering, you'll receive notifications when your blood type is needed.",
     "createRequestTitle": "Create a Blood Donation Request",
     "bloodTypeNeeded": "Blood Type Needed",
     "hospital": "Hospital / Location",
@@ -130,7 +130,8 @@
   },
   "common": {
     "cancel": "Cancel",
-    "register": "Register"
+    "register": "Register",
+    "loading": "Loading..."
   },
 
   "medications": {
@@ -150,15 +151,17 @@
   },
   "pharmacies": {
     "title": "Pharmacies",
-    "subtitle": "Easily find the nearest pharmacy in your city.",
+    "searchPlaceholder": "Search by city...",
+    "search": "Search",
+    "viewDetails": "View Details",
+    "locationError": "Unable to get your location",
+    "geolocationNotSupported": "Geolocation is not supported by your browser",
+    "searchError": "Error searching pharmacies",
+    "description": "Find pharmacies in your area. Search by city or use your location to find nearby pharmacies.",
     "placeholder": "Search for a city or address...",
-    "searchButton": "Search",
-    "useMyLocation": "Use My Location",
-    "pharmaciesIn": "Pharmacies in {{city}}",
     "noResults": "No pharmacies found in this location.",
     "viewAll": "View All",
-        "allPharmacies": "All Pharmacies"
-
+    "allPharmacies": "All Pharmacies"
   },
   "errors": {
     "geolocationNotSupported": "Geolocation is not supported by your browser."
@@ -211,7 +214,7 @@
     },
     "error": {
       "title": "Pharmacy Profile Not Found",
-      "description": "We couldn’t find your pharmacy profile. Please contact support.",
+      "description": "We couldn't find your pharmacy profile. Please contact support.",
       "returnHome": "Return to Homepage"
     }
   },
@@ -230,7 +233,19 @@
       "otc": "Over-the-Counter",
       "inStock": "In Stock",
       "outOfStock": "Out of Stock"
-    }
+    },
+    "hours": {
+      "open": "Open",
+      "closed": "Closed",
+      "today": "Today"
+    },
+    "status": {
+      "open": "Open",
+      "closed": "Closed"
+    },
+    "location": "Location",
+    "hourss": "Hours",
+    "statuss": "Status"
   },
   "pharmacyMapView": {
     "error": "An error occurred while loading maps",
@@ -468,24 +483,11 @@
     "markAllAsRead": "Mark All as Read",
     "markAllAsReadAlert": "All notifications will be marked as read",
     "noNotifications": "No Notifications",
-    "allCaughtUp": "You’re all caught up!",
+    "allCaughtUp": "You're all caught up!",
     "new": "New",
     "at": "At",
     "markAsRead": "Mark as Read",
     "viewAll": "View All Notifications"
-  ,
-    "header": {
-      "title": "Notifications"
-    },
-    "empty": "You have no notifications.",
-    "markAllRead": "Mark All as Read",
-    "loadMore": "Load More",
-    "types": {
-      "bloodDonationRequest": "Blood Donation Request",
-      "medicationAvailable": "Medication Available",
-      "pharmacyMessage": "Pharmacy Message",
-      "system": "System Announcement"
-    }
   },
   "nav": {
     "home": "Home",
@@ -532,14 +534,10 @@
       },
       "made_with_love": "Made with love by the PharMatch team"
     }
-  }
-
-  ,
-  
+  },
   "languageDropdown": {
     "english": "English",
     "french": "French",
     "arabic": "Arabic"
   }
-
 }

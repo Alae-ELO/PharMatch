@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
   Bell,
@@ -35,12 +35,20 @@ const Header: React.FC = () => {
 
   const toggleLanguageDropdown = () =>
     setIsLanguageDropdownOpen(!isLanguageDropdownOpen);
+  
+  useEffect(() => {
+    console.log('Current language:', i18n.language);
+  }, [i18n.language]);
 
   const changeLanguage = (lng: string) => {
-    i18n.changeLanguage(lng);
+    i18n.changeLanguage(lng).then(() => {
+      document.documentElement.lang = lng;
+      document.documentElement.dir = lng === 'ar' ? 'rtl' : 'ltr';
+    }).catch(err => {
+      console.error('Error changing language:', err);
+    });
     setIsLanguageDropdownOpen(false);
   };
-
   const handleLogout = () => {
     logout();
     setIsProfileOpen(false);

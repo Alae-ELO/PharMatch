@@ -1,16 +1,25 @@
 export interface Pharmacy {
   id: string;
   name: string;
+  name_ar:string;
   address: string;
   city: string;
+  region:string;
+  region_ar:string;
   phone: string;
-  email: string;
+  email?: string;
   hours: string;
   coordinates: {
     lat: number;
     lng: number;
   };
-  medications: string[];
+  medications: Array<{
+    id: string;
+    name: string;
+    prescription: boolean;
+    inStock: boolean;
+    price?: number;
+  }>;
 }
 
 export interface Medication {

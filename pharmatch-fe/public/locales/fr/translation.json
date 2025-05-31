@@ -130,7 +130,8 @@
   },
   "common": {
     "cancel": "Annuler",
-    "register": "S'inscrire"
+    "register": "S'inscrire",
+    "loading": "Chargement..."
   },
  
   "medications": {
@@ -150,15 +151,15 @@
   },
   "pharmacies": {
     "title": "Pharmacies",
-    "subtitle": "Trouvez facilement la pharmacie la plus proche dans votre ville.",
-    "placeholder": "Recherchez une ville ou une adresse...",
-    "searchButton": "Rechercher",
-    "useMyLocation": "Utiliser ma position actuelle",
-    "pharmaciesIn": "Pharmacies à {{city}}",
-    "noResults": "Aucune pharmacie trouvée à cet endroit.",
-    "viewAll": "Voir tout",
-            "allPharmacies": "Toutes les pharmacies"
-
+    "searchPlaceholder": "Rechercher par ville ou par region...",
+    "search": "Rechercher",
+    "useMyLocation": "Utiliser ma position",
+    "viewDetails": "Voir les détails",
+    "medications": "{{count}} médicaments",
+    "locationError": "Impossible d'obtenir votre position",
+    "geolocationNotSupported": "La géolocalisation n'est pas prise en charge par votre navigateur",
+    "searchError": "Erreur lors de la recherche des pharmacies",
+    "description": "Trouvez des pharmacies dans votre région. Recherchez par ville ou votre region pour trouver les pharmacies à proximité."
   },
   "errors": {
     "geolocationNotSupported": "La géolocalisation n'est pas prise en charge par votre navigateur."
@@ -230,7 +231,20 @@
       "otc": "Sans ordonnance",
       "inStock": "En stock",
       "outOfStock": "En rupture de stock"
-    }
+    },
+    "hours": {
+      "open": "Ouvert",
+      "closed": "Fermé",
+      "today": "Aujourd'hui"
+    },
+    "status": {
+      "open": "Ouvert",
+      "closed": "Fermé"
+    },
+    "location": "Emplacement",
+    
+    "hourss": "Heures",
+    "statuss": "Statut"
   },
   "pharmacyMapView": {
     "error": "Une erreur s'est produite lors du chargement des cartes",
@@ -539,5 +553,6 @@
     "french": "Français",
     "arabic": "Arabe"
   }
+  
 
 }
