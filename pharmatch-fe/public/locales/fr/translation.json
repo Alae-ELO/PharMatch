@@ -285,7 +285,7 @@
     "pharmacyAddress": "Adresse de la pharmacie",
     "pharmacyPhone": "Téléphone de la pharmacie",
     "bloodDonorTitle": "Informations sur le donneur de sang",
-    "bloodType": "Groupe sanguin : {{bloodType}}",
+    "bloodType": "Groupe sanguin",
     "lastDonation": "Dernier don",
     "eligibleSince": "Éligible au don depuis",
     "accountTitle": "Paramètres du compte",
@@ -293,7 +293,8 @@
     "bloodDonationRequests": "Recevoir les demandes de don de sang",
     "medicationUpdates": "Recevoir les mises à jour des médicaments",
     "privacySettings": "Paramètres de confidentialité",
-    "showBloodDonorStatus": "Afficher le statut de donneur de sang"
+    "showBloodDonorStatus": "Afficher le statut de donneur de sang",
+    "updateSuccess": "Profil mis à jour avec succès"
   },
   "actions": {
     "edit": "Modifier",

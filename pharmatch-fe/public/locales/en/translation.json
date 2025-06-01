@@ -298,7 +298,8 @@
     "bloodDonationRequests": "Receive Blood Donation Requests",
     "medicationUpdates": "Receive Medication Updates",
     "privacySettings": "Privacy Settings",
-    "showBloodDonorStatus": "Show Blood Donor Status"
+    "showBloodDonorStatus": "Show Blood Donor Status",
+    "updateSuccess": "Profile updated successfully"
   },
   "actions": {
     "edit": "Edit",
