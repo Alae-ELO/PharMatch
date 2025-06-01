@@ -20,7 +20,7 @@ interface PharMatchState {
   // Authentication
   currentUser: User | null;
   token: string | null;
-  user: User | null; // Add this line to fix the error
+  user: User | null;
   login: (email: string, password: string) => Promise<boolean>;
   logout: () => void;
   
@@ -40,6 +40,8 @@ interface PharMatchState {
   sendMessage: (content: string) => Promise<void>;
   registerAsBloodDonor: (bloodType: string) => Promise<void>;
   createBloodDonationRequest: (request: Omit<BloodDonationRequest, 'id' | 'createdAt' | 'expiresAt'>) => Promise<void>;
+  fetchBloodDonationRequests: () => Promise<void>;
+  respondToBloodDonationRequest: (requestId: string) => Promise<void>;
 }
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
@@ -54,7 +56,7 @@ const useStore = create<PharMatchState>((set, get) => ({
   messages: [],
   currentUser: null,
   token: localStorage.getItem('token'),
-  user: null, // Add this line to initialize the user property
+  user: null,
   cityFilter: null,
   medicationFilter: null,
   
@@ -78,7 +80,6 @@ const useStore = create<PharMatchState>((set, get) => ({
       localStorage.setItem('token', data.token);
       
       set({ 
-
         currentUser: data.user,
         token: data.token
       });
@@ -92,7 +93,7 @@ const useStore = create<PharMatchState>((set, get) => ({
   
   logout: () => {
     localStorage.removeItem('token');
-    set({ currentUser: null, token: null, user: null }); // Also clear the user property
+    set({ currentUser: null, token: null, user: null });
   },
   
   // Data fetching actions
@@ -228,7 +229,6 @@ const useStore = create<PharMatchState>((set, get) => ({
     try {
       const notification = get().notifications.find(n => n.id === id);
       
-      // If notification requires response, don't allow marking as read
       if (notification?.requiresResponse) {
         throw new Error('This notification requires a response before it can be marked as read');
       }
@@ -279,7 +279,6 @@ const useStore = create<PharMatchState>((set, get) => ({
           throw new Error('Failed to respond to medication notification');
         }
 
-        // Remove the notification from the list since it's been responded to
         set(state => ({
           notifications: state.notifications.filter(n => n.id !== id)
         }));
@@ -342,7 +341,7 @@ const useStore = create<PharMatchState>((set, get) => ({
   
   createBloodDonationRequest: async (request) => {
     try {
-      const response = await fetch(`${API_URL}/blood-donation-requests`, {
+      const response = await fetch(`${API_URL}/blood-donation`, { // URL corrigée
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -352,7 +351,8 @@ const useStore = create<PharMatchState>((set, get) => ({
       });
       
       if (!response.ok) {
-        throw new Error('Failed to create blood donation request');
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to create blood donation request');
       }
       
       const data = await response.json();
@@ -362,6 +362,53 @@ const useStore = create<PharMatchState>((set, get) => ({
       }));
     } catch (error) {
       console.error('Error creating blood donation request:', error);
+      throw error;
+    }
+  },
+  
+  fetchBloodDonationRequests: async () => {
+    try {
+      const response = await fetch(`${API_URL}/blood-donation`, {
+        headers: {
+          'Authorization': `Bearer ${get().token}`
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch blood donation requests');
+      }
+
+      const data = await response.json();
+      set({ bloodDonationRequests: data.data });
+    } catch (error) {
+      console.error('Error fetching blood donation requests:', error);
+      throw error;
+    }
+  },
+  
+  respondToBloodDonationRequest: async (requestId: string) => {
+    try {
+      const response = await fetch(`${API_URL}/blood-donation/${requestId}/respond`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${get().token}`
+        },
+        body: JSON.stringify({ donationDate: new Date() })
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to respond to blood donation request');
+      }
+
+      const data = await response.json();
+      set(state => ({
+        bloodDonationRequests: state.bloodDonationRequests.map(request =>
+          request.id === requestId ? { ...request, status: data.data.status } : request
+        )
+      }));
+    } catch (error) {
+      console.error('Error responding to blood donation request:', error);
       throw error;
     }
   }

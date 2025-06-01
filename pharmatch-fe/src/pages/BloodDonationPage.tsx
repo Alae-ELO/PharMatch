@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Heart, PlusCircle, Clock, AlertCircle, MapPin, Phone } from 'lucide-react';
 import Button from '../components/ui/Button';
@@ -14,6 +14,8 @@ const BloodDonationPage: React.FC = () => {
   const { 
     bloodDonationRequests, 
     createBloodDonationRequest,
+    fetchBloodDonationRequests,
+    respondToBloodDonationRequest,
     currentUser,
     registerAsBloodDonor
   } = useStore();
@@ -33,6 +35,11 @@ const BloodDonationPage: React.FC = () => {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Récupérer les dons au chargement de la page
+  useEffect(() => {
+    fetchBloodDonationRequests();
+  }, [fetchBloodDonationRequests]);
 
   const handleRegisterDonor = async () => {
     if (!bloodType) return;
@@ -92,31 +99,47 @@ const BloodDonationPage: React.FC = () => {
       {/* Action Buttons */}
       <div className="flex flex-col sm:flex-row justify-center gap-4 mb-10">
         {!currentUser?.bloodDonor && (
-          <Button 
-            variant="secondary" 
-            size="lg" 
-            icon={<Heart className="h-5 w-5" />}
-            onClick={() => {
-              setShowRequestForm(false);
-              setShowContactModal(false);
-              setShowDonorForm(!showDonorForm);
-            }}
-          >
-            {t('bloodDonation.register')}
-          </Button>
+          <>
+            <Button 
+              variant="secondary" 
+              size="lg" 
+              icon={<Heart className="h-5 w-5" />}
+              onClick={() => {
+                setShowRequestForm(false);
+                setShowContactModal(false);
+                setShowDonorForm(!showDonorForm);
+              }}
+            >
+              {t('bloodDonation.register')}
+            </Button>
+            {/* Bouton "Devenez donateur permanent" pour utilisateurs non authentifiés */}
+            {!currentUser && (
+              <Button 
+                variant="secondary" 
+                size="lg" 
+                icon={<Heart className="h-5 w-5" />}
+                onClick={() => alert('Redirection vers la page d\'inscription...')}
+              >
+                {t('bloodDonation.permanentDonor')}
+              </Button>
+            )}
+          </>
         )}
 
-        <Button 
-          size="lg" 
-          icon={<PlusCircle className="h-5 w-5" />}
-          onClick={() => {
-            setShowDonorForm(false);
-            setShowContactModal(false);
-            setShowRequestForm(!showRequestForm);
-          }}
-        >
-          {t('bloodDonation.createRequest')}
-        </Button>
+        {/* Bouton "Create a Donation Request" uniquement pour admin */}
+        {currentUser?.role === 'admin' && (
+          <Button 
+            size="lg" 
+            icon={<PlusCircle className="h-5 w-5" />}
+            onClick={() => {
+              setShowDonorForm(false);
+              setShowContactModal(false);
+              setShowRequestForm(!showRequestForm);
+            }}
+          >
+            {t('bloodDonation.createRequest')}
+          </Button>
+        )}
       </div>
 
       {/* Donor Registration Form */}
@@ -250,6 +273,108 @@ const BloodDonationPage: React.FC = () => {
                 isLoading={isSubmitting}
               >
                 {t('bloodDonation.create')}
+              </Button>
+            </CardFooter>
+          </Card>
+        </motion.div>
+      )}
+
+      {/* Liste des dons */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {sortedRequests.length === 0 ? (
+          <p className="text-center col-span-full text-gray-600">
+            {t('bloodDonation.noRequests')}
+          </p>
+        ) : (
+          sortedRequests.map((request) => (
+            <Card key={request.id} hoverable>
+              <CardHeader>
+                <CardTitle>
+                  {t('bloodDonation.bloodType')}: {request.bloodType}
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <MapPin className="h-4 w-4 text-gray-500" />
+                  <span>{request.hospital}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <AlertCircle className="h-4 w-4 text-gray-500" />
+                  <Badge
+                    variant={
+                      request.urgency === 'high'
+                        ? 'destructive'
+                        : request.urgency === 'medium'
+                        ? 'warning'
+                        : 'success'
+                    }
+                  >
+                    {t(`bloodDonation.urgency${request.urgency.charAt(0).toUpperCase() + request.urgency.slice(1)}`)}
+                  </Badge>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Clock className="h-4 w-4 text-gray-500" />
+                  <span>
+                    {t('bloodDonation.expires')}: {new Date(request.expiresAt).toLocaleDateString()}
+                  </span>
+                </div>
+              </CardContent>
+              <CardFooter className="flex justify-between">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  icon={<Phone className="h-4 w-4" />}
+                  onClick={() => handleShowContactModal(request)}
+                >
+                  {t('bloodDonation.contact')}
+                </Button>
+                {/* Bouton "Envoyer une requête de don" pour les utilisateurs pharmacie */}
+                {currentUser?.role === 'pharmacy' && (
+                  <Button
+                    size="sm"
+                    onClick={async () => {
+                      try {
+                        await respondToBloodDonationRequest(request.id);
+                        alert(`Requête envoyée avec succès pour ${request.bloodType} à ${request.hospital}`);
+                      } catch (error) {
+                        alert('Erreur lors de l’envoi de la requête.');
+                      }
+                    }}
+                  >
+                    {t('bloodDonation.sendRequest')}
+                  </Button>
+                )}
+              </CardFooter>
+            </Card>
+          ))
+        )}
+      </div>
+
+      {/* Contact Modal */}
+      {showContactModal && selectedRequest && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="fixed inset-0 bg-black/50 flex items-center justify-center p-4"
+        >
+          <Card className="max-w-md w-full">
+            <CardHeader>
+              <CardTitle>{t('bloodDonation.contactDetails')}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-gray-700">
+                <strong>{t('bloodDonation.hospital')}:</strong> {selectedRequest.hospital}
+              </p>
+              <p className="text-gray-700">
+                <strong>{t('bloodDonation.bloodType')}:</strong> {selectedRequest.bloodType}
+              </p>
+              <p className="text-gray-700">
+                <strong>{t('bloodDonation.contactInfo')}:</strong> {selectedRequest.contactInfo}
+              </p>
+            </CardContent>
+            <CardFooter>
+              <Button onClick={() => setShowContactModal(false)}>
+                {t('common.close')}
               </Button>
             </CardFooter>
           </Card>
