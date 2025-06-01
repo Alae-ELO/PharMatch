@@ -4,27 +4,29 @@ const { protect, authorize } = require('../middleware/auth.middleware');
 
 // Import controllers
 const {
-  getPharmacies,
+  getPharmacies,    
   getPharmacy,
   createPharmacy,
   updatePharmacy,
   deletePharmacy,
+  getPharmaciesByMedication,
   getPharmaciesByLocation,
-  getPharmaciesByMedication
+  searchPharmacies
 } = require('../controllers/pharmacy.controller');
 
 // Routes
-router.route('/')
-  .get(getPharmacies)
-  .post(protect, authorize('pharmacy', 'admin'), createPharmacy);
+router.get('/', getPharmacies);
+router.get('/location', getPharmaciesByLocation);
+router.get('/search', searchPharmacies);
+router.get('/:id', getPharmacy);
 
 router.route('/:id')
   .get(getPharmacy)
-  .put(protect, authorize('pharmacy', 'admin'), updatePharmacy)
-  .delete(protect, authorize('pharmacy', 'admin'), deletePharmacy);
+  .post(protect, authorize('pharmacy'),createPharmacy)
+  .put(protect, authorize('pharmacy'), updatePharmacy)
+  .delete(protect, authorize('pharmacy'), deletePharmacy);
 
 // Special routes
-router.get('/location/:lat/:lng/:distance', getPharmaciesByLocation);
 router.get('/medication/:medicationId', getPharmaciesByMedication);
 
 module.exports = router;

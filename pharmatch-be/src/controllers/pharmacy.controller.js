@@ -5,57 +5,47 @@ const Medication = require('../models/medication.model');
 // @route   GET /api/pharmacies
 // @access  Public
 exports.getPharmacies = async (req, res, next) => {
-  try {
-    // Implement pagination
-    const page = parseInt(req.query.page, 10) || 1;
-    const limit = parseInt(req.query.limit, 10) || 10;
-    const startIndex = (page - 1) * limit;
-
-    // Handle search query
-    let query = {};
-    if (req.query.search) {
-      query = { $text: { $search: req.query.search } };
+    try {
+      const page = parseInt(req.query.page, 10) || 1;
+      const limit = parseInt(req.query.limit, 10) || 10;
+      const startIndex = (page - 1) * limit;
+  
+      let query = {};
+  
+      if (req.query.search) {
+        query.$text = { $search: req.query.search };
+      }
+  
+      if (req.query.city) {
+        query.city = req.query.city;
+      }
+  
+      const options = {
+        page,
+        limit,
+        sort: { name: 1 }
+      };
+  
+      const result = await Pharmacy.paginate(query, options);
+  
+      res.status(200).json({
+        success: true,
+        count: result.totalDocs,
+        pagination: {
+          total: result.totalDocs,
+          pages: result.totalPages,
+          page: result.page,
+          limit: result.limit,
+          hasNext: result.hasNextPage,
+          hasPrev: result.hasPrevPage
+        },
+        data: result.docs
+      });
+    } catch (error) {
+      next(error);
     }
-
-    // Handle city filter
-    if (req.query.city) {
-      query.city = req.query.city;
-    }
-
-    const options = {
-      page,
-      limit,
-      sort: { name: 1 }
-    };
-
-    const result = await Pharmacy.paginate(query, options);
-
-    res.status(200).json({
-      success: true,
-      count: result.totalDocs,
-      pagination: {
-        total: result.totalDocs,
-        pages: result.totalPages,
-        page: result.page,
-        limit: result.limit,
-        hasNext: result.hasNextPage,
-        hasPrev: result.hasPrevPage
-      },
-      data: result.docs.map(pharmacy => ({
-        id: pharmacy._id,
-        name: pharmacy.name,
-        address: pharmacy.address,
-        city: pharmacy.city,
-        phone: pharmacy.phone,
-        email: pharmacy.email,
-        hours: pharmacy.hours,
-        coordinates: pharmacy.coordinates
-      }))
-    });
-  } catch (error) {
-    next(error);
-  }
-};
+  };
+  
 
 // @desc    Get single pharmacy
 // @route   GET /api/pharmacies/:id
@@ -84,7 +74,6 @@ exports.getPharmacy = async (req, res, next) => {
         address: pharmacy.address,
         city: pharmacy.city,
         phone: pharmacy.phone,
-        email: pharmacy.email,
         hours: pharmacy.hours,
         coordinates: pharmacy.coordinates,
         owner: pharmacy.owner,
@@ -101,6 +90,90 @@ exports.getPharmacy = async (req, res, next) => {
   }
 };
 
+// @desc    Get pharmacies by location
+// @route   GET /api/pharmacies/location
+// @access  Public
+exports.getPharmaciesByLocation = async (req, res, next) => {
+    try {
+      const { latitude, longitude } = req.query;
+  
+      if (!latitude || !longitude) {
+        return res.status(400).json({ success: false, message: 'Latitude and longitude are required' });
+      }
+
+      // Convert coordinates to numbers
+      const lat = parseFloat(latitude);
+      const lng = parseFloat(longitude);
+  
+      // First try to find pharmacies using the 2dsphere index
+      let pharmacies = await Pharmacy.find({
+        location: {
+          $near: {
+            $geometry: {
+              type: "Point",
+              coordinates: [lng, lat]
+            },
+            $maxDistance: 50000 // 50 km radius
+          }
+        }
+      });
+
+      // If no results found with location field, try coordinates field
+      if (pharmacies.length === 0) {
+        pharmacies = await Pharmacy.find({
+          'coordinates.lat': { $exists: true },
+          'coordinates.lng': { $exists: true },
+          $expr: {
+            $and: [
+              { $gte: ['$coordinates.lat', lat - 0.5] },
+              { $lte: ['$coordinates.lat', lat + 0.5] },
+              { $gte: ['$coordinates.lng', lng - 0.5] },
+              { $lte: ['$coordinates.lng', lng + 0.5] }
+            ]
+          }
+        });
+      }
+  
+      console.log('Found pharmacies:', pharmacies.length); // Debug log
+  
+      res.status(200).json({
+        success: true,
+        count: pharmacies.length,
+        data: pharmacies
+      });
+    } catch (error) {
+      console.error('Error in getPharmaciesByLocation:', error); // Debug log
+      next(error);
+    }
+  };
+  
+  
+
+
+// @desc    Search pharmacies by city or region
+// @route   GET /api/pharmacies/search
+// @access  Public
+exports.searchPharmacies = async (req, res, next) => {
+    try {
+      const { city, region } = req.query;
+  
+      const query = {};
+      if (city) query.city = new RegExp(city, 'i');
+      if (region) query.region = new RegExp(region, 'i');
+  
+      const pharmacies = await Pharmacy.find(query);
+  
+      res.status(200).json({
+        success: true,
+        count: pharmacies.length,
+        data: pharmacies
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+  
+
 // @desc    Create new pharmacy
 // @route   POST /api/pharmacies
 // @access  Private/Pharmacy/Admin
@@ -109,32 +182,47 @@ exports.createPharmacy = async (req, res, next) => {
     // Add owner field from authenticated user
     req.body.owner = req.user.id;
 
-    // Check if user already has a pharmacy
+    // If user is a pharmacy owner, first get all pharmacies and check ownership
     if (req.user.role === 'pharmacy') {
-      const existingPharmacy = await Pharmacy.findOne({ owner: req.user.id });
-
-      if (existingPharmacy) {
+      // Get all pharmacies in the database
+      const allPharmacies = await Pharmacy.find({});
+      
+      // Check if user already owns any pharmacies
+      const userPharmacies = await Pharmacy.find({ owner: req.user.id });
+      
+      if (userPharmacies.length > 0) {
         return res.status(400).json({
           success: false,
-          message: 'This user already has a registered pharmacy'
+          message: 'You already own pharmacies. Please select from your existing pharmacies.',
+          data: userPharmacies
         });
       }
+
+      // Check if selected pharmacy already has an owner
+      if (req.body.selectedPharmacyId) {
+        const selectedPharmacy = await Pharmacy.findById(req.body.selectedPharmacyId);
+        if (selectedPharmacy && selectedPharmacy.owner) {
+          return res.status(400).json({
+            success: false,
+            message: 'This pharmacy already has an owner',
+            data: allPharmacies
+          });
+        }
+      }
+
+      // Return all available pharmacies for selection
+      return res.status(200).json({
+        success: true,
+        message: 'Please select a pharmacy or create a new one',
+        data: allPharmacies
+      });
     }
 
     const pharmacy = await Pharmacy.create(req.body);
 
     res.status(201).json({
       success: true,
-      data: {
-        id: pharmacy._id,
-        name: pharmacy.name,
-        address: pharmacy.address,
-        city: pharmacy.city,
-        phone: pharmacy.phone,
-        email: pharmacy.email,
-        hours: pharmacy.hours,
-        coordinates: pharmacy.coordinates
-      }
+      data: pharmacy
     });
   } catch (error) {
     next(error);
@@ -175,16 +263,7 @@ exports.updatePharmacy = async (req, res, next) => {
 
     res.status(200).json({
       success: true,
-      data: {
-        id: pharmacy._id,
-        name: pharmacy.name,
-        address: pharmacy.address,
-        city: pharmacy.city,
-        phone: pharmacy.phone,
-        email: pharmacy.email,
-        hours: pharmacy.hours,
-        coordinates: pharmacy.coordinates
-      }
+      data: pharmacy
     });
   } catch (error) {
     next(error);
@@ -230,50 +309,6 @@ exports.deletePharmacy = async (req, res, next) => {
   }
 };
 
-// @desc    Get pharmacies by location
-// @route   GET /api/pharmacies/location/:lat/:lng/:distance
-// @access  Public
-exports.getPharmaciesByLocation = async (req, res, next) => {
-  try {
-    const { lat, lng, distance } = req.params;
-
-    // Convert distance to number
-    const radius = parseInt(distance, 10) || 10; // Default 10km
-
-    // Simple distance calculation (this is a simplified approach)
-    // In a real app, you might use MongoDB's geospatial queries
-    const pharmacies = await Pharmacy.find();
-    
-    // Filter pharmacies by distance
-    const filteredPharmacies = pharmacies.filter(pharmacy => {
-      const latDiff = Math.abs(pharmacy.coordinates.lat - parseFloat(lat));
-      const lngDiff = Math.abs(pharmacy.coordinates.lng - parseFloat(lng));
-      
-      // Rough approximation: 0.01 in coordinates is about 1km
-      const approxDistance = Math.sqrt(latDiff * latDiff + lngDiff * lngDiff) * 100;
-      
-      return approxDistance <= radius;
-    });
-
-    res.status(200).json({
-      success: true,
-      count: filteredPharmacies.length,
-      data: filteredPharmacies.map(pharmacy => ({
-        id: pharmacy._id,
-        name: pharmacy.name,
-        address: pharmacy.address,
-        city: pharmacy.city,
-        coordinates: pharmacy.coordinates,
-        distance: Math.sqrt(
-          Math.pow(pharmacy.coordinates.lat - parseFloat(lat), 2) + 
-          Math.pow(pharmacy.coordinates.lng - parseFloat(lng), 2)
-        ) * 100 // Approximate distance in km
-      }))
-    });
-  } catch (error) {
-    next(error);
-  }
-};
 
 // @desc    Get pharmacies by medication
 // @route   GET /api/pharmacies/medication/:medicationId
@@ -299,6 +334,8 @@ exports.getPharmaciesByMedication = async (req, res, next) => {
         address: p.pharmacy.address,
         city: p.pharmacy.city,
         phone: p.pharmacy.phone,
+        hours: p.pharmacy.hours,
+        coordinates: p.pharmacy.coordinates,
         price: p.price
       }));
 

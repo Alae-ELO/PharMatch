@@ -1,0 +1,1290 @@
+[
+  {
+    "location": {
+      "type": "Point",
+      "coordinates": [-5.8015139, 35.7757076]
+    },
+    "name": "Al-Andalus Pharmacy",
+    "name_ar": "صيدلية الأندلس",
+    "city": "Tanger",
+    "region": "Tanger, Tanger-Tetouan-Al Hoceima",
+    "region_ar": "طنجة, طنجة-تطوان-الحسيمة",
+    "phone": "",
+    "hours": {
+      "Monday": { "open": "08:00", "close": "20:00" },
+      "Tuesday": { "open": "08:00", "close": "20:00" },
+      "Wednesday": { "open": "08:00", "close": "20:00" },
+      "Thursday": { "open": "08:00", "close": "20:00" },
+      "Friday": { "open": "08:00", "close": "20:00" },
+      "Saturday": { "open": "08:00", "close": "20:00" },
+      "Sunday": { "open": "08:00", "close": "20:00" }
+    },
+    "permanence": {
+      "isOnDuty": false,
+      "days": []
+    },
+    "status": "open",
+    "owner": null,
+    "createdAt": "2025-05-31T12:50:00.000Z"
+  },
+  {
+    "location": {
+      "type": "Point",
+      "coordinates": [-5.4834737, 33.9125759]
+    },
+    "name": "Al Hikma Pharmacy - Meknes",
+    "name_ar": "صيدلية الحكمة - مكناس",
+    "city": "MEKNES",
+    "region": "Meknès, Fès-Meknès",
+    "region_ar": "مكناس, فاس-مكناس",
+    "phone": "",
+    "hours": {
+      "Monday": { "open": "08:00", "close": "20:00" },
+      "Tuesday": { "open": "08:00", "close": "20:00" },
+      "Wednesday": { "open": "08:00", "close": "20:00" },
+      "Thursday": { "open": "08:00", "close": "20:00" },
+      "Friday": { "open": "08:00", "close": "20:00" },
+      "Saturday": { "open": "08:00", "close": "20:00" },
+      "Sunday": { "open": "08:00", "close": "20:00" }
+    },
+    "permanence": {
+      "isOnDuty": false,
+      "days": []
+    },
+    "status": "open",
+    "owner": null,
+    "createdAt": "2025-05-31T12:50:00.000Z"
+  },
+  {
+    "location": {
+      "type": "Point",
+      "coordinates": [-7.9891608, 31.6258257]
+    },
+    "name": "Assif Pharmacy",
+    "name_ar": "صيدلية السيف",
+    "city": "Marrakesh",
+    "region": "Marrakesh, Marrakesh-Safi",
+    "region_ar": "مراكش, مراكش-آسفي",
+    "phone": "",
+    "hours": {
+      "Monday": { "open": "08:00", "close": "20:00" },
+      "Tuesday": { "open": "08:00", "close": "20:00" },
+      "Wednesday": { "open": "08:00", "close": "20:00" },
+      "Thursday": { "open": "08:00", "close": "20:00" },
+      "Friday": { "open": "08:00", "close": "20:00" },
+      "Saturday": { "open": "08:00", "close": "20:00" },
+      "Sunday": { "open": "08:00", "close": "20:00" }
+    },
+    "permanence": {
+      "isOnDuty": false,
+      "days": []
+    },
+    "status": "open",
+    "owner": null,
+    "createdAt": "2025-05-31T12:50:00.000Z"
+  },
+  {
+    "location": {
+      "type": "Point",
+      "coordinates": [-7.9538378, 32.2359364]
+    },
+    "name": "Castor Pharmacy",
+    "name_ar": "صيدلية كاستور",
+    "city": "Ben Guerir",
+    "region": "Ben Guerir, Marrakesh-Safi",
+    "region_ar": "بن جرير, مراكش-آسفي",
+    "phone": "",
+    "hours": {
+      "Monday": { "open": "08:00", "close": "20:00" },
+      "Tuesday": { "open": "08:00", "close": "20:00" },
+      "Wednesday": { "open": "08:00", "close": "20:00" },
+      "Thursday": { "open": "08:00", "close": "20:00" },
+      "Friday": { "open": "08:00", "close": "20:00" },
+      "Saturday": { "open": "08:00", "close": "20:00" },
+      "Sunday": { "open": "08:00", "close": "20:00" }
+    },
+    "permanence": {
+      "isOnDuty": false,
+      "days": []
+    },
+    "status": "open",
+    "owner": null,
+    "createdAt": "2025-05-31T12:50:00.000Z"
+  },
+  {
+    "location": {
+      "type": "Point",
+      "coordinates": [-5.5551109, 33.8672136]
+    },
+    "name": "Chaouia Pharmacy",
+    "name_ar": "صيدلية الشاوية",
+    "city": "MEKNES",
+    "region": "Meknès, Fès-Meknès",
+    "region_ar": "مكناس, فاس-مكناس",
+    "phone": "",
+    "hours": {
+      "Monday": { "open": "08:00", "close": "20:00" },
+      "Tuesday": { "open": "08:00", "close": "20:00" },
+      "Wednesday": { "open": "08:00", "close": "20:00" },
+      "Thursday": { "open": "08:00", "close": "20:00" },
+      "Friday": { "open": "08:00", "close": "20:00" },
+      "Saturday": { "open": "08:00", "close": "20:00" },
+      "Sunday": { "open": "08:00", "close": "20:00" }
+    },
+    "permanence": {
+      "isOnDuty": false,
+      "days": []
+    },
+    "status": "open",
+    "owner": null,
+    "createdAt": "2025-05-31T12:50:00.000Z"
+  },
+  {
+    "location": {
+      "type": "Point",
+      "coordinates": [-5.0330374, 34.0612254]
+    },
+    "name": "Crescent Pharmacy (Pharmacie Al Hilal) - Fes",
+    "name_ar": "صيدلية الهلال - فاس",
+    "city": "Fes",
+    "region": "Fès, Fès-Meknès",
+    "region_ar": "فاس, فاس-مكناس",
+    "phone": "",
+    "hours": {
+      "Monday": { "open": "08:00", "close": "20:00" },
+      "Tuesday": { "open": "08:00", "close": "20:00" },
+      "Wednesday": { "open": "08:00", "close": "20:00" },
+      "Thursday": { "open": "08:00", "close": "20:00" },
+      "Friday": { "open": "08:00", "close": "20:00" },
+      "Saturday": { "open": "08:00", "close": "20:00" },
+      "Sunday": { "open": "08:00", "close": "20:00" }
+    },
+    "permanence": {
+      "isOnDuty": false,
+      "days": []
+    },
+    "status": "open",
+    "owner": null,
+    "createdAt": "2025-05-31T12:50:00.000Z"
+  },
+  {
+    "location": {
+      "type": "Point",
+      "coordinates": [-5.8100135, 35.7538677]
+    },
+    "name": "Grande Pharmacie Rif",
+    "name_ar": "صيدلية الريف الكبرى",
+    "city": "Tanger",
+    "region": "Tanger, Tanger-Tetouan-Al Hoceima",
+    "region_ar": "طنجة, طنجة-تطوان-الحسيمة",
+    "phone": "",
+    "hours": {
+      "Monday": { "open": "08:00", "close": "20:00" },
+      "Tuesday": { "open": "08:00", "close": "20:00" },
+      "Wednesday": { "open": "08:00", "close": "20:00" },
+      "Thursday": { "open": "08:00", "close": "20:00" },
+      "Friday": { "open": "08:00", "close": "20:00" },
+      "Saturday": { "open": "08:00", "close": "20:00" },
+      "Sunday": { "open": "08:00", "close": "20:00" }
+    },
+    "permanence": {
+      "isOnDuty": false,
+      " publishingdays": []
+    },
+    "status": "open",
+    "owner": null,
+    "createdAt": "2025-05-31T12:50:00.000Z"
+  },
+  {
+    "location": {
+      "type": "Point",
+      "coordinates": [-5.8140894, 35.7760853]
+    },
+    "name": "Grande Pharmacie Zeroual",
+    "name_ar": "صيدلية زروال الكبرى",
+    "city": "Tanger",
+    "region": "Tanger, Tanger-Tetouan-Al Hoceima",
+    "region_ar": "طنجة, طنجة-تطوان-الحسيمة",
+    "phone": "",
+    "hours": {
+      "Monday": { "open": "08:00", "close": "20:00" },
+      "Tuesday": { "open": "08:00", "close": "20:00" },
+      "Wednesday": { "open": "08:00", "close": "20:00" },
+      "Thursday": { "open": "08:00", "close": "20:00" },
+      "Friday": { "open": "08:00", "close": "20:00" },
+      "Saturday": { "open": "08:00", "close": "20:00" },
+      "Sunday": { "open": "08:00", "close": "20:00" }
+    },
+    "permanence": {
+      "isOnDuty": false,
+      "days": []
+    },
+    "status": "open",
+    "owner": null,
+    "createdAt": "2025-05-31T12:50:00.000Z"
+  },
+  {
+    "location": {
+      "type": "Point",
+      "coordinates": [-7.6078576, 33.5288003]
+    },
+    "name": "Hassania Pharmacy",
+    "name_ar": "صيدلية الحسنية",
+    "city": "Casablanca",
+    "region": "Casablanca, Casablanca-Settat",
+    "region_ar": "الدار البيضاء, الدار البيضاء-سطات",
+    "phone": "",
+    "hours": {
+      "Monday": { "open": "08:00", "close": "20:00" },
+      "Tuesday": { "open": "08:00", "close": "20:00" },
+      "Wednesday": { "open": "08:00", "close": "20:00" },
+      "Thursday": { "open": "08:00", "close": "20:00" },
+      "Friday": { "open": "08:00", "close": "20:00" },
+      "Saturday": { "open": "08:00", "close": "20:00" },
+      "Sunday": { "open": "08:00", "close": "20:00" }
+    },
+    "permanence": {
+      "isOnDuty": false,
+      "days": []
+    },
+    "status": "open",
+    "owner": null,
+    "createdAt": "2025-05-31T12:50:00.000Z"
+  },
+  {
+    "location": {
+      "type": "Point",
+      "coordinates": [-6.8496875, 34.0220692]
+    },
+    "name": "Hospital Pharmacy",
+    "name_ar": "صيدلية المستشفى",
+    "city": "Rabat",
+    "region": "Rabat, Rabat-Salé-Kénitra",
+    "region_ar": "الرباط, الرباط-سلا-القنيطرة",
+    "phone": "",
+    "hours": {
+      "Monday": { "open": "08:00", "close": "20:00" },
+      "Tuesday": { "open": "08:00", "close": "20:00" },
+      "Wednesday": { "open": "08:00", "close": "20:00" },
+      "Thursday": { "open": "08:00", "close": "20:00" },
+      "Friday": { "open": "08:00", "close": "20:00" },
+      "Saturday": { "open": "08:00", "close": "20:00" },
+      "Sunday": { "open": "08:00", "close": "20:00" }
+    },
+    "permanence": {
+      "isOnDuty": false,
+      "days": []
+    },
+    "status": "open",
+    "owner": null,
+    "createdAt": "2025-05-31T12:50:00.000Z"
+  },
+  {
+    "location": {
+      "type": "Point",
+      "coordinates": [-7.6462314, 33.5974424]
+    },
+    "name": "Ismailia Pharmacy (Pharmacie Ismailia)",
+    "name_ar": "صيدلية إسماعيلية",
+    "city": "Casablanca",
+    "region": "Casablanca, Casablanca-Settat",
+    "region_ar": "الدار البيضاء, الدار البيضاء-سطات",
+    "phone": "",
+    "hours": {
+      "Monday": { "open": "08:00", "close": "20:00" },
+      "Tuesday": { "open": "08:00", "close": "20:00" },
+      "Wednesday": { "open": "08:00", "close": "20:00" },
+      "Thursday": { "open": "08:00", "close": "20:00" },
+      "Friday": { "open": "08:00", "close": "20:00" },
+      "Saturday": { "open": "08:00", "close": "20:00" },
+      "Sunday": { "open": "08:00", "close": "20:00" }
+    },
+    "permanence": {
+      "isOnDuty": false,
+      "days": []
+    },
+    "status": "open",
+    "owner": null,
+    "createdAt": "2025-05-31T12:50:00.000Z"
+  },
+  {
+    "location": {
+      "type": "Point",
+      "coordinates": [-8.003332, 31.6580769]
+    },
+    "name": "Manis Pharmacy (Pharmacie Maniss)",
+    "name_ar": "صيدلية منيس",
+    "city": "Marrakesh",
+    "region": "Marrakesh, Marrakesh-Safi",
+    "region_ar": "مراكش, مراكش-آسفي",
+    "phone": "",
+    "hours": {
+      "Monday": { "open": "08:00", "close": "20:00" },
+      "Tuesday": { "open": "08:00", "close": "20:00" },
+      "Wednesday": { "open": "08:00", "close": "20:00" },
+      "Thursday": { "open": "08:00", "close": "20:00" },
+      "Friday": { "open": "08:00", "close": "20:00" },
+      "Saturday": { "open": "08:00", "close": "20:00" },
+      "Sunday": { "open": "08:00", "close": "20:00" }
+    },
+    "permanence": {
+      "isOnDuty": false,
+      "days": []
+    },
+    "status": "open",
+    "owner": null,
+    "createdAt": "2025-05-31T12:50:00.000Z"
+  },
+  {
+    "location": {
+      "type": "Point",
+      "coordinates": [-9.5889326, 30.4271491]
+    },
+    "name": "Moulay Youssef Pharmacy",
+    "name_ar": "صيدلية مولاي يوسف",
+    "city": "Agadir",
+    "region": "Agadir, Souss-Massa",
+    "region_ar": "أكادير, سوس-ماسة",
+    "phone": "",
+    "hours": {
+      "Monday": { "open": "08:00", "close": "20:00" },
+      "Tuesday": { "open": "08:00", "close": "20:00" },
+      "Wednesday": { "open": "08:00", "close": "20:00" },
+      "Thursday": { "open": "08:00", "close": "20:00" },
+      "Friday": { "open": "08:00", "close": "20:00" },
+      "Saturday": { "open": "08:00", "close": "20:00" },
+      "Sunday": { "open": "08:00", "close": "20:00" }
+    },
+    "permanence": {
+      "isOnDuty": false,
+      "days": []
+    },
+    "status": "open",
+    "owner": null,
+    "createdAt": "2025-05-31T12:50:00.000Z"
+  },
+  {
+    "location": {
+      "type": "Point",
+      "coordinates": [-9.7599944, 31.5112657]
+    },
+    "name": "Najib Pharmacy",
+    "name_ar": "صيدلية نجيب",
+    "city": "Essaouira",
+    "region": "Essaouira, Marrakesh-Safi",
+    "region_ar": "الصويرة, مراكش-آسفي",
+    "phone": "",
+    "hours": {
+      "Monday": { "open": "08:00", "close": "20:00" },
+      "Tuesday": { "open": "08:00", "close": "20:00" },
+      "Wednesday": { "open": "08:00", "close": "20:00" },
+      "Thursday": { "open": "08:00", "close": "20:00" },
+      "Friday": { "open": "08:00", "close": "20:00" },
+      "Saturday": { "open": "08:00", "close": "20:00" },
+      "Sunday": { "open": "08:00", "close": "20:00" }
+    },
+    "permanence": {
+      "isOnDuty": false,
+      "days": []
+    },
+    "status": "open",
+    "owner": null,
+    "createdAt": "2025-05-31T12:50:00.000Z"
+  },
+  {
+    "location": {
+      "type": "Point",
+      "coordinates": [-6.5297848, 32.450313]
+    },
+    "name": "Pharmacie 2000 - Had Bradia",
+    "name_ar": "صيدلية 2000 - حد برادية",
+    "city": "Fquih Ben Salah",
+    "region": "Fquih Ben Salah, Béni Mellal-Khénifra",
+    "region_ar": "الفقه بن صالح, بني ملال-خنيفرة",
+    "phone": "",
+    "hours": {
+      "Monday": { "open": "08:00", "close": "20:00" },
+      "Tuesday": { "open": "08:00", "close": "20:00" },
+      "Wednesday": { "open": "08:00", "close": "20:00" },
+      "Thursday": { "open": "08:00", "close": "20:00" },
+      "Friday": { "open": "08:00", "close": "20:00" },
+      "Saturday": { "open": "08:00", "close": "20:00" },
+      "Sunday": { "open": "08:00", "close": "20:00" }
+    },
+    "permanence": {
+      "isOnDuty": false,
+      "days": []
+    },
+    "status": "open",
+    "owner": null,
+    "createdAt": "2025-05-31T12:50:00.000Z"
+  },
+  {
+    "location": {
+      "type": "Point",
+      "coordinates": [-6.9002131, 33.9287844]
+    },
+    "name": "Pharmacie 2000 - Temara",
+    "name_ar": "صيدلية 2000 - تمارة",
+    "city": "Temara",
+    "region": "Temara, Rabat-Salé-Kénitra",
+    "region_ar": "تمارة, الرباط-سلا-القنيطرة",
+    "phone": "",
+    "hours": {
+      "Monday": { "open": "08:00", "close": "20:00" },
+      "Tuesday": { "open": "08:00", "close": "20:00" },
+      "Wednesday": { "open": "08:00", "close": "20:00" },
+      "Thursday": { "open": "08:00", "close": "20:00" },
+      "Friday": { "open": "08:00", "close": "20:00" },
+      "Saturday": { "open": "08:00", "close": "20:00" },
+      "Sunday": { "open": "08:00", "close": "20:00" }
+    },
+    "permanence": {
+      "isOnDuty": false,
+      "days": []
+    },
+    "status": "open",
+    "owner": null,
+    "createdAt": "2025-05-31T12:50:00.000Z"
+  },
+  {
+    "location": {
+      "type": "Point",
+      "coordinates": [-8.4203944, 32.6456144]
+    },
+    "name": "Pharmacie 20 Aout",
+    "name_ar": "صيدلية 20 أغسطس",
+    "city": "Sidi Bennour",
+    "region": "Sidi Bennour, Casablanca-Settat",
+    "region_ar": "سيدي بنور, الدار البيضاء-سطات",
+    "phone": "",
+    "hours": {
+      "Monday": { "open": "08:00", "close": "20:00" },
+      "Tuesday": { "open": "08:00", "close": "20:00" },
+      "Wednesday": { "open": "08:00", "close": "20:00" },
+      "Thursday": { "open": "08:00", "close": "20:00" },
+      "Friday": { "open": "08:00", "close": "20:00" },
+      "Saturday": { "open": "08:00", "close": "20:00" },
+      "Sunday": { "open": "08:00", "close": "20:00" }
+    },
+    "permanence": {
+      "isOnDuty": false,
+      "days": []
+    },
+    "status": "open",
+    "owner": null,
+    "createdAt": "2025-05-31T12:50:00.000Z"
+  },
+  {
+    "location": {
+      "type": "Point",
+      "coordinates": [-6.8030894, 34.0499244]
+    },
+    "name": "Pharmacie 20 Août",
+    "name_ar": "صيدلية 20 أغسطس",
+    "city": "Salé",
+    "region": "Salé, Rabat-Salé-Kénitra",
+    "region_ar": "سلا, الرباط-سلا-القنيطرة",
+    "phone": "",
+    "hours": {
+      "Monday": { "open": "08:00", "close": "20:00" },
+      "Tuesday": { "open": "08:00", "close": "20:00" },
+      "Wednesday": { "open": "08:00", "close": "20:00" },
+      "Thursday": { "open": "08:00", "close": "20:00" },
+      "Friday": { "open": "08:00", "close": "20:00" },
+      "Saturday": { "open": "08:00", "close": "20:00" },
+      "Sunday": { "open": "08:00", "close": "20:00" }
+    },
+    "permanence": {
+      "isOnDuty": false,
+      "days": []
+    },
+    "status": "open",
+    "owner": null,
+    "createdAt": "2025-05-31T12:50:00.000Z"
+  },
+  {
+    "location": {
+      "type": "Point",
+      "coordinates": [-9.5675575, 30.4259939]
+    },
+    "name": "Pharmacie 20 Aout - Agadir",
+    "name_ar": "صيدلية 20 أغسطس - أكادير",
+    "city": "Agadir",
+    "region": "Agadir, Souss-Massa",
+    "region_ar": "أكادير, سوس-ماسة",
+    "phone": "",
+    "hours": {
+      "Monday": { "open": "08:00", "close": "20:00" },
+      "Tuesday": { "open": "08:00", "close": "20:00" },
+      "Wednesday": { "open": "08:00", "close": "20:00" },
+      "Thursday": { "open": "08:00", "close": "20:00" },
+      "Friday": { "open": "08:00", "close": "20:00" },
+      "Saturday": { "open": "08:00", "close": "20:00" },
+      "Sunday": { "open": "08:00", "close": "20:00" }
+    },
+    "permanence": {
+      "isOnDuty": false,
+      "days": []
+    },
+    "status": "open",
+    "owner": null,
+    "createdAt": "2025-05-31T12:50:00.000Z"
+  },
+  {
+    "location": {
+      "type": "Point",
+      "coordinates": [-6.3537436, 32.3449435]
+    },
+    "name": "Pharmacie 20 Aout - Beni Mellal",
+    "name_ar": "صيدلية 20 أغسطس - بني ملال",
+    "city": "Beni Mellal",
+    "region": "Beni Mellal, Béni Mellal-Khénifra",
+    "region_ar": "بني ملال, بني ملال-خنيفرة",
+    "phone": "",
+    "hours": {
+      "Monday": { "open": "08:00", "close": "20:00" },
+      "Tuesday": { "open": "08:00", "close": "20:00" },
+      "Wednesday": { "open": "08:00", "close": "20:00" },
+      "Thursday": { "open": "08:00", "close": "20:00" },
+      "Friday": { "open": "08:00", "close": "20:00" },
+      "Saturday": { "open": "08:00", "close": "20:00" },
+      "Sunday": { "open": "08:00", "close": "20:00" }
+    },
+    "permanence": {
+      "isOnDuty": false,
+      "days": []
+    },
+    "status": "open",
+    "owner": null,
+    "createdAt": "2025-05-31T12:50:00.000Z"
+  },
+  {
+    "location": {
+      "type": "Point",
+      "coordinates": [-2.9030286, 34.3996055]
+    },
+    "name": "Pharmacie 20 Aout - Taourirt",
+    "name_ar": "صيدلية 20 أغسطس - تاوريرت",
+    "city": "Taourirt",
+    "region": "Taourirt, Oriental",
+    "region_ar": "تاوريرت, الشرق",
+    "phone": "",
+    "hours": {
+      "Monday": { "open": "08:00", "close": "20:00" },
+      "Tuesday": { "open": "08:00", "close": "20:00" },
+      "Wednesday": { "open": "08:00", "close": "20:00" },
+      "Thursday": { "open": "08:00", "close": "20:00" },
+      "Friday": { "open": "08:00", "close": "20:00" },
+      "Saturday": { "open": "08:00", "close": "20:00" },
+      "Sunday": { "open": "08:00", "close": "20:00" }
+    },
+    "permanence": {
+      "isOnDuty": false,
+      "days": []
+    },
+    "status": "open",
+    "owner": null,
+    "createdAt": "2025-05-31T12:50:00.000Z"
+  },
+  {
+    "location": {
+      "type": "Point",
+      "coordinates": [-5.9239749, 34.2622961]
+    },
+    "name": "Pharmacie 2 Mars",
+    "name_ar": "صيدلية 2 مارس",
+    "city": "Sidi Slimane",
+    "region": "Sidi Slimane, Rabat-Salé-Kénitra",
+    "region_ar": "سيدي سليمان, الرباط-سلا-القنيطرة",
+    "phone": "",
+    "hours": {
+      "Monday": { "open": "08:00", "close": "20:00" },
+      "Tuesday": { "open": "08:00", "close": "20:00" },
+      "Wednesday": { "open": "08:00", "close": "20:00" },
+      "Thursday": { "open": "08:00", "close": "20:00" },
+      "Friday": { "open": "08:00", "close": "20:00" },
+      "Saturday": { "open": "08:00", "close": "20:00" },
+      "Sunday": { "open": "08:00", "close": "20:00" }
+    },
+    "permanence": {
+      "isOnDuty": false,
+      "days": []
+    },
+    "status": "open",
+    "owner": null,
+    "createdAt": "2025-05-31T12:50:00.000Z"
+  },
+  {
+    "location": {
+      "type": "Point",
+      "coordinates": [-7.6254527, 33.5755362]
+    },
+    "name": "Pharmacie Abdelmoumen",
+    "name_ar": "صيدلية عبد المؤمن",
+    "city": "Casablanca",
+    "region": "Casablanca, Casablanca-Settat",
+    "region_ar": "الدار البيضاء, الدار البيضاء-سطات",
+    "phone": "",
+    "hours": {
+      "Monday": { "open": "08:00", "close": "20:00" },
+      "Tuesday": { "open": "08:00", "close": "20:00" },
+      "Wednesday": { "open": "08:00", "close": "20:00" },
+      "Thursday": { "open": "08:00", "close": "20:00" },
+      "Friday": { "open": "08:00", "close": "20:00" },
+      "Saturday": { "open": "08:00", "close": "20:00" },
+      "Sunday": { "open": "08:00", "close": "20:00" }
+    },
+    "permanence": {
+      "isOnDuty": false,
+      "days": []
+    },
+    "status": "open",
+    "owner": null,
+    "createdAt": "2025-05-31T12:50:00.000Z"
+  },
+  {
+    "location": {
+      "type": "Point",
+      "coordinates": [-5.9094852, 35.0178334]
+    },
+    "name": "Pharmacie Achifaa",
+    "name_ar": "صيدلية الشفاء",
+    "city": "Ksar el-Kebir",
+    "region": "Ksar el-Kebir, Tanger-Tetouan-Al Hoceima",
+    "region_ar": "القصر الكبير, طنجة-تطوان-الحسيمة",
+    "phone": "",
+    "hours": {
+      "Monday": { "open": "08:00", "close": "20:00" },
+      "Tuesday": { "open": "08:00", "close": "20:00" },
+      "Wednesday": { "open": "08:00", "close": "20:00" },
+      "Thursday": { "open": "08:00", "close": "20:00" },
+      "Friday": { "open": "08:00", "close": "20:00" },
+      "Saturday": { "open": "08:00", "close": "20:00" },
+      "Sunday": { "open": "08:00", "close": "20:00" }
+    },
+    "permanence": {
+      "isOnDuty": false,
+      "days": []
+    },
+    "status": "open",
+    "owner": null,
+    "createdAt": "2025-05-31T12:50:00.000Z"
+  },
+  {
+    "location": {
+      "type": "Point",
+      "coordinates": [-5.540972, 33.8728659]
+    },
+    "name": "Pharmacie Achifae",
+    "name_ar": "صيدلية الشفاء",
+    "city": "MEKNES",
+    "region": "Meknès, Fès-Meknès",
+    "region_ar": "مكناس, فاس-مكناس",
+    "phone": "",
+    "hours": {
+      "Monday": { "open": "08:00", "close": "20:00" },
+      "Tuesday": { "open": "08:00", "close": "20:00" },
+      "Wednesday": { "open": "08:00", "close": "20:00" },
+      "Thursday": { "open": "08:00", "close": "20:00" },
+      "Friday": { "open": "08:00", "close": "20:00" },
+      "Saturday": { "open": "08:00", "close": "20:00" },
+      "Sunday": { "open": "08:00", "close": "20:00" }
+    },
+    "permanence": {
+      "isOnDuty": false,
+      "days": []
+    },
+    "status": "open",
+    "owner": null,
+    "createdAt": "2025-05-31T12:50:00.000Z"
+  },
+  {
+    "location": {
+      "type": "Point",
+      "coordinates": [-1.9935308, 34.859111]
+    },
+    "name": "Pharmacie Achifae - Bni Drar",
+    "name_ar": "صيدلية الشفاء - بني درار",
+    "city": "Bni Drar",
+    "region": "Bni Drar, Oriental",
+    "region_ar": "بني درار, الشرق",
+    "phone": "",
+    "hours": {
+      "Monday": { "open": "08:00", "close": "20:00" },
+      "Tuesday": { "open": "08:00", "close": "20:00" },
+      "Wednesday": { "open": "08:00", "close": "20:00" },
+      "Thursday": { "open": "08:00", "close": "20:00" },
+      "Friday": { "open": "08:00", "close": "20:00" },
+      "Saturday": { "open": "08:00", "close": "20:00" },
+      "Sunday": { "open": "08:00", "close": "20:00" }
+    },
+    "permanence": {
+      "isOnDuty": false,
+      "days": []
+    },
+    "status": "open",
+    "owner": null,
+    "createdAt": "2025-05-31T12:50:00.000Z"
+  },
+  {
+    "location": {
+      "type": "Point",
+      "coordinates": [-4.9975384, 34.0348817]
+    },
+    "name": "Pharmacie Achifae - Taounate",
+    "name_ar": "صيدلية الشفاء - تاونات",
+    "city": "Taounate",
+    "region": "Taounate, Fès-Meknès",
+    "region_ar": "تاونات, فاس-مكناس",
+    "phone": "",
+    "hours": {
+      "Monday": { "open": "08:00", "close": "20:00" },
+      "Tuesday": { "open": "08:00", "close": "20:00" },
+      "Wednesday": { "open": "08:00", "close": "20:00" },
+      "Thursday": { "open": "08:00", "close": "20:00" },
+      "Friday": { "open": "08:00", "close": "20:00" },
+      "Saturday": { "open": "08:00", "close": "20:00" },
+      "Sunday": { "open": "08:00", "close": "20:00" }
+    },
+    "permanence": {
+      "isOnDuty": false,
+      "days": []
+    },
+    "status": "open",
+    "owner": null,
+    "createdAt": "2025-05-31T12:50:00.000Z"
+  },
+  {
+    "location": {
+      "type": "Point",
+      "coordinates": [-6.8230414, 34.0405118]
+    },
+    "name": "Pharmacie Adil",
+    "name_ar": "صيدلية عادل",
+    "city": "Sale Medina",
+    "region": "Salé, Rabat-Salé-Kénitra",
+    "region_ar": "سلا, الرباط-سلا-القنيطرة",
+    "phone": "",
+    "hours": {
+      "Monday": { "open": "08:00", "close": "20:00" },
+      "Tuesday": { "open": "08:00", "close": "20:00" },
+      "Wednesday": { "open": "08:00", "close": "20:00" },
+      "Thursday": { "open": "08:00", "close": "20:00" },
+      "Friday": { "open": "08:00", "close": "20:00" },
+      "Saturday": { "open": "08:00", "close": "20:00" },
+      "Sunday": { "open": "08:00", "close": "20:00" }
+    },
+    "permanence": {
+      "isOnDuty": false,
+      "days": []
+    },
+    "status": "open",
+    "owner": null,
+    "createdAt": "2025-05-31T12:50:00.000Z"
+  },
+  {
+    "location": {
+      "type": "Point",
+      "coordinates": [-9.1547717, 30.0713297]
+    },
+    "name": "Pharmacie Adrar",
+    "name_ar": "صيدلية أدرار",
+    "city": "AIT BAHA",
+    "region": "AIT BAHA, Souss-Massa",
+    "region_ar": "أيت بها, سوس-ماسة",
+    "phone": "",
+    "hours": {
+      "Monday": { "open": "08:00", "close": "20:00" },
+      "Tuesday": { "open": "08:00", "close": "20:00" },
+      "Wednesday": { "open": "08:00", "close": "20:00" },
+      "Thursday": { "open": "08:00", "close": "20:00" },
+      "Friday": { "open": "08:00", "close": "20:00" },
+      "Saturday": { "open": "08:00", "close": "20:00" },
+      "Sunday": { "open": "08:00", "close": "20:00" }
+    },
+    "permanence": {
+      "isOnDuty": false,
+      "days": []
+    },
+    "status": "open",
+    "owner": null,
+    "createdAt": "2025-05-31T12:50:00.000Z"
+  },
+  {
+    "location": {
+      "type": "Point",
+      "coordinates": [-6.8480571, 33.9886477]
+    },
+    "name": "Pharmacie Agdal",
+    "name_ar": "صيدلية أكدال",
+    "city": "Rabat",
+    "region": "Rabat, Rabat-Salé-Kénitra",
+    "region_ar": "الرباط, الرباط-سلا-القنيطرة",
+    "phone": "",
+    "hours": {
+      "Monday": { "open": "08:00", "close": "20:00" },
+      "Tuesday": { "open": "08:00", "close": "20:00" },
+      "Wednesday": { "open": "08:00", "close": "20:00" },
+      "Thursday": { "open": "08:00", "close": "20:00" },
+      "Friday": { "open": "08:00", "close": "20:00" },
+      "Saturday": { "open": "08:00", "close": "20:00" },
+      "Sunday": { "open": "08:00", "close": "20:00" }
+    },
+    "permanence": {
+      "isOnDuty": false,
+      "days": []
+    },
+    "status": "open",
+    "owner": null,
+    "createdAt": "2025-05-31T12:50:00.000Z"
+  },
+  {
+    "location": {
+      "type": "Point",
+      "coordinates": [-7.9718946, 31.6203411]
+    },
+    "name": "Pharmacie Agdal - Marrakech",
+    "name_ar": "صيدلية أكدال - مراكش",
+    "city": "Marrakesh",
+    "region": "Marrakesh, Marrakesh-Safi",
+    "region_ar": "مراكش, مراكش-آسفي",
+    "phone": "",
+    "hours": {
+      "Monday": { "open": "08:00", "close": "20:00" },
+      "Tuesday": { "open": "08:00", "close": "20:00" },
+      "Wednesday": { "open": "08:00", "close": "20:00" },
+      "Thursday": { "open": "08:00", "close": "20:00" },
+      "Friday": { "open": "08:00", "close": "20:00" },
+      "Saturday": { "open": "08:00", "close": "20:00" },
+      "Sunday": { "open": "08:00", "close": "20:00" }
+    },
+    "permanence": {
+      "isOnDuty": false,
+      "days": []
+    },
+    "status": "open",
+    "owner": null,
+    "createdAt": "2025-05-31T12:50:00.000Z"
+  },
+  {
+    "location": {
+      "type": "Point",
+      "coordinates": [-5.5446208, 33.8807024]
+    },
+    "name": "Pharmacie Agdal - Meknès",
+    "name_ar": "صيدلية أكدال - مكناس",
+    "city": "Meknès",
+    "region": "Meknès, Fès-Meknès",
+    "region_ar": "مكناس, فاس-مكناس",
+    "phone": "",
+    "hours": {
+      "Monday": { "open": "08:00", "close": "20:00" },
+      "Tuesday": { "open": "08:00", "close": "20:00" },
+      "Wednesday": { "open": "08:00", "close": "20:00" },
+      "Thursday": { "open": "08:00", "close": "20:00" },
+      "Friday": { "open": "08:00", "close": "20:00" },
+      "Saturday": { "open": "08:00", "close": "20:00" },
+      "Sunday": { "open": "08:00", "close": "20:00" }
+    },
+    "permanence": {
+      "isOnDuty": false,
+      "days": []
+    },
+    "status": "open",
+    "owner": null,
+    "createdAt": "2025-05-31T12:50:00.000Z"
+  },
+  {
+    "location": {
+      "type": "Point",
+      "coordinates": [-9.5381453, 31.5775726]
+    },
+    "name": "Pharmacie Aicha - Essaouira",
+    "name_ar": "صيدلية عائشة - الصويرة",
+    "city": "Essaouira",
+    "region": "Essaouira, Marrakesh-Safi",
+    "region_ar": "الصويرة, مراكش-آسفي",
+    "phone": "",
+    "hours": {
+      "Monday": { "open": "08:00", "close": "20:00" },
+      "Tuesday": { "open": "08:00", "close": "20:00" },
+      "Wednesday": { "open": "08:00", "close": "20:00" },
+      "Thursday": { "open": "08:00", "close": "20:00" },
+      "Friday": { "open": "08:00", "close": "20:00" },
+      "Saturday": { "open": "08:00", "close": "20:00" },
+      "Sunday": { "open": "08:00", "close": "20:00" }
+    },
+    "permanence": {
+      "isOnDuty": false,
+      "days": []
+    },
+    "status": "open",
+    "owner": null,
+    "createdAt": "2025-05-31T12:50:00.000Z"
+  },
+  {
+    "location": {
+      "type": "Point",
+      "coordinates": [-7.5331931, 33.6103119]
+    },
+    "name": "Pharmacie Ain Sebaa",
+    "name_ar": "صيدلية عين السبع",
+    "city": "Casablanca",
+    "region": "Casablanca, Casablanca-Settat",
+    "region_ar": "الدار البيضاء, الدار البيضاء-سطات",
+    "phone": "",
+    "hours": {
+      "Monday": { "open": "08:00", "close": "20:00" },
+      "Tuesday": { "open": "08:00", "close": "20:00" },
+      "Wednesday": { "open": "08:00", "close": "20:00" },
+      "Thursday": { "open": "08:00", "close": "20:00" },
+      "Friday": { "open": "08:00", "close": "20:00" },
+      "Saturday": { "open": "08:00", "close": "20:00" },
+      "Sunday": { "open": "08:00", "close": "20:00" }
+    },
+    "permanence": {
+      "isOnDuty": false,
+      "days": []
+    },
+    "status": "open",
+    "owner": null,
+    "createdAt": "2025-05-31T12:50:00.000Z"
+  },
+  {
+    "location": {
+      "type": "Point",
+      "coordinates": [-8.5007116, 33.2316326]
+    },
+    "name": "Pharmacie Al Adarissa - El Jadida",
+    "name_ar": "صيدلية العدارسة - الجديدة",
+    "city": "El Jadida",
+    "region": "El Jadida, Casablanca-Settat",
+    "region_ar": "الجديدة, الدار البيضاء-سطات",
+    "phone": "",
+    "hours": {
+      "Monday": { "open": "08:00", "close": "20:00" },
+      "Tuesday": { "open": "08:00", "close": "20:00" },
+      "Wednesday": { "open": "08:00", "close": "20:00" },
+      "Thursday": { "open": "08:00", "close": "20:00" },
+      "Friday": { "open": "08:00", "close": "20:00" },
+      "Saturday": { "open": "08:00", "close": "20:00" },
+      "Sunday": { "open": "08:00", "close": "20:00" }
+    },
+    "permanence": {
+      "isOnDuty": false,
+      "days": []
+    },
+    "status": "open",
+    "owner": null,
+    "createdAt": "2025-05-31T12:50:00.000Z"
+  },
+  {
+    "location": {
+      "type": "Point",
+      "coordinates": [-6.7814241, 34.066676]
+    },
+    "name": "Pharmacie Al Adarissa - Salé",
+    "name_ar": "صيدلية العدارسة - سلا",
+    "city": "Salé",
+    "region": "Salé, Rabat-Salé-Kénitra",
+    "region_ar": "سلا, الرباط-سلا-القنيطرة",
+    "phone": "",
+    "hours": {
+      "Monday": { "open": "08:00", "close": "20:00" },
+      "Tuesday": { "open": "08:00", "close": "20:00" },
+      "Wednesday": { "open": "08:00", "close": "20:00" },
+      "Thursday": { "open": "08:00", "close": "20:00" },
+      "Friday": { "open": "08:00", "close": "20:00" },
+      "Saturday": { "open": "08:00", "close": "20:00" },
+      "Sunday": { "open": "08:00", "close": "20:00" }
+    },
+    "permanence": {
+      "isOnDuty": false,
+      "days": []
+    },
+    "status": "open",
+    "owner": null,
+    "createdAt": "2025-05-31T12:50:00.000Z"
+  },
+  {
+    "location": {
+      "type": "Point",
+      "coordinates": [-4.980546, 34.0074035]
+    },
+    "name": "Pharmacie Al Akhawayn - Fes",
+    "name_ar": "صيدلية الأخوين - فاس",
+    "city": "Fes",
+    "region": "Fès, Fès-Meknès",
+    "region_ar": "فاس, فاس-مكناس",
+    "phone": "",
+    "hours": {
+      "Monday": { "open": "08:00", "close": "20:00" },
+      "Tuesday": { "open": "08:00", "close": "20:00" },
+      "Wednesday": { "open": "08:00", "close": "20:00" },
+      "Thursday": { "open": "08:00", "close": "20:00" },
+      "Friday": { "open": "08:00", "close": "20:00" },
+      "Saturday": { "open": "08:00", "close": "20:00" },
+      "Sunday": { "open": "08:00", "close": "20:00" }
+    },
+    "permanence": {
+      "isOnDuty": false,
+      "days": []
+    },
+    "status": "open",
+    "owner": null,
+    "createdAt": "2025-05-31T12:50:00.000Z"
+  },
+  {
+    "location": {
+      "type": "Point",
+      "coordinates": [-7.5624574, 33.5844973]
+    },
+    "name": "Pharmacie Al Amal",
+    "name_ar": "صيدلية الأمل",
+    "city": "Casablanca",
+    "region": "Casablanca, Casablanca-Settat",
+    "region_ar": "الدار البيضاء, الدار البيضاء-سطات",
+    "phone": "",
+    "hours": {
+      "Monday": { "open": "08:00", "close": "20:00" },
+      "Tuesday": { "open": "08:00", "close": "20:00" },
+      "Wednesday": { "open": "08:00", "close": "20:00" },
+      "Thursday": { "open": "08:00", "close": "20:00" },
+      "Friday": { "open": "08:00", "close": "20:00" },
+      "Saturday": { "open": "08:00", "close": "20:00" },
+      "Sunday": { "open": "08:00", "close": "20:00" }
+    },
+    "permanence": {
+      "isOnDuty": false,
+      "days": []
+    },
+    "status": "open",
+    "owner": null,
+    "createdAt": "2025-05-31T12:50:00.000Z"
+  },
+  {
+    "location": {
+      "type": "Point",
+      "coordinates": [-4.0032837, 34.2215814]
+    },
+    "name": "Pharmacie Al Amal",
+    "name_ar": "صيدلية الأمل",
+    "city": "Fes",
+    "region": "Fès, Fès-Meknès",
+    "region_ar": "فاس, فاس-مكناس",
+    "phone": "",
+    "hours": {
+      "Monday": { "open": "08:00", "close": "20:00" },
+      "Tuesday": { "open": "08:00", "close": "20:00" },
+      "Wednesday": { "open": "08:00", "close": "20:00" },
+      "Thursday": { "open": "08:00", "close": "20:00" },
+      "Friday": { "open": "08:00", "close": "20:00" },
+      "Saturday": { "open": "08:00", "close": "20:00" },
+      "Sunday": { "open": "08:00", "close": "20:00" }
+    },
+    "permanence": {
+      "isOnDuty": false,
+      "days": []
+    },
+    "status": "open",
+    "owner": null,
+    "createdAt": "2025-05-31T12:50:00.000Z"
+  },
+  {
+    "location": {
+      "type": "Point",
+      "coordinates": [-8.3504522, 33.2844523]
+    },
+    "name": "Pharmacie Al Amal",
+    "name_ar": "صيدلية الأمل",
+    "city": "Azemmour",
+    "region": "Azemmour, Casablanca-Settat",
+    "region_ar": "أزمور, الدار البيضاء-سطات",
+    "phone": "",
+    "hours": {
+      "Monday": { "open": "08:00", "close": "20:00" },
+      "Tuesday": { "open": "08:00", "close": "20:00" },
+      "Wednesday": { "open": "08:00", "close": "20:00" },
+      "Thursday": { "open": "08:00", "close": "20:00" },
+      "Friday": { "open": "08:00", "close": "20:00" },
+      "Saturday": { "open": "08:00", "close": "20:00" },
+      "Sunday": { "open": "08:00", "close": "20:00" }
+    },
+    "permanence": {
+      "isOnDuty": false,
+      "days": []
+    },
+    "status": "open",
+    "owner": null,
+    "createdAt": "2025-05-31T12:50:00.000Z"
+  },
+  {
+    "location": {
+      "type": "Point",
+      "coordinates": [-6.6932459, 32.500001]
+    },
+    "name": "Pharmacie Al Amal - Fquih Ben Salah",
+    "name_ar": "صيدلية الأمل - الفقه بن صالح",
+    "city": "Fquih Ben Salah",
+    "region": "Fquih Ben Salah, Béni Mellal-Khénifra",
+    "region_ar": "الفقه بن صالح, بني ملال-خنيفرة",
+    "phone": "",
+    "hours": {
+      "Monday": { "open": "08:00", "close": "20:00" },
+      "Tuesday": { "open": "08:00", "close": "20:00" },
+      "Wednesday": { "open": "08:00", "close": "20:00" },
+      "Thursday": { "open": "08:00", "close": "20:00" },
+      "Friday": { "open": "08:00", "close": "20:00" },
+      "Saturday": { "open": "08:00", "close": "20:00" },
+      "Sunday": { "open": "08:00", "close": "20:00" }
+    },
+    "permanence": {
+      "isOnDuty": false,
+      "days": []
+    },
+    "status": "open",
+    "owner": null,
+    "createdAt": "2025-05-31T12:50:00.000Z"
+  },
+  {
+    "location": {
+      "type": "Point",
+      "coordinates": [-6.1281677, 31.2412021]
+    },
+    "name": "Pharmacie Al Amal - Kalaat M'Gouna",
+    "name_ar": "صيدلية الأمل - قلعة مكونة",
+    "city": "Kalaat M'Gouna",
+    "region": "Kalaat M'Gouna, Drâa-Tafilalet",
+    "region_ar": "قلعة مكونة, درعة-تافيلالت",
+    "phone": "",
+    "hours": {
+      "Monday": { "open": "08:00", "close": "20:00" },
+      "Tuesday": { "open": "08:00", "close": "20:00" },
+      "Wednesday": { "open": "08:00", "close": "20:00" },
+      "Thursday": { "open": "08:00", "close": "20:00" },
+      "Friday": { "open": "08:00", "close": "20:00" },
+      "Saturday": { "open": "08:00", "close": "20:00" },
+      "Sunday": { "open": "08:00", "close": "20:00" }
+    },
+    "permanence": {
+      "isOnDuty": false,
+      "days": []
+    },
+    "status": "open",
+    "owner": null,
+    "createdAt": "2025-05-31T12:50:00.000Z"
+  },
+  {
+    "location": {
+      "type": "Point",
+      "coordinates": [-5.3762032, 35.5682748]
+    },
+    "name": "Pharmacie Nakhil",
+    "name_ar": "صيدلية النخيل",
+    "city": "Tetouan",
+    "region": "Tetouan, Tanger-Tétouan-Al Hoceïma",
+    "region_ar": "تطوان, طنجة-تطوان-الحسيمة",
+    "phone": "",
+    "hours": {
+      "Monday": { "open": "08:00", "close": "20:00" },
+      "Tuesday": { "open": "08:00", "close": "20:00" },
+      "Wednesday": { "open": "08:00", "close": "20:00" },
+      "Thursday": { "open": "08:00", "close": "20:00" },
+      "Friday": { "open": "08:00", "close": "20:00" },
+      "Saturday": { "open": "08:00", "close": "20:00" },
+      "Sunday": { "open": "08:00", "close": "20:00" }
+    },
+    "permanence": {
+      "isOnDuty": false,
+      "days": []
+    },
+    "status": "open",
+    "owner": null,
+    "createdAt": "2025-05-31T12:50:00.000Z"
+  },
+  {
+    "location": {
+      "type": "Point",
+      "coordinates": [-5.3775785, 35.5783218]
+    },
+    "name": "Pharmacie Dersa principale",
+    "name_ar": "صيدلية دراسة الرئيسية",
+    "city": "Tetouan",
+    "region": "Tetouan, Tanger-Tétouan-Al Hoceïma",
+    "region_ar": "تطوان, طنجة-تطوان-الحسيمة",
+    "phone": "",
+    "hours": {
+      "Monday": { "open": "08:00", "close": "20:00" },
+      "Tuesday": { "open": "08:00", "close": "20:00" },
+      "Wednesday": { "open": "08:00", "close": "20:00" },
+      "Thursday": { "open": "08:00", "close": "20:00" },
+      "Friday": { "open": "08:00", "close": "20:00" },
+      "Saturday": { "open": "08:00", "close": "20:00" },
+      "Sunday": { "open": "08:00", "close": "20:00" }
+    },
+    "permanence": {
+      "isOnDuty": false,
+      "days": []
+    },
+    "status": "open",
+    "owner": null,
+    "createdAt": "2025-05-31T12:50:00.000Z"
+  },
+  {
+    "location": {
+      "type": "Point",
+      "coordinates": [-5.3678, 35.5783]
+    },
+    "name": "Pharmacie Jamaâ Mezouak",
+    "name_ar": "صيدلية جامع مزواق",
+    "city": "Tetouan",
+    "region": "Tetouan, Tanger-Tétouan-Al Hoceïma",
+    "region_ar": "تطوان, طنجة-تطوان-الحسيمة",
+    "phone": "",
+    "hours": {
+      "Monday": { "open": "08:00", "close": "20:00" },
+      "Tuesday": { "open": "08:00", "close": "20:00" },
+      "Wednesday": { "open": "08:00", "close": "20:00" },
+      "Thursday": { "open": "08:00", "close": "20:00" },
+      "Friday": { "open": "08:00", "close": "20:00" },
+      "Saturday": { "open": "08:00", "close": "20:00" },
+      "Sunday": { "open": "08:00", "close": "20:00" }
+    },
+    "permanence": {
+      "isOnDuty": false,
+      "days": []
+    },
+    "status": "open",
+    "owner": null,
+    "createdAt": "2025-05-31T12:50:00.000Z"
+  },
+  {
+    "location": {
+      "type": "Point",
+      "coordinates": [-5.355833, 35.568056]
+    },
+    "name": "Pharmacie TOUTA",
+    "name_ar": "صيدلية توتا",
+    "city": "Tetouan",
+    "region": "Tetouan, Tanger-Tétouan-Al Hoceïma",
+    "region_ar": "تطوان, طنجة-تطوان-الحسيمة",
+    "phone": "",
+    "hours": {
+      "Monday": { "open": "08:00", "close": "20:00" },
+      "Tuesday": { "open": "08:00", "close": "20:00" },
+      "Wednesday": { "open": "08:00", "close": "20:00" },
+      "Thursday": { "open": "08:00", "close": "20:00" },
+      "Friday": { "open": "08:00", "close": "20:00" },
+      "Saturday": { "open": "08:00", "close": "20:00" },
+      "Sunday": { "open": "08:00", "close": "20:00" }
+    },
+    "permanence": {
+      "isOnDuty": false,
+      "days": []
+    },
+    "status": "open",
+    "owner": null,
+    "createdAt": "2025-05-31T12:50:00.000Z"
+  }
+]

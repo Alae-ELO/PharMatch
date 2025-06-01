@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Heart, Mail, Phone, MapPin, Pill } from 'lucide-react';
+import { Heart, Mail, Phone, MapPin} from 'lucide-react';
 
 const Footer: React.FC = () => {
   const { t } = useTranslation();
@@ -14,8 +14,7 @@ const Footer: React.FC = () => {
           {/* Logo + Description */}
           <div>
             <Link to="/" className="flex items-center space-x-2 focus:outline-none focus:ring-2 focus:ring-cyan-500 rounded">
-              <Pill className="h-7 w-7 text-cyan-600" />
-              <span className="text-xl font-extrabold text-gray-900">PharMatch</span>
+               <img src="/Logo.png" alt="PharMatch Logo" className="h-24 w-24" />
             </Link>
             <p className="mt-3 text-xs text-gray-600">
               {t('footer.about_description')}
