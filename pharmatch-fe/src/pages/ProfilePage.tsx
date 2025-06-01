@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { User, Mail, Phone, MapPin, Building2, Heart } from 'lucide-react';
+import { User, Mail, Heart } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '../components/ui/Card';
 import Button from '../components/ui/Button';
 import Input from '../components/ui/Input';
@@ -9,23 +9,68 @@ import useStore from '../store';
 
 const ProfilePage: React.FC = () => {
   const { t } = useTranslation();
-  const { currentUser } = useStore();
+  const { currentUser, checkAuth } = useStore();
   const [isEditing, setIsEditing] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
   const [formData, setFormData] = useState({
     name: currentUser?.name || '',
     email: currentUser?.email || '',
-    phone: '',
-    address: '',
+    bloodType: currentUser?.bloodDonor?.bloodType || ''
   });
+
+  // Clear success message after 3 seconds
+  useEffect(() => {
+    if (success) {
+      const timer = setTimeout(() => {
+        setSuccess('');
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [success]);
 
   if (!currentUser) {
     return null;
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert(t('actions.save') + "\n" + JSON.stringify(formData, null, 2));
-    setIsEditing(false);
+    setError('');
+    setSuccess('');
+    setIsLoading(true);
+
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/auth/updatedetails`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          bloodDonor: {
+            bloodType: formData.bloodType
+          }
+        })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Failed to update profile');
+      }
+
+      // Update the store with the new user data
+      await checkAuth();
+      
+      setSuccess(t('profile.updateSuccess'));
+      setIsEditing(false);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to update profile');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -40,6 +85,16 @@ const ProfilePage: React.FC = () => {
               <CardTitle>{t('profile.personalTitle')}</CardTitle>
             </CardHeader>
             <CardContent>
+              {error && (
+                <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+                  {error}
+                </div>
+              )}
+              {success && (
+                <div className="mb-4 p-3 bg-green-100 border border-green-400 text-green-700 rounded">
+                  {success}
+                </div>
+              )}
               {isEditing ? (
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <Input
@@ -52,21 +107,30 @@ const ProfilePage: React.FC = () => {
                     label={t('profile.email')}
                     type="email"
                     value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    disabled={true}
                     icon={<Mail className="h-5 w-5" />}
                   />
-                  <Input
-                    label={t('profile.phone')}
-                    value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    icon={<Phone className="h-5 w-5" />}
-                  />
-                  <Input
-                    label={t('profile.address')}
-                    value={formData.address}
-                    onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                    icon={<MapPin className="h-5 w-5" />}
-                  />
+                  <div className="space-y-2">
+                    <label className="block text-sm font-medium text-gray-700">
+                      {t('profile.bloodType')}
+                    </label>
+                    <div className="flex items-center space-x-2">
+                      <Heart className="h-5 w-5 text-red-500" />
+                      <select
+                        name="bloodType"
+                        value={formData.bloodType}
+                        onChange={(e) => setFormData({ ...formData, bloodType: e.target.value })}
+                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                      >
+                        <option value="">{t('bloodDonation.selectBloodType')}</option>
+                        {['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'].map((type) => (
+                          <option key={type} value={type}>
+                            {type}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
                 </form>
               ) : (
                 <div className="space-y-4">
@@ -89,13 +153,22 @@ const ProfilePage: React.FC = () => {
                     <Mail className="h-5 w-5 text-gray-400" />
                     <span>{currentUser.email}</span>
                   </div>
+                  {currentUser.bloodDonor?.bloodType && (
+                    <div className="flex items-center space-x-2">
+                      <Heart className="h-5 w-5 text-red-500" />
+                      <span className="text-gray-600">{t('profile.bloodType')}:</span>
+                      <span>{currentUser.bloodDonor.bloodType}</span>
+                    </div>
+                  )}
                 </div>
               )}
             </CardContent>
             <CardFooter>
               {isEditing ? (
                 <div className="flex space-x-4">
-                  <Button onClick={handleSubmit}>{t('actions.save')}</Button>
+                  <Button onClick={handleSubmit} disabled={isLoading}>
+                    {isLoading ? t('common.loading') : t('actions.save')}
+                  </Button>
                   <Button variant="outline" onClick={() => setIsEditing(false)}>
                     {t('actions.cancel')}
                   </Button>
@@ -107,56 +180,6 @@ const ProfilePage: React.FC = () => {
               )}
             </CardFooter>
           </Card>
-
-          {/* Pharmacy Information */}
-          {currentUser.role === 'pharmacy' && (
-            <Card>
-              <CardHeader>
-                <CardTitle>{t('profile.pharmacyTitle')}</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex items-center space-x-2">
-                  <Building2 className="h-5 w-5 text-gray-400" />
-                  <span>{t('profile.pharmacyLicense')}</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <MapPin className="h-5 w-5 text-gray-400" />
-                  <span>{t('profile.pharmacyAddress')}</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Phone className="h-5 w-5 text-gray-400" />
-                  <span>{t('profile.pharmacyPhone')}</span>
-                </div>
-              </CardContent>
-            </Card>
-          )}
-
-          {/* Blood Donor Information */}
-          {currentUser.bloodDonor && (
-            <Card>
-              <CardHeader>
-                <CardTitle>{t('profile.bloodDonorTitle')}</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex items-center space-x-2">
-                  <Heart className="h-5 w-5 text-red-500" />
-                  <span>{t('profile.bloodType', { bloodType: currentUser.bloodDonor.bloodType })}</span>
-                </div>
-                {currentUser.bloodDonor.lastDonation && (
-                  <div>
-                    <p className="text-sm text-gray-500">{t('profile.lastDonation')}</p>
-                    <p>{new Date(currentUser.bloodDonor.lastDonation).toLocaleDateString()}</p>
-                  </div>
-                )}
-                {currentUser.bloodDonor.eligibleToDonateSince && (
-                  <div>
-                    <p className="text-sm text-gray-500">{t('profile.eligibleSince')}</p>
-                    <p>{new Date(currentUser.bloodDonor.eligibleToDonateSince).toLocaleDateString()}</p>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
-          )}
 
           {/* Account Settings */}
           <Card>

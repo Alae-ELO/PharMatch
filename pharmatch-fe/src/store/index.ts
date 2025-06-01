@@ -170,8 +170,8 @@ const useStore = create<PharMatchState>((set, get) => ({
       const response = await fetch(
         `${API_URL}/pharmacies/location?latitude=${latitude}&longitude=${longitude}`,
         {
-          headers: {
-            'Authorization': `Bearer ${get().token}`
+        headers: {
+          'Authorization': `Bearer ${get().token}`
           }
         }
       );
@@ -210,7 +210,7 @@ const useStore = create<PharMatchState>((set, get) => ({
       throw error;
     }
   },
-
+  
   fetchPharmacyById: async (id: string) => {
     try {
       console.log('Fetching pharmacy with ID:', id);
@@ -259,7 +259,7 @@ const useStore = create<PharMatchState>((set, get) => ({
       throw error;
     }
   },
-
+  
   fetchPharmaciesByCity: async (city: string) => {
     try {
       const response = await fetch(`${API_URL}/pharmacies/search?city=${encodeURIComponent(city)}`, {
@@ -296,6 +296,7 @@ const useStore = create<PharMatchState>((set, get) => ({
     }
   },
   
+
   fetchMedications: async (queryParams?: string) => {
     try {
       const response = await fetch(`${API_URL}/medications${queryParams ? `?${queryParams}` : ''}`);
