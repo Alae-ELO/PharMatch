@@ -8,6 +8,7 @@ exports.getMedications = async (req, res, next) => {
   try {
     const page = parseInt(req.query.page, 10) || 1;
     const limit = parseInt(req.query.limit, 10) || 10;
+    const startIndex = (page - 1) * limit;
 
     // Build query
     let query = {};
@@ -23,7 +24,7 @@ exports.getMedications = async (req, res, next) => {
         { 'description.fr': { $regex: req.query.search, $options: 'i' } },
         { 'category.en': { $regex: req.query.search, $options: 'i' } },
         { 'category.ar': { $regex: req.query.search, $options: 'i' } },
-        { 'category.fr': { $regex: req.query.search, $options: 'i' } }
+        { 'category.fr': { $regex: req.query.search, $options: 'i' } },
       ];
     }
 
