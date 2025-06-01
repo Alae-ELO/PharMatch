@@ -12,6 +12,9 @@ const SettingsPage: React.FC = () => {
   const { currentUser } = useStore();
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   
   const [passwordForm, setPasswordForm] = useState({
     currentPassword: '',
@@ -23,10 +26,56 @@ const SettingsPage: React.FC = () => {
     return null;
   }
 
-  const handlePasswordChange = (e: React.FormEvent) => {
+  const handlePasswordChange = async (e: React.FormEvent) => {
     e.preventDefault();
-    // This would update the password in a real app
-    alert(t('settings.security.changePasswordSuccess'));
+    setError('');
+    setSuccess('');
+    setIsLoading(true);
+
+    // Validate passwords
+    if (passwordForm.newPassword !== passwordForm.confirmPassword) {
+      setError(t('register.step1.errors.passwordsMismatch'));
+      setIsLoading(false);
+      return;
+    }
+
+    if (passwordForm.newPassword.length < 6) {
+      setError(t('register.step1.errors.passwordLength'));
+      setIsLoading(false);
+      return;
+    }
+
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/auth/updatepassword`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({
+          currentPassword: passwordForm.currentPassword,
+          newPassword: passwordForm.newPassword
+        })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Failed to update password');
+      }
+
+      // Clear form and show success message
+      setPasswordForm({
+        currentPassword: '',
+        newPassword: '',
+        confirmPassword: ''
+      });
+      setSuccess(t('settings.security.changePasswordSuccess'));
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to update password');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -109,6 +158,16 @@ const SettingsPage: React.FC = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
+              {error && (
+                <div className="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded">
+                  {error}
+                </div>
+              )}
+              {success && (
+                <div className="mb-4 p-3 bg-green-100 border border-green-400 text-green-700 rounded">
+                  {success}
+                </div>
+              )}
               <form onSubmit={handlePasswordChange} className="space-y-4">
                 <Input
                   label={t('settings.security.currentPassword')}
@@ -157,8 +216,8 @@ const SettingsPage: React.FC = () => {
                   onChange={(e) => setPasswordForm({ ...passwordForm, confirmPassword: e.target.value })}
                 />
                 
-                <Button type="submit">
-                 {t('settings.security.changePassword')}
+                <Button type="submit" disabled={isLoading}>
+                  {isLoading ? t('common.loading') : t('settings.security.changePassword')}
                 </Button>
               </form>
             </CardContent>
