@@ -1,48 +1,46 @@
 export interface Pharmacy {
-  _id: string;
-  location: {
-    type: string;
-    coordinates: [number, number]; // [longitude, latitude]
-  };
+  id: string;
   name: string;
   name_ar: string;
+  address: string;
   city: string;
   region: string;
   region_ar: string;
   phone: string;
-  hours: {
-    [key: string]: {
-      open: string;
-      close: string;
-    };
-  };
-  permanence: {
-    isOnDuty: boolean;
-    days: string[];
-  };
-  status: 'open' | 'closed';
-  owner: string | null;
-  createdAt: string;
-  coordinates?: {
+  hours: string;
+  coordinates: {
     lat: number;
     lng: number;
   };
-}
-
-export interface Medication {
-  id?: string;
-  _id?: string;
-  name: string;
-  description: string;
-  category: string;
-  prescription: boolean;
-  image_url?: string;
-  pharmacies?: Array<{
+  medications: Array<{
     id: string;
     name: string;
+    prescription: boolean;
     inStock: boolean;
     price?: number;
   }>;
+}
+
+export interface Medication {
+  id: string;
+  name: {
+    en: string;
+    ar: string;
+    fr: string;
+  };
+  description: {
+    en: string;
+    ar: string;
+    fr: string;
+  };
+  category: {
+    en: string;
+    ar: string;
+    fr: string;
+  };
+  prescription: boolean;
+  image_url?: string;
+  pharmacies: Pharmacy[];
 }
 
 export interface User {
@@ -61,14 +59,8 @@ export interface BloodDonationRequest {
   id: string;
   bloodType: string;
   hospital: string;
-  urgency: 'high' | 'medium' | 'low';
-  status: 'active' | 'fulfilled' | 'expired';
+  urgency: 'low' | 'medium' | 'high';
   contactInfo: string;
-  donors?: Array<{
-    id: string;
-    name: string;
-    bloodType: string;
-  }>;
   createdAt: string;
   expiresAt: string;
 }
@@ -78,15 +70,13 @@ export interface Message {
   sender: 'user' | 'ai';
   content: string;
   timestamp: string;
-  isTyping?: boolean;
 }
 
 export interface Notification {
   id: string;
-  type: string;
+  type: 'blood' | 'medication' | 'system';
   title: string;
   message: string;
   read: boolean;
   createdAt: string;
-  relatedItem?: any;
 }
