@@ -32,7 +32,7 @@ exports.generateResponse = async (req, res, next) => {
       {
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY || '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'}`,
+          'Authorization': `Bearer ${process.env.OPENROUTER_API_KEY || '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'}`,
          'HTTP-Referer': 'https://pharmatch.com',
           'X-Title': 'PharMatch Health Assistant'
         }

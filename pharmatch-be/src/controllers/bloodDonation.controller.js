@@ -28,12 +28,12 @@ exports.getBloodDonationRequests = async (req, res, next) => {
       sort: { urgency: -1, createdAt: -1 } // Sort by urgency (high first) then by date
     };
 
-    const result = await BloodDonation.paginate(query, options);
+    const result = await BloodDonation.find(query).sort(options.sort);
 
     res.status(200).json({
       success: true,
-      count: result.totalDocs,
-      data: result.docs.map(request => ({
+      count: result.length,
+      data: result.map(request => ({
         id: request._id,
         bloodType: request.bloodType,
         hospital: request.hospital,
