@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { FaClock,FaEnvelope, FaCalendarAlt, FaStore, FaDoorOpen, FaDoorClosed, FaChevronDown, FaChevronUp, FaEdit, FaSave, FaTimes } from 'react-icons/fa';
+import { FaClock, FaMapMarkerAlt, FaPhone, FaEnvelope, FaCalendarAlt, FaStore, FaDoorOpen, FaDoorClosed, FaChevronDown, FaChevronUp, FaEdit, FaSave, FaTimes, FaPills, FaPrescriptionBottleAlt } from 'react-icons/fa';
 import useStore from '../store';
+import { Medication, Pharmacy } from '../types';
+import MedicationModal from './MedicationModal';
 
 interface PharmacyStats {
-  totalOrders: number;
-  pendingOrders: number;
-  completedOrders: number;
+  totalMedications: number;
+  prescriptionMedications: number;
+  nonPrescriptionMedications: number;
   totalRevenue: number;
   activePrescriptions: number;
   isOpen: boolean;
@@ -27,22 +29,13 @@ interface PharmacyProfile {
   licenseNumber: string;
   ownerName: string;
 }
-interface NewMedication {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  addedDate: string;
-  stock: number;
-  prescription: boolean;
-}
 
 const PharmacyDashboard: React.FC = () => {
-  const { token } = useStore();
+  const { token, medications, fetchMedications, currentUser } = useStore();
   const [stats, setStats] = useState<PharmacyStats>({
-    totalOrders: 0,
-    pendingOrders: 0,
-    completedOrders: 0,
+    totalMedications: 0,
+    prescriptionMedications: 0,
+    nonPrescriptionMedications: 0,
     totalRevenue: 0,
     activePrescriptions: 0,
     isOpen: true,
@@ -57,21 +50,56 @@ const PharmacyDashboard: React.FC = () => {
     licenseNumber: '',
     ownerName: '',
   });
-  const [newMedications, setNewMedications] = useState<NewMedication[]>([]);
   const [loading, setLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [editMed, setEditMed] = useState<Medication | null>(null);
+  const [deleteId, setDeleteId] = useState<string | null>(null);
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [notif, setNotif] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
+
+  // Fetch des médicaments quand l'utilisateur change
+  useEffect(() => {
+    if (currentUser?.id) {
+      fetchMedications(`pharmacy=${currentUser.id}`);
+    }
+  }, [token, currentUser?.id, fetchMedications]);
+
+  // Calcul des stats à chaque changement de medications
+  useEffect(() => {
+    const prescriptionMeds = medications.filter(med => med.prescription);
+    const nonPrescriptionMeds = medications.filter(med => !med.prescription);
+    setStats(stats => ({
+      ...stats,
+      totalMedications: medications.length,
+      prescriptionMedications: prescriptionMeds.length,
+      nonPrescriptionMedications: nonPrescriptionMeds.length,
+      activePrescriptions: prescriptionMeds.length,
+    }));
+  }, [medications]);
 
   useEffect(() => {
     const fetchDashboardData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/pharmacy/dashboard', {
+        // Fetch pharmacy profile
+        const response = await axios.get(`http://localhost:5000/api/pharmacies/${currentUser?.id}`, {
           headers: {
             Authorization: `Bearer ${token}`
           }
         });
-        setStats(response.data.stats);
-        setPharmacyProfile(response.data.pharmacyProfile);
-        setNewMedications(response.data.newMedications);
+
+        const pharmacyData = response.data.data;
+        setPharmacyProfile({
+          name: pharmacyData.name,
+          address: pharmacyData.address,
+          phone: pharmacyData.phone,
+          email: pharmacyData.email,
+          openingHours: pharmacyData.hours || {},
+          description: pharmacyData.description || '',
+          licenseNumber: pharmacyData.licenseNumber || '',
+          ownerName: pharmacyData.ownerName || '',
+        });
+
         setLoading(false);
       } catch (error) {
         console.error('Error fetching dashboard data:', error);
@@ -79,8 +107,10 @@ const PharmacyDashboard: React.FC = () => {
       }
     };
 
-    fetchDashboardData();
-  }, [token]);
+    if (currentUser?.id) {
+      fetchDashboardData();
+    }
+  }, [token, currentUser?.id, fetchMedications, medications]);
 
   const togglePharmacyStatus = async () => {
     try {
@@ -109,6 +139,51 @@ const PharmacyDashboard: React.FC = () => {
     }
   };
 
+  // Ajout ou modification d'un médicament
+  const handleSaveMedication = async (med: Partial<Medication>) => {
+    try {
+      if (editMed) {
+        // Modification
+        const res = await axios.put(`http://localhost:5000/api/medications/${editMed.id}`, med, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        console.log('Modification médicament:', res.data);
+        setNotif({ type: 'success', message: 'Médicament modifié avec succès.' });
+      } else {
+        // Ajout
+        const res = await axios.post(`http://localhost:5000/api/medications`, { ...med, pharmacy: currentUser?.id }, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        console.log('Ajout médicament:', res.data);
+        setNotif({ type: 'success', message: 'Médicament ajouté avec succès.' });
+      }
+      setModalOpen(false);
+      setEditMed(null);
+      await fetchMedications(`pharmacy=${currentUser?.id}`);
+    } catch (e: any) {
+      console.error('Erreur ajout/modification:', e?.response || e);
+      throw new Error(e?.response?.data?.message || 'Erreur lors de l\'enregistrement.');
+    }
+  };
+
+  // Suppression d'un médicament
+  const handleDeleteMedication = async () => {
+    if (!deleteId) return;
+    try {
+      const res = await axios.delete(`http://localhost:5000/api/medications/${deleteId}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      console.log('Suppression médicament:', res.data);
+      setNotif({ type: 'success', message: 'Médicament supprimé.' });
+      setDeleteId(null);
+      setConfirmDelete(false);
+      await fetchMedications(`pharmacy=${currentUser?.id}`);
+    } catch (e: any) {
+      console.error('Erreur suppression:', e?.response || e);
+      setNotif({ type: 'error', message: e?.response?.data?.message || 'Erreur lors de la suppression.' });
+    }
+  };
+
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -119,6 +194,10 @@ const PharmacyDashboard: React.FC = () => {
 
   return (
     <div className="p-6 bg-gray-50 min-h-screen">
+      {/* Notification */}
+      {notif && (
+        <div className={`mb-4 p-3 rounded ${notif.type === 'success' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>{notif.message}</div>
+      )}
       {/* Pharmacy Status Control Section */}
       <div className="bg-white rounded-lg shadow-md p-6 mb-8">
         <div className="flex items-center justify-between">
@@ -220,17 +299,17 @@ const PharmacyDashboard: React.FC = () => {
         <div className="bg-white rounded-lg shadow-md p-6 transform transition-all duration-300 hover:scale-105">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-500">Médicaments Disponibles</p>
-              <p className="text-2xl font-bold text-gray-800 mt-2">{newMedications.length}</p>
+              <p className="text-sm font-medium text-gray-500">Total Médicaments</p>
+              <p className="text-2xl font-bold text-gray-800 mt-2">{stats.totalMedications}</p>
             </div>
             <div className="p-3 bg-blue-100 rounded-full">
-              <FaStore className="w-6 h-6 text-blue-600" />
+              <FaPills className="w-6 h-6 text-blue-600" />
             </div>
           </div>
           <div className="mt-4">
             <div className="flex items-center text-sm">
-              <span className="text-green-500 font-medium">En stock</span>
-              <span className="text-gray-500 ml-2">dans la pharmacie</span>
+              <span className="text-blue-500 font-medium">Total</span>
+              <span className="text-gray-500 ml-2">des médicaments en stock</span>
             </div>
           </div>
         </div>
@@ -240,67 +319,114 @@ const PharmacyDashboard: React.FC = () => {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm font-medium text-gray-500">Médicaments sur Ordonnance</p>
-              <p className="text-2xl font-bold text-gray-800 mt-2">
-                {newMedications.filter(med => med.prescription).length}
-              </p>
+              <p className="text-2xl font-bold text-gray-800 mt-2">{stats.prescriptionMedications}</p>
             </div>
             <div className="p-3 bg-yellow-100 rounded-full">
-              <FaEnvelope className="w-6 h-6 text-yellow-600" />
+              <FaPrescriptionBottleAlt className="w-6 h-6 text-yellow-600" />
             </div>
           </div>
           <div className="mt-4">
             <div className="flex items-center text-sm">
-              <span className="text-yellow-500 font-medium">Nécessitent</span>
-              <span className="text-gray-500 ml-2">une ordonnance</span>
+              <span className="text-yellow-500 font-medium">Sur ordonnance</span>
+              <span className="text-gray-500 ml-2">nécessitant une prescription</span>
             </div>
           </div>
         </div>
 
-        {/* Average Price Card */}
+        {/* Non-Prescription Medications Card */}
         <div className="bg-white rounded-lg shadow-md p-6 transform transition-all duration-300 hover:scale-105">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-500">Prix Moyen</p>
-              <p className="text-2xl font-bold text-gray-800 mt-2">
-                {newMedications.length > 0 ? (newMedications.reduce((acc, med) => acc + med.price, 0) / newMedications.length).toFixed(2) : 'N/A'} €
-              </p>
+              <p className="text-sm font-medium text-gray-500">Médicaments sans Ordonnance</p>
+              <p className="text-2xl font-bold text-gray-800 mt-2">{stats.nonPrescriptionMedications}</p>
             </div>
             <div className="p-3 bg-green-100 rounded-full">
-              <FaCalendarAlt className="w-6 h-6 text-green-600" />
+              <FaStore className="w-6 h-6 text-green-600" />
             </div>
           </div>
           <div className="mt-4">
             <div className="flex items-center text-sm">
-              <span className="text-green-500 font-medium">Prix moyen</span>
-              <span className="text-gray-500 ml-2">des médicaments</span>
+              <span className="text-green-500 font-medium">Sans ordonnance</span>
+              <span className="text-gray-500 ml-2">disponibles en libre-service</span>
             </div>
           </div>
         </div>
       </div>
 
-      {/* New Medications Section */}
+      {/* Medications List Section */}
       <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <FaCalendarAlt className="text-gray-400 text-xl" />
-            <div>
-              <h3 className="text-sm font-medium text-gray-500">Nouveaux Médicaments</h3>
-            </div>
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-xl font-semibold text-gray-800">Liste des Médicaments</h2>
+          <div className="flex space-x-2">
+            <button className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors" onClick={() => { setEditMed(null); setModalOpen(true); }}>
+              Ajouter un médicament
+            </button>
           </div>
         </div>
         
-        <div className="mt-4">
-          {newMedications.map((medication) => (
-            <div key={medication.id} className="flex items-center justify-between py-2">
-              <div className="flex items-center space-x-3">
-                <span className="text-gray-800 font-medium">{medication.name}</span>
-                <span className="text-gray-500 text-sm">({medication.description})</span>
-              </div>
-              <div className="text-gray-500">{medication.addedDate}</div>
-            </div>
-          ))}
+        <div className="overflow-x-auto">
+          <table className="min-w-full divide-y divide-gray-200">
+            <thead className="bg-gray-50">
+              <tr>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nom</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Catégorie</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+              </tr>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200">
+              {medications.map((medication) => (
+                <tr key={medication.id}>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    {typeof medication.name === 'string' ? medication.name : medication.name?.fr}
+                  </td>
+                  <td className="px-6 py-4">
+                    <div className="text-sm text-gray-500">{typeof medication.description === 'string' ? medication.description : medication.description?.fr}</div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <div className="text-sm text-gray-500">{typeof medication.category === 'string' ? medication.category : medication.category?.fr}</div>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                      medication.prescription 
+                        ? 'bg-yellow-100 text-yellow-800' 
+                        : 'bg-green-100 text-green-800'
+                    }`}>
+                      {medication.prescription ? 'Sur ordonnance' : 'Sans ordonnance'}
+                    </span>
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <button className="text-blue-600 hover:text-blue-900 mr-3" onClick={() => { setEditMed(medication); setModalOpen(true); }}>Modifier</button>
+                    <button className="text-red-600 hover:text-red-900" onClick={() => { setDeleteId(medication.id); setConfirmDelete(true); }}>Supprimer</button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
+      {/* Modal pour ajout/modification */}
+      <MedicationModal
+        isOpen={modalOpen}
+        onClose={() => { setModalOpen(false); setEditMed(null); }}
+        onSave={handleSaveMedication}
+        initialData={editMed || undefined}
+        isEdit={!!editMed}
+      />
+      {/* Confirmation suppression */}
+      {confirmDelete && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
+          <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-sm">
+            <h3 className="text-lg font-semibold mb-4">Confirmer la suppression</h3>
+            <p className="mb-6">Voulez-vous vraiment supprimer ce médicament ?</p>
+            <div className="flex justify-end space-x-2">
+              <button onClick={() => { setConfirmDelete(false); setDeleteId(null); }} className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">Annuler</button>
+              <button onClick={handleDeleteMedication} className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">Supprimer</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
@@ -371,8 +497,8 @@ const OpeningHoursSection: React.FC<{
       ) : (
         <>
           <div className="space-y-3">
-            {entriesToShow.map((entry, index) => {
-              const [day, hours] = entry as [string, { open: string; close: string }];
+            {entriesToShow.map((entry: [string, { open: string; close: string; }], index: number) => {
+              const [day, hours] = entry;
               return (
                 <div key={index} className={`p-3 rounded-lg ${day === capitalizedCurrentDay ? 'bg-blue-50 border-l-4 border-blue-500' : ''}`}>
                   <div className="flex justify-between items-center">
