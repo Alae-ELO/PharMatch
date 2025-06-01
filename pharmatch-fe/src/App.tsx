@@ -43,10 +43,15 @@ const ProtectedRoute: React.FC<{
 
 function App() {
   const { i18n } = useTranslation();
+  const { checkAuth } = useStore();
 
   useEffect(() => {
     document.body.dir = i18n.language === 'ar' ? 'rtl' : 'ltr';
   }, [i18n.language]);
+
+  useEffect(() => {
+    checkAuth();
+  }, [checkAuth]);
 
   return (
     <Router>
