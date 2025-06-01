@@ -123,7 +123,7 @@ const PharmaciesPage: React.FC = () => {
     if (value.trim()) {
       setLoading(true);
       fetchPharmaciesByCity(value)
-        .catch(() => setError(t('pharmacies.searchError')))
+        .catch(()=> setError(t('pharmacies.searchError')))
         .finally(() => setLoading(false));
     } else if (userLocation) {
       // If search is cleared and we have user location, fetch nearby pharmacies
@@ -201,6 +201,10 @@ const PharmaciesPage: React.FC = () => {
                 <Button 
                   variant="ghost" 
                   className="text-primary hover:text-primary-dark hover:bg-primary/5 transition-colors"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    navigate(`/pharmacies/${pharmacy.id}`);
+                  }}
                 >
                   {t('pharmacies.viewDetails')}
                 </Button>
@@ -273,6 +277,10 @@ const PharmaciesPage: React.FC = () => {
               <Button 
                 variant="ghost" 
                 className="text-primary hover:text-primary-dark hover:bg-primary/5 transition-colors"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  navigate(`/pharmacies/${pharmacy.id}`);
+                }}
               >
                 {t('pharmacies.viewDetails')}
               </Button>

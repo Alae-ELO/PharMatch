@@ -102,16 +102,7 @@
   "category": "الفئة",
   "pharmacy_availability": "توفره في الصيدليات",
   "in_stock": "متوفر",
-  "out_of_stock": "غير متوفر",
-  "view_pharmacy": "عرض الصيدلية",
-  "important_info": "معلومات هامة",
-  "info_disclaimer": "المعلومات المقدمة هنا مرجعية فقط. استشر دائماً طبيباً أو صيدلياً من أجل:",
-  "dosage": "الجرعة وطريقة الاستعمال المناسبة",
-  "side_effects": "الآثار الجانبية المحتملة",
-  "interactions": "التفاعلات الدوائية",
-  "contraindications": "موانع الاستخدام",
-  "emergency": "إذا شعرت بأي أعراض خطيرة، اتصل بمقدم الرعاية الصحية فورًا أو اذهب إلى الطوارئ."
-
+  "out_of_stock": "غير متوفر"
 ,
 
   "health_assistant": "مساعد الصحة",
@@ -170,21 +161,33 @@
 
 
   "medications": {
-    "title": "البحث عن الأدوية",
-    "subtitle": "ابحث عن الأدوية وتحقق من الصيدليات التي تتوفر بها.",
-    "searchPlaceholder": "ابحث باسم الدواء...",
-    "searchButton": "بحث",
-    "clearFilters": "مسح الفلاتر",
-    "noResults": "لم يتم العثور على أدوية مطابقة لبحثك.",
-    "viewAll": "عرض جميع الأدوية",
-    "prescription": "بوصفة طبية",
+    "title": "الأدوية",
+    "description": "ابحث عن الأدوية  بين الصيدليات",
+    "searchPlaceholder": "البحث عن الأدوية...",
+    "allCategories": "جميع الفئات",
+    "prescription": "يتطلب وصفة طبية",
     "otc": "بدون وصفة طبية",
-    "availableAt": "متوفر في:",
-    "inStock": "متوفر",
-    "outOfStock": "غير متوفر",
-    "viewDetails": "عرض التفاصيل"
-  }
-,
+    "availablePharmacies": "الصيدليات المتوفرة",
+    "noResults": "لم يتم العثور على أدوية",
+    "notFound": "لم يتم العثور على الدواء",
+    "noPharmaciesAvailable": "لا توجد صيدليات لديها هذا الدواء في المخزون",
+    "price": "السعر",
+    "category": "الفئة",
+    "dosage": "الجرعة",
+    "description": "الوصف",
+    "mechanismOfAction": "آلية العمل",
+    "sideEffects": "الآثار الجانبية",
+    "contraindications": "موانع الاستخدام",
+    "interactions": "التفاعلات الدوائية",
+    "contactPharmacy": "اتصل بالصيدلية",
+    "backToMedications": "العودة إلى الأدوية",
+    "pharmaciesFound": "صيدلية متوفرة",
+    "clickToView": "انقر للعرض",
+    "error": {
+      "invalidId": "معرف الدواء غير صالح",
+      "loading": "حدث خطأ أثناء تحميل البيانات"
+    }
+  },
 
 
 

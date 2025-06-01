@@ -9,7 +9,6 @@ const {
   createPharmacy,
   updatePharmacy,
   deletePharmacy,
-  getPharmaciesByMedication,
   getPharmaciesByLocation,
   searchPharmacies
 } = require('../controllers/pharmacy.controller');
@@ -18,7 +17,6 @@ const {
 router.get('/', getPharmacies);
 router.get('/location', getPharmaciesByLocation);
 router.get('/search', searchPharmacies);
-router.get('/:id', getPharmacy);
 
 router.route('/:id')
   .get(getPharmacy)
@@ -26,7 +24,5 @@ router.route('/:id')
   .put(protect, authorize('pharmacy'), updatePharmacy)
   .delete(protect, authorize('pharmacy'), deletePharmacy);
 
-// Special routes
-router.get('/medication/:medicationId', getPharmaciesByMedication);
 
 module.exports = router;

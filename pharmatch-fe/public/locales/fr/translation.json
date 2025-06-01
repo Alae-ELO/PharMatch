@@ -92,10 +92,10 @@
   "view_pharmacy": "Voir la pharmacie",
   "important_info": "Informations importantes",
   "info_disclaimer": "Les informations fournies ici sont uniquement à titre de référence. Consultez toujours un médecin ou un pharmacien pour :",
-  "dosage": "La posologie et le mode d'utilisation appropriés",
-  "side_effects": "Les effets secondaires possibles",
-  "interactions": "Les interactions médicamenteuses",
-  "contraindications": "Les contre-indications",
+  "dosage": "Posologie",
+  "side_effects": "Effets secondaires",
+  "interactions": "Interactions médicamenteuses",
+  "contraindications": "Contre-indications",
   "emergency": "En cas de symptômes graves, contactez immédiatement un professionnel de santé ou rendez-vous aux urgences.",
   "health_assistant": "Assistant santé",
   "ask_health_questions": "Posez des questions liées à la santé et obtenez des informations fiables de notre assistant intelligent.",
@@ -143,19 +143,27 @@
   },
  
   "medications": {
-    "title": "Rechercher des médicaments",
-    "subtitle": "Recherchez des médicaments et vérifiez dans quelles pharmacies ils sont disponibles.",
-    "searchPlaceholder": "Recherchez par nom de médicament...",
-    "searchButton": "Rechercher",
-    "clearFilters": "Effacer les filtres",
-    "noResults": "Aucun médicament correspondant à votre recherche n'a été trouvé.",
-    "viewAll": "Voir tous les médicaments",
-    "prescription": "Sur ordonnance",
+    "title": "Médicaments",
+    "description": "Trouvez les médicaments entre les pharmacies",
+    "searchPlaceholder": "Rechercher des médicaments...",
+    "allCategories": "Toutes les catégories",
+    "prescription": "Ordonnance requise",
     "otc": "Sans ordonnance",
-    "availableAt": "Disponible à :",
-    "inStock": "En stock",
-    "outOfStock": "En rupture de stock",
-    "viewDetails": "Voir les détails"
+    "availablePharmacies": "Pharmacies disponibles",
+    "noResults": "Aucun médicament trouvé",
+    "notFound": "Médicament non trouvé",
+    "noPharmaciesAvailable": "Aucune pharmacie n'a ce médicament en stock",
+    "price": "Prix",
+    "mechanismOfAction": "Mécanisme d'action",
+    "sideEffects": "Effets secondaires",
+    "contactPharmacy": "Contacter la pharmacie",
+    "backToMedications": "Retour aux médicaments",
+    "pharmaciesFound": "pharmacies trouvées",
+    "clickToView": "Cliquez pour voir",
+    "error": {
+      "invalidId": "ID de médicament invalide",
+      "loading": "Erreur lors du chargement des données"
+    }
   },
   "pharmacies": {
     "title": "Pharmacies",
@@ -195,6 +203,7 @@
     },
     "medication": {
       "title": "Inventaire des médicaments",
+
       "add": "Ajouter un médicament",
       "name": "Nom",
       "category": "Catégorie",

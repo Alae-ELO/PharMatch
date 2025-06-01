@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams, Link } from 'react-router-dom';
-import {Phone, ArrowLeft, ExternalLink, Navigation } from 'lucide-react';
+import { Phone, ArrowLeft, ExternalLink, Navigation } from 'lucide-react';
 import Button from '../components/ui/Button';
 import { Card, CardHeader, CardTitle, CardContent } from '../components/ui/Card';
 import useStore from '../store';
@@ -20,17 +20,21 @@ const PharmacyDetailsPage: React.FC = () => {
 
   useEffect(() => {
     const loadPharmacy = async () => {
-      if (id) {
-        setLoading(true);
-        setError(null);
-        try {
-          await fetchPharmacyById(id);
-        } catch (err) {
-          console.error('Error loading pharmacy:', err);
-          setError(t('pharmacyDetails.error.loading'));
-        } finally {
-          setLoading(false);
-        }
+      if (!id) {
+        setError(t('pharmacyDetails.error.invalidId'));
+        setLoading(false);
+        return;
+      }
+
+      setLoading(true);
+      setError(null);
+      try {
+        await fetchPharmacyById(id);
+      } catch (err) {
+        console.error('Error loading pharmacy:', err);
+        setError(t('pharmacyDetails.error.loading'));
+      } finally {
+        setLoading(false);
       }
     };
 
