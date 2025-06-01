@@ -26,7 +26,4 @@ router.route('/:id')
   .put(protect, authorize('pharmacy'), updatePharmacy)
   .delete(protect, authorize('pharmacy'), deletePharmacy);
 
-// Special routes
-router.get('/medication/:medicationId', getPharmaciesByMedication);
-
 module.exports = router;

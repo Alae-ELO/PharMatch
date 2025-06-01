@@ -20,7 +20,7 @@ interface PharMatchState {
   // Authentication
   currentUser: User | null;
   token: string | null;
-  user: User | null; // Add this line to fix the error
+  user: User | null;
   login: (email: string, password: string) => Promise<boolean>;
   logout: () => void;
   
@@ -33,7 +33,9 @@ interface PharMatchState {
   fetchPharmaciesByLocation: (latitude: number, longitude: number) => Promise<void>;
   fetchPharmacyById: (id: string) => Promise<void>;
   fetchPharmaciesByCity: (city: string) => Promise<void>;
-  fetchPharmaciesByMedication: (medicationId: string) => Promise<void>;
+  fetchMedications: (queryParams?: string) => Promise<void>;
+  fetchMedicationById: (id: string) => Promise<Medication | null>;
+  fetchPharmaciesByMedication: (medicationId: string) => Promise<Pharmacy[]>;
 }
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
@@ -102,7 +104,23 @@ const useStore = create<PharMatchState>((set, get) => ({
       }
       
       const data = await response.json();
-      set({ pharmacies: data.data });
+      const transformedPharmacies = data.data.map((pharmacy: any) => ({
+        id: pharmacy._id || pharmacy.id,
+        name: pharmacy.name,
+        name_ar: pharmacy.name_ar,
+        address: pharmacy.address,
+        city: pharmacy.city,
+        region: pharmacy.region,
+        region_ar: pharmacy.region_ar,
+        phone: pharmacy.phone,
+        email: pharmacy.email,
+        hours: pharmacy.hours,
+        coordinates: pharmacy.coordinates || {
+          lat: pharmacy.location?.coordinates[1],
+          lng: pharmacy.location?.coordinates[0]
+        }
+      }));
+      set({ pharmacies: transformedPharmacies });
     } catch (error) {
       console.error('Error fetching pharmacies:', error);
       throw error;
@@ -125,7 +143,6 @@ const useStore = create<PharMatchState>((set, get) => ({
       }
       
       const data = await response.json();
-      console.log('API Response:', data); // Debug log
       
       if (data.success && Array.isArray(data.data)) {
         // Transform the data if needed
@@ -146,7 +163,6 @@ const useStore = create<PharMatchState>((set, get) => ({
           }
         }));
         
-        console.log('Transformed pharmacies:', transformedPharmacies); // Debug log
         set({ pharmacies: transformedPharmacies });
       } else {
         throw new Error('Invalid response format');
@@ -159,6 +175,7 @@ const useStore = create<PharMatchState>((set, get) => ({
 
   fetchPharmacyById: async (id: string) => {
     try {
+      console.log('Fetching pharmacy with ID:', id);
       const response = await fetch(`${API_URL}/pharmacies/${id}`, {
         headers: {
           'Authorization': `Bearer ${get().token}`
@@ -171,7 +188,7 @@ const useStore = create<PharMatchState>((set, get) => ({
       
       const data = await response.json();
       const transformedPharmacy = {
-        id: data.data.id,
+        id: data.data._id || data.data.id,
         name: data.data.name,
         name_ar: data.data.name_ar,
         address: data.data.address,
@@ -180,15 +197,25 @@ const useStore = create<PharMatchState>((set, get) => ({
         region_ar: data.data.region_ar,
         phone: data.data.phone,
         hours: data.data.hours,
-        coordinates: data.data.coordinates,
+        coordinates: data.data.coordinates || {
+          lat: data.data.location?.coordinates[1],
+          lng: data.data.location?.coordinates[0]
+        },
         medications: data.data.medications
       };
       
-      set(state => ({
-        pharmacies: state.pharmacies.map(p => 
-          p.id === id ? transformedPharmacy : p
-        )
-      }));
+      set(state => {
+        const existingPharmacyIndex = state.pharmacies.findIndex(p => p.id === id);
+        if (existingPharmacyIndex >= 0) {
+          // Update existing pharmacy
+          const updatedPharmacies = [...state.pharmacies];
+          updatedPharmacies[existingPharmacyIndex] = transformedPharmacy;
+          return { pharmacies: updatedPharmacies };
+        } else {
+          // Add new pharmacy to the array
+          return { pharmacies: [...state.pharmacies, transformedPharmacy] };
+        }
+      });
     } catch (error) {
       console.error('Error fetching pharmacy details:', error);
       throw error;
@@ -208,33 +235,139 @@ const useStore = create<PharMatchState>((set, get) => ({
       }
       
       const data = await response.json();
-      set({ pharmacies: data.data, cityFilter: city });
+      const transformedPharmacies = data.data.map((pharmacy: any) => ({
+        id: pharmacy._id || pharmacy.id,
+        name: pharmacy.name,
+        name_ar: pharmacy.name_ar,
+        address: pharmacy.address,
+        city: pharmacy.city,
+        region: pharmacy.region,
+        region_ar: pharmacy.region_ar,
+        phone: pharmacy.phone,
+        email: pharmacy.email,
+        hours: pharmacy.hours,
+        coordinates: pharmacy.coordinates || {
+          lat: pharmacy.location?.coordinates[1],
+          lng: pharmacy.location?.coordinates[0]
+        }
+      }));
+      set({ pharmacies: transformedPharmacies, cityFilter: city });
     } catch (error) {
       console.error('Error fetching pharmacies by city:', error);
+      throw error;
+    }
+  },
+  
+  fetchMedications: async (queryParams?: string) => {
+    try {
+      const response = await fetch(`${API_URL}/medications${queryParams ? `?${queryParams}` : ''}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch medications');
+      }
+      const data = await response.json();
+      set({ medications: data.data || [] });
+    } catch (error) {
+      console.error('Error fetching medications:', error);
+      set({ medications: [] });
       throw error;
     }
   },
 
   fetchPharmaciesByMedication: async (medicationId: string) => {
     try {
-      const response = await fetch(`${API_URL}/pharmacies/medication/${medicationId}`, {
+      const response = await fetch(`${API_URL}/medications/${medicationId}/pharmacies`, {
         headers: {
           'Authorization': `Bearer ${get().token}`
         }
       });
       
       if (!response.ok) {
-        throw new Error('Failed to fetch pharmacies by medication');
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to fetch pharmacies for medication');
       }
       
       const data = await response.json();
-      set({ pharmacies: data.data });
+      
+      if (!data.success || !Array.isArray(data.data)) {
+        throw new Error('Invalid response format from server');
+      }
+
+      const transformedPharmacies = data.data.map((pharmacy: any) => ({
+        id: pharmacy._id || pharmacy.id,
+        name: pharmacy.name,
+        name_ar: pharmacy.name_ar,
+        address: pharmacy.address,
+        city: pharmacy.city,
+        region: pharmacy.region,
+        region_ar: pharmacy.region_ar,
+        phone: pharmacy.phone,
+        hours: pharmacy.hours,
+        coordinates: pharmacy.coordinates || {
+          lat: pharmacy.location?.coordinates[1],
+          lng: pharmacy.location?.coordinates[0]
+        },
+        price: pharmacy.price || null,
+        inStock: pharmacy.inStock || false
+      }));
+
+      set({ pharmacies: transformedPharmacies });
+      return transformedPharmacies;
     } catch (error) {
-      console.error('Error fetching pharmacies by medication:', error);
+      console.error('Error fetching pharmacies for medication:', error);
       throw error;
     }
   },
-  
+
+  fetchMedicationById: async (id: string) => {
+    try {
+      const response = await fetch(`${API_URL}/medications/${id}`, {
+        headers: {
+          'Authorization': `Bearer ${get().token}`
+        }
+      });
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to fetch medication details');
+      }
+      
+      const data = await response.json();
+      
+      // Check if we have valid data
+      if (!data || !data.data) {
+        throw new Error('Invalid medication data received');
+      }
+
+      const medicationData = data.data;
+      
+      // Safely transform the medication data
+      const transformedMedication = {
+        id: medicationData._id || medicationData.id || id,
+        name: medicationData.name || { en: 'Unknown', ar: 'غير معروف' },
+        description: medicationData.description || { en: '', ar: '' },
+        category: medicationData.category || { en: 'Uncategorized', ar: 'غير مصنف' },
+        prescription: medicationData.prescription || false,
+        image_url: medicationData.image_url || null,
+        pharmacies: medicationData.pharmacies || []
+      };
+
+      set(state => {
+        const existingMedicationIndex = state.medications.findIndex(m => m.id === id);
+        if (existingMedicationIndex >= 0) {
+          const updatedMedications = [...state.medications];
+          updatedMedications[existingMedicationIndex] = transformedMedication;
+          return { medications: updatedMedications };
+        } else {
+          return { medications: [...state.medications, transformedMedication] };
+        }
+      });
+
+      return transformedMedication;
+    } catch (error) {
+      console.error('Error fetching medication details:', error);
+      throw error;
+    }
+  },
 }));
 
 export default useStore;
