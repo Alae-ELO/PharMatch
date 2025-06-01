@@ -239,13 +239,45 @@ exports.createPharmacy = async (req, res, next) => {
       });
     }
 
+    // Validate required fields
+    const requiredFields = ['name', 'city', 'region', 'phone'];
+    const missingFields = requiredFields.filter(field => !req.body[field]);
+    
+    if (missingFields.length > 0) {
+      return res.status(400).json({
+        success: false,
+        message: `Missing required fields: ${missingFields.join(', ')}`
+      });
+    }
+
+    // Create the pharmacy
     const pharmacy = await Pharmacy.create(req.body);
 
-    res.status(201).json({
+    // Return success response
+    return res.status(201).json({
       success: true,
+      message: 'Pharmacy created successfully',
       data: pharmacy
     });
   } catch (error) {
+    // Handle validation errors
+    if (error.name === 'ValidationError') {
+      return res.status(400).json({
+        success: false,
+        message: 'Validation Error',
+        errors: Object.values(error.errors).map(err => err.message)
+      });
+    }
+
+    // Handle duplicate key errors
+    if (error.code === 11000) {
+      return res.status(400).json({
+        success: false,
+        message: 'A pharmacy with this information already exists'
+      });
+    }
+
+    // Pass other errors to error handler
     next(error);
   }
 };
