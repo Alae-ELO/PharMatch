@@ -1,5 +1,5 @@
 import './i18n';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import useStore from './store';
 
@@ -28,7 +28,22 @@ const ProtectedRoute: React.FC<{
   children: React.ReactNode;
   role?: 'user' | 'pharmacy' | 'admin';
 }> = ({ children, role }) => {
-  const { currentUser } = useStore();
+  const { currentUser, checkAuth } = useStore();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const verifyAuth = async () => {
+      await checkAuth();
+      setIsLoading(false);
+    };
+    verifyAuth();
+  }, [checkAuth]);
+
+  if (isLoading) {
+    return <div className="flex items-center justify-center min-h-screen">
+      <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-cyan-600"></div>
+    </div>;
+  }
   
   if (!currentUser) {
     return <Navigate to="/login" />;

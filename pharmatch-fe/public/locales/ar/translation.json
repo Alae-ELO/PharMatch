@@ -322,7 +322,7 @@
     "pharmacyAddress": "عنوان الصيدلية",
     "pharmacyPhone": "هاتف الصيدلية",
     "bloodDonorTitle": "معلومات المتبرع بالدم",
-    "bloodType": "فصيلة الدم: {{bloodType}}",
+    "bloodType": "فصيلة الدم",
     "lastDonation": "آخر تبرع",
     "eligibleSince": "مؤهل للتبرع منذ",
     "accountTitle": "إعدادات الحساب",
@@ -330,7 +330,8 @@
     "bloodDonationRequests": "تلقي طلبات التبرع بالدم",
     "medicationUpdates": "تلقي تحديثات الأدوية",
     "privacySettings": "إعدادات الخصوصية",
-    "showBloodDonorStatus": "عرض حالة المتبرع بالدم"
+    "showBloodDonorStatus": "عرض حالة المتبرع بالدم",
+    "updateSuccess": "تم تحديث الملف الشخصي بنجاح"
   },
   "actions": {
     "edit": "تعديل",
