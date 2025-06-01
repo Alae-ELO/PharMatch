@@ -34,13 +34,14 @@ interface PharMatchState {
   fetchPharmaciesByLocation: (latitude: number, longitude: number) => Promise<void>;
   fetchPharmacyById: (id: string) => Promise<void>;
   fetchPharmaciesByCity: (city: string) => Promise<void>;
-  fetchPharmaciesByMedication: (medicationId: string) => Promise<Pharmacy[]>;
+  fetchPharmaciesByMedication: (medicationId: string) => Promise<void>;
   registerAsBloodDonor: (bloodType: string) => Promise<void>;
   createBloodDonationRequest: (request: any) => Promise<void>;
   fetchBloodDonationRequests: () => Promise<void>;
   fetchMedications: (queryParams?: string) => Promise<void>;
   fetchMedicationById: (id: string) => Promise<Medication | null>;
-  fetchUsers: () => Promise<void>;
+  fetchPharmaciesByMedication: (medicationId: string) => Promise<Pharmacy[]>;
+
 }
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
@@ -456,26 +457,6 @@ const useStore = create<PharMatchState>((set, get) => ({
       set({ bloodDonationRequests: data.data });
     } catch (error) {
       console.error('Error fetching blood donation requests:', error);
-    }
-  },
-
-  fetchUsers: async () => {
-    try {
-      const response = await fetch(`${API_URL}/users`, {
-        headers: {
-          'Authorization': `Bearer ${get().token}`
-        }
-      });
-      
-      if (!response.ok) {
-        throw new Error('Failed to fetch users');
-      }
-      
-      const data = await response.json();
-      set({ users: data.data });
-    } catch (error) {
-      console.error('Error fetching users:', error);
-      throw error;
     }
   },
 
