@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const mongoosePaginate = require('mongoose-paginate-v2');
 
 const notificationSchema = new mongoose.Schema({
   type: {
@@ -40,8 +39,6 @@ const notificationSchema = new mongoose.Schema({
   }
 });
 
-// Add pagination plugin
-notificationSchema.plugin(mongoosePaginate);
 
 // Add index for user to quickly find notifications for a specific user
 notificationSchema.index({ user: 1, read: 1 });

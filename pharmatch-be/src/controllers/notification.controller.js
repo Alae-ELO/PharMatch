@@ -5,14 +5,9 @@ const Notification = require('../models/notification.model');
 // @access  Private
 exports.getNotifications = async (req, res, next) => {
   try {
-    // Implement pagination
-    const page = parseInt(req.query.page, 10) || 1;
-    const limit = parseInt(req.query.limit, 10) || 10;
 
     // Get notifications for the logged in user
     const options = {
-      page,
-      limit,
       sort: { createdAt: -1 } // Sort by date (newest first)
     };
 
@@ -27,20 +22,11 @@ exports.getNotifications = async (req, res, next) => {
       query.type = req.query.type;
     }
 
-    const result = await Notification.paginate(query, options);
 
     res.status(200).json({
       success: true,
       count: result.totalDocs,
       unreadCount: await Notification.countDocuments({ user: req.user.id, read: false }),
-      pagination: {
-        total: result.totalDocs,
-        pages: result.totalPages,
-        page: result.page,
-        limit: result.limit,
-        hasNext: result.hasNextPage,
-        hasPrev: result.hasPrevPage
-      },
       data: result.docs.map(notification => ({
         id: notification._id,
         type: notification.type,

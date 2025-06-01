@@ -7,11 +7,6 @@ const Notification = require('../models/notification.model');
 // @access  Public
 exports.getBloodDonationRequests = async (req, res, next) => {
   try {
-    // Implement pagination
-    const page = parseInt(req.query.page, 10) || 1;
-    const limit = parseInt(req.query.limit, 10) || 10;
-
-    // Handle filters
     let query = { status: 'active' }; // Default to only active requests
 
     // Filter by blood type
@@ -30,8 +25,6 @@ exports.getBloodDonationRequests = async (req, res, next) => {
     }
 
     const options = {
-      page,
-      limit,
       sort: { urgency: -1, createdAt: -1 } // Sort by urgency (high first) then by date
     };
 
@@ -40,14 +33,6 @@ exports.getBloodDonationRequests = async (req, res, next) => {
     res.status(200).json({
       success: true,
       count: result.totalDocs,
-      pagination: {
-        total: result.totalDocs,
-        pages: result.totalPages,
-        page: result.page,
-        limit: result.limit,
-        hasNext: result.hasNextPage,
-        hasPrev: result.hasPrevPage
-      },
       data: result.docs.map(request => ({
         id: request._id,
         bloodType: request.bloodType,

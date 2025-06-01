@@ -6,10 +6,6 @@ const Medication = require('../models/medication.model');
 // @access  Public
 exports.getPharmacies = async (req, res, next) => {
     try {
-      const page = parseInt(req.query.page, 10) || 1;
-      const limit = parseInt(req.query.limit, 10) || 10;
-      const startIndex = (page - 1) * limit;
-  
       let query = {};
   
       if (req.query.search) {
@@ -21,24 +17,12 @@ exports.getPharmacies = async (req, res, next) => {
       }
   
       const options = {
-        page,
-        limit,
         sort: { name: 1 }
       };
-  
-      const result = await Pharmacy.paginate(query, options);
-  
+    
       res.status(200).json({
         success: true,
         count: result.totalDocs,
-        pagination: {
-          total: result.totalDocs,
-          pages: result.totalPages,
-          page: result.page,
-          limit: result.limit,
-          hasNext: result.hasNextPage,
-          hasPrev: result.hasPrevPage
-        },
         data: result.docs
       });
     } catch (error) {

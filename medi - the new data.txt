@@ -16,58 +16,6 @@
       "fr": "Antibiotiques"
     },
     "prescription": true,
-    "dosage": {
-      "en": "250–500 mg orally every 8 hours (pediatric and adult dosing varies by infection type)",
-      "ar": "250–500 مجم فمويًا كل 8 ساعات (تختلف الجرعة حسب نوع العدوى للأطفال والبالغين)",
-      "fr": "250–500 mg par voie orale toutes les 8 heures (la posologie pédiatrique et adulte varie selon le type d’infection)"
-    },
-    "mechanism_of_action": {
-      "en": "Inhibits bacterial cell wall synthesis by binding to penicillin-binding proteins",
-      "ar": "يعمل على تثبيط تخليق جدار الخلية البكتيرية عن طريق الارتباط ببروتينات مرتبطة بالبنيسيلين",
-      "fr": "Inhibe la synthèse de la paroi cellulaire bactérienne en se liant aux protéines liant la pénicilline"
-    },
-    "side_effects": {
-      "en": [
-        "Nausea",
-        "Diarrhea",
-        "Rash",
-        "Allergic reactions (rare but possible)"
-      ],
-      "ar": [
-        "غثيان",
-        "إسهال",
-        "طفح جلدي",
-        "تفاعلات تحسسية (نادرة ولكن ممكنة)"
-      ],
-      "fr": [
-        "Nausées",
-        "Diarrhée",
-        "Éruption cutanée",
-        "Réactions allergiques (rares mais possibles)"
-      ]
-    },
-    "contraindications": {
-      "en": "History of amoxicillin or penicillin allergy; mononucleosis (higher risk of rash)",
-      "ar": "تاريخ من الحساسية تجاه أموكسيسيلين أو بنيسيلين؛ إصابة سابقة بداء كثرة الوحيدات (خطر أعلى للطفح الجلدي)",
-      "fr": "Antécédent d’allergie à l’amoxicilline ou à la pénicilline ; mononucléose infectieuse (risque accru d’éruption cutanée)"
-    },
-    "interactions": {
-      "en": [
-        "Methotrexate (can increase toxicity)",
-        "Oral contraceptives (may reduce efficacy)",
-        "Allopurinol (increased risk of rash)"
-      ],
-      "ar": [
-        "ميثوتريكسات (يمكن أن يزيد من السمية)",
-        "موانع الحمل الفموية (قد تقلل الفعالية)",
-        "ألوبورينول (زيادة خطر الطفح الجلدي)"
-      ],
-      "fr": [
-        "Méthotrexate (peut augmenter la toxicité)",
-        "Contraceptifs oraux (peut réduire l’efficacité)",
-        "Allopurinol (risque accru d’éruption cutanée)"
-      ]
-    },
     "pharmacies": [
       {
         "pharmacy": "683aff4b350c34a049c358c5",

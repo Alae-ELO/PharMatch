@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const mongoosePaginate = require('mongoose-paginate-v2');
 
 // Sub-schema for daily hours
 const hoursDaySchema = new mongoose.Schema({
@@ -141,7 +140,5 @@ pharmacySchema.pre('save', function (next) {
   next();
 });
 
-// Pagination plugin
-pharmacySchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('Pharmacy', pharmacySchema);

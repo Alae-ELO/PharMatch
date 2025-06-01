@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const mongoosePaginate = require('mongoose-paginate-v2');
 
 const bloodDonationSchema = new mongoose.Schema({
   bloodType: {
@@ -53,8 +52,7 @@ const bloodDonationSchema = new mongoose.Schema({
   }]
 });
 
-// Add pagination plugin
-bloodDonationSchema.plugin(mongoosePaginate);
+
 
 // Add index for blood type and urgency for faster queries
 bloodDonationSchema.index({ bloodType: 1, urgency: 1 });

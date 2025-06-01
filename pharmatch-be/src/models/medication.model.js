@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const mongoosePaginate = require('mongoose-paginate-v2');
 
 const medicationSchema = new mongoose.Schema({
   name: {
@@ -84,9 +83,6 @@ const medicationSchema = new mongoose.Schema({
     default: Date.now
   }
 });
-
-// Add pagination plugin
-medicationSchema.plugin(mongoosePaginate);
 
 // Add text index for search
 medicationSchema.index({ 

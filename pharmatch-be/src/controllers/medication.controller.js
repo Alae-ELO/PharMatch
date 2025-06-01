@@ -6,9 +6,6 @@ const Pharmacy = require('../models/pharmacy.model');
 // @access  Public
 exports.getMedications = async (req, res, next) => {
   try {
-    const page = parseInt(req.query.page, 10) || 1;
-    const limit = parseInt(req.query.limit, 10) || 10;
-    const startIndex = (page - 1) * limit;
 
     // Build query
     let query = {};
@@ -75,13 +72,10 @@ exports.getMedications = async (req, res, next) => {
     }
 
     const options = {
-      page,
-      limit,
       sort: { 'name.en': 1 }
     };
 
     try {
-      const result = await Medication.paginate(query, options);
 
       // Transform the data to include pharmacy details
       const transformedData = await Promise.all(result.docs.map(async (medication) => {
@@ -115,20 +109,11 @@ exports.getMedications = async (req, res, next) => {
       res.status(200).json({
         success: true,
         count: result.totalDocs,
-        pagination: {
-          total: result.totalDocs,
-          pages: result.totalPages,
-          page: result.page,
-          limit: result.limit,
-          hasNext: result.hasNextPage,
-          hasPrev: result.hasPrevPage
-        },
         data: transformedData
       });
     } catch (error) {
       return res.status(500).json({
         success: false,
-        message: 'Error paginating medications',
         error: error.message
       });
     }
