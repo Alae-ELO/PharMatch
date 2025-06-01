@@ -1,46 +1,48 @@
 export interface Pharmacy {
-  id: string;
+  _id: string;
+  location: {
+    type: string;
+    coordinates: [number, number]; // [longitude, latitude]
+  };
   name: string;
   name_ar: string;
-  address: string;
   city: string;
   region: string;
   region_ar: string;
   phone: string;
-  hours: string;
-  coordinates: {
+  hours: {
+    [key: string]: {
+      open: string;
+      close: string;
+    };
+  };
+  permanence: {
+    isOnDuty: boolean;
+    days: string[];
+  };
+  status: 'open' | 'closed';
+  owner: string | null;
+  createdAt: string;
+  coordinates?: {
     lat: number;
     lng: number;
   };
-  medications: Array<{
-    id: string;
-    name: string;
-    prescription: boolean;
-    inStock: boolean;
-    price?: number;
-  }>;
 }
 
 export interface Medication {
-  id: string;
-  name: {
-    en: string;
-    ar: string;
-    fr: string;
-  };
-  description: {
-    en: string;
-    ar: string;
-    fr: string;
-  };
-  category: {
-    en: string;
-    ar: string;
-    fr: string;
-  };
+  id?: string;
+  _id?: string;
+  name: string;
+  description: string;
+  category: string;
   prescription: boolean;
   image_url?: string;
-  pharmacies: Pharmacy[];
+  pharmacies?: Array<{
+    id: string;
+    name: string;
+    inStock: boolean;
+    price?: number;
+  }>;
 }
 
 export interface User {
@@ -59,8 +61,14 @@ export interface BloodDonationRequest {
   id: string;
   bloodType: string;
   hospital: string;
-  urgency: 'low' | 'medium' | 'high';
+  urgency: 'high' | 'medium' | 'low';
+  status: 'active' | 'fulfilled' | 'expired';
   contactInfo: string;
+  donors?: Array<{
+    id: string;
+    name: string;
+    bloodType: string;
+  }>;
   createdAt: string;
   expiresAt: string;
 }
@@ -70,13 +78,15 @@ export interface Message {
   sender: 'user' | 'ai';
   content: string;
   timestamp: string;
+  isTyping?: boolean;
 }
 
 export interface Notification {
   id: string;
-  type: 'blood' | 'medication' | 'system';
+  type: string;
   title: string;
   message: string;
   read: boolean;
   createdAt: string;
+  relatedItem?: any;
 }

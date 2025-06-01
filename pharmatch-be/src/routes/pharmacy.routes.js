@@ -18,11 +18,12 @@ router.get('/', getPharmacies);
 router.get('/location', getPharmaciesByLocation);
 router.get('/search', searchPharmacies);
 
+// Create pharmacy route
+router.post('/', protect, authorize('admin', 'pharmacy'), createPharmacy);
+
 router.route('/:id')
   .get(getPharmacy)
-  .post(protect, authorize('pharmacy'),createPharmacy)
-  .put(protect, authorize('pharmacy'), updatePharmacy)
-  .delete(protect, authorize('pharmacy'), deletePharmacy);
-
+  .put(protect, authorize('admin', 'pharmacy'), updatePharmacy)
+  .delete(protect, authorize('admin', 'pharmacy'), deletePharmacy);
 
 module.exports = router;
