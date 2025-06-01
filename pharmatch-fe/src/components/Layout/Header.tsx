@@ -1,9 +1,15 @@
-import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { Bell, User, Menu, X, LogOut, Settings, Pill, Globe } from 'lucide-react';
-import useStore from '../../store';
-import { useTranslation } from 'react-i18next';
-import Badge from '../ui/Badge';
+import React, { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import {
+  Bell,
+  User,
+  Menu,
+  X,
+  Globe,
+} from "lucide-react";
+import useStore from "../../store";
+import { useTranslation } from "react-i18next";
+import Badge from "../ui/Badge";
 
 const Header: React.FC = () => {
   const { currentUser, notifications, logout } = useStore();
@@ -14,7 +20,7 @@ const Header: React.FC = () => {
   const location = useLocation();
   const { t, i18n } = useTranslation();
 
-  const unreadNotifications = notifications.filter(n => !n.read).length;
+  const unreadNotifications = notifications.filter((n) => !n.read).length;
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const toggleProfile = () => {
@@ -27,24 +33,33 @@ const Header: React.FC = () => {
     if (isProfileOpen) setIsProfileOpen(false);
   };
 
-  const toggleLanguageDropdown = () => setIsLanguageDropdownOpen(!isLanguageDropdownOpen);
+  const toggleLanguageDropdown = () =>
+    setIsLanguageDropdownOpen(!isLanguageDropdownOpen);
+  
+  useEffect(() => {
+    console.log('Current language:', i18n.language);
+  }, [i18n.language]);
 
   const changeLanguage = (lng: string) => {
-    i18n.changeLanguage(lng);
+    i18n.changeLanguage(lng).then(() => {
+      document.documentElement.lang = lng;
+      document.documentElement.dir = lng === 'ar' ? 'rtl' : 'ltr';
+    }).catch(err => {
+      console.error('Error changing language:', err);
+    });
     setIsLanguageDropdownOpen(false);
   };
-
   const handleLogout = () => {
     logout();
     setIsProfileOpen(false);
   };
 
   const navLinks = [
-    { title: t('nav.home'), path: '/' },
-    { title: t('nav.findPharmacies'), path: '/pharmacies' },
-    { title: t('nav.medications'), path: '/medications' },
-    { title: t('nav.bloodDonation'), path: '/blood-donation' },
-    { title: t('nav.healthAssistant'), path: '/chat' },
+    { title: t("nav.home"), path: "/" },
+    { title: t("nav.findPharmacies"), path: "/pharmacies" },
+    { title: t("nav.medications"), path: "/medications" },
+    { title: t("nav.bloodDonation"), path: "/blood-donation" },
+    { title: t("nav.healthAssistant"), path: "/chat" },
   ];
 
   return (
@@ -53,9 +68,8 @@ const Header: React.FC = () => {
         <div className="flex h-16 items-center justify-between">
           {/* Logo and Brand */}
           <div className="flex items-center">
-            <Link to="/" className="flex items-center space-x-2">
-              <Pill className="h-8 w-8 text-cyan-600" />
-              <span className="text-xl font-bold text-gray-900">PharMatch</span>
+            <Link to="/" className="flex items-center">
+              <img src="/Logo.png" alt="PharMatch Logo" className="h-24 w-24" />
             </Link>
           </div>
 
@@ -66,7 +80,9 @@ const Header: React.FC = () => {
                 key={link.path}
                 to={link.path}
                 className={`text-sm font-medium transition-colors hover:text-cyan-600 ${
-                  location.pathname === link.path ? 'text-cyan-600' : 'text-gray-700'
+                  location.pathname === link.path
+                    ? "text-cyan-600"
+                    : "text-gray-700"
                 }`}
               >
                 {link.title}
@@ -85,31 +101,43 @@ const Header: React.FC = () => {
                 <Bell className="h-5 w-5" />
                 {unreadNotifications > 0 && (
                   <span className="absolute -top-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] font-medium text-white">
-                    {unreadNotifications > 9 ? '9+' : unreadNotifications}
+                    {unreadNotifications > 9 ? "9+" : unreadNotifications}
                   </span>
                 )}
               </button>
 
               {isNotificationsOpen && (
                 <div className="absolute right-0 top-11 w-80 rounded-md border border-gray-200 bg-white p-2 shadow-lg">
-                  <div className="mb-2 px-2 py-1.5 text-sm font-medium">{t('notifications.title')}</div>
+                  <div className="mb-2 px-2 py-1.5 text-sm font-medium">
+                    {t("notifications.title")}
+                  </div>
                   <div className="max-h-[300px] overflow-y-auto">
                     {notifications.length === 0 ? (
                       <div className="px-4 py-3 text-center text-sm text-gray-500">
-                        {t('notifications.noNotifications')}
+                        {t("notifications.noNotifications")}
                       </div>
                     ) : (
                       notifications.slice(0, 5).map((notification) => (
                         <div
                           key={notification.id}
-                          className={`mb-2 rounded-md p-3 ${notification.read ? 'bg-gray-50' : 'bg-cyan-50'}`}
+                          className={`mb-2 rounded-md p-3 ${
+                            notification.read ? "bg-gray-50" : "bg-cyan-50"
+                          }`}
                         >
                           <div className="flex items-start justify-between">
                             <div>
-                              <p className="text-sm font-medium text-gray-900">{notification.title}</p>
-                              <p className="text-xs text-gray-500">{notification.message}</p>
+                              <p className="text-sm font-medium text-gray-900">
+                                {notification.title}
+                              </p>
+                              <p className="text-xs text-gray-500">
+                                {notification.message}
+                              </p>
                             </div>
-                            {!notification.read && <Badge variant="primary">{t('notifications.new')}</Badge>}
+                            {!notification.read && (
+                              <Badge variant="primary">
+                                {t("notifications.new")}
+                              </Badge>
+                            )}
                           </div>
                         </div>
                       ))
@@ -122,7 +150,7 @@ const Header: React.FC = () => {
                         className="text-xs font-medium text-cyan-600 hover:text-cyan-800"
                         onClick={() => setIsNotificationsOpen(false)}
                       >
-                        {t('notifications.viewAll')}
+                        {t("notifications.viewAll")}
                       </Link>
                     </div>
                   )}
@@ -143,20 +171,22 @@ const Header: React.FC = () => {
                 <div className="absolute right-0 top-11 w-32 rounded-md border border-gray-200 bg-white py-1 shadow-lg">
                   <div
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
-                    onClick={() => changeLanguage('en')}
+                    onClick={() => changeLanguage("en")}
                   >
-                    {t('languageDropdown.english')}
+                    {t("languageDropdown.english")}
                   </div>
                   <div
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
-                    onClick={() => changeLanguage('fr')}
+                    onClick={() => changeLanguage("fr")}
                   >
-{t('languageDropdown.french')}                  </div>
+                    {t("languageDropdown.french")}{" "}
+                  </div>
                   <div
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
-                    onClick={() => changeLanguage('ar')}
+                    onClick={() => changeLanguage("ar")}
                   >
-{t('languageDropdown.arabic')}                  </div>
+                    {t("languageDropdown.arabic")}{" "}
+                  </div>
                 </div>
               )}
             </div>
@@ -168,56 +198,62 @@ const Header: React.FC = () => {
                   onClick={toggleProfile}
                   className="flex items-center space-x-2 rounded-full p-2 text-gray-700 hover:bg-gray-100"
                 >
-                  <span className="sr-only">{t('profile.openMenu')}</span>
+                  <span className="sr-only">{t("profile.openMenu")}</span>
                   <div className="rounded-full bg-cyan-100 p-1">
                     <User className="h-5 w-5 text-cyan-700" />
                   </div>
-                  <span className="text-sm font-medium">{currentUser.name}</span>
+                  <span className="text-sm font-medium">
+                    {currentUser.name}
+                  </span>
                 </button>
 
                 {isProfileOpen && (
                   <div className="absolute right-0 top-11 w-48 rounded-md border border-gray-200 bg-white py-1 shadow-lg">
                     <div className="border-b border-gray-200 px-4 py-2">
-                      <p className="text-sm font-medium text-gray-900">{currentUser.name}</p>
-                      <p className="text-xs text-gray-500">{currentUser.email}</p>
+                      <p className="text-sm font-medium text-gray-900">
+                        {currentUser.name}
+                      </p>
+                      <p className="text-xs text-gray-500">
+                        {currentUser.email}
+                      </p>
                     </div>
                     <Link
                       to="/profile"
                       className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
                       onClick={() => setIsProfileOpen(false)}
                     >
-                      {t('profile.profile')}
+                      {t("profile.profile")}
                     </Link>
                     <Link
                       to="/settings"
                       className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
                       onClick={() => setIsProfileOpen(false)}
                     >
-                      {t('profile.settings')}
+                      {t("profile.settings")}
                     </Link>
-                    {currentUser.role === 'pharmacy' && (
+                    {currentUser.role === "pharmacy" && (
                       <Link
                         to="/pharmacy/dashboard"
                         className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
                         onClick={() => setIsProfileOpen(false)}
                       >
-                        {t('profile.pharmacyDashboard')}
+                        {t("profile.pharmacyDashboard")}
                       </Link>
                     )}
-                    {currentUser.role === 'admin' && (
+                    {currentUser.role === "admin" && (
                       <Link
                         to="/admin"
                         className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
                         onClick={() => setIsProfileOpen(false)}
                       >
-                        {t('profile.adminPanel')}
+                        {t("profile.adminPanel")}
                       </Link>
                     )}
                     <button
                       className="block w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-gray-100"
                       onClick={handleLogout}
                     >
-                      {t('profile.logout')}
+                      {t("profile.logout")}
                     </button>
                   </div>
                 )}
@@ -228,7 +264,7 @@ const Header: React.FC = () => {
                   to="/login"
                   className="rounded-md bg-cyan-600 px-4 py-2 text-sm font-medium text-white hover:bg-cyan-700"
                 >
-                  {t('auth.loginRegister')}
+                  {t("auth.loginRegister")}
                 </Link>
               </div>
             )}
@@ -240,9 +276,13 @@ const Header: React.FC = () => {
                 className="flex items-center justify-center rounded-md p-2 text-gray-700 hover:bg-gray-100"
               >
                 <span className="sr-only">
-                  {isMenuOpen ? t('nav.closeMenu') : t('nav.openMenu')}
+                  {isMenuOpen ? t("nav.closeMenu") : t("nav.openMenu")}
                 </span>
-                {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+                {isMenuOpen ? (
+                  <X className="h-6 w-6" />
+                ) : (
+                  <Menu className="h-6 w-6" />
+                )}
               </button>
             </div>
           </div>
@@ -258,8 +298,8 @@ const Header: React.FC = () => {
                   to={link.path}
                   className={`block rounded-md px-3 py-2 text-base font-medium ${
                     location.pathname === link.path
-                      ? 'bg-cyan-50 text-cyan-600'
-                      : 'text-gray-700 hover:bg-gray-50'
+                      ? "bg-cyan-50 text-cyan-600"
+                      : "text-gray-700 hover:bg-gray-50"
                   }`}
                   onClick={() => setIsMenuOpen(false)}
                 >
@@ -275,8 +315,12 @@ const Header: React.FC = () => {
                         <User className="h-6 w-6 text-cyan-700" />
                       </div>
                       <div className="ml-3">
-                        <div className="text-base font-medium text-gray-800">{currentUser.name}</div>
-                        <div className="text-sm font-medium text-gray-500">{currentUser.email}</div>
+                        <div className="text-base font-medium text-gray-800">
+                          {currentUser.name}
+                        </div>
+                        <div className="text-sm font-medium text-gray-500">
+                          {currentUser.email}
+                        </div>
                       </div>
                     </div>
                     <div className="mt-3 space-y-1 px-2">
@@ -285,31 +329,31 @@ const Header: React.FC = () => {
                         className="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50"
                         onClick={() => setIsMenuOpen(false)}
                       >
-                        {t('profile.profile')}
+                        {t("profile.profile")}
                       </Link>
                       <Link
                         to="/settings"
                         className="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50"
                         onClick={() => setIsMenuOpen(false)}
                       >
-                        {t('profile.settings')}
+                        {t("profile.settings")}
                       </Link>
-                      {currentUser.role === 'pharmacy' && (
+                      {currentUser.role === "pharmacy" && (
                         <Link
                           to="/pharmacy/dashboard"
                           className="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50"
                           onClick={() => setIsMenuOpen(false)}
                         >
-                          {t('profile.pharmacyDashboard')}
+                          {t("profile.pharmacyDashboard")}
                         </Link>
                       )}
-                      {currentUser.role === 'admin' && (
+                      {currentUser.role === "admin" && (
                         <Link
                           to="/admin"
                           className="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50"
                           onClick={() => setIsMenuOpen(false)}
                         >
-                          {t('profile.adminPanel')}
+                          {t("profile.adminPanel")}
                         </Link>
                       )}
                       <button
@@ -319,7 +363,7 @@ const Header: React.FC = () => {
                           setIsMenuOpen(false);
                         }}
                       >
-                        {t('profile.logout')}
+                        {t("profile.logout")}
                       </button>
                     </div>
                   </div>
@@ -331,7 +375,7 @@ const Header: React.FC = () => {
                     className="block rounded-md bg-cyan-600 px-3 py-2 text-center text-base font-medium text-white hover:bg-cyan-700"
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    {t('auth.loginRegister')}
+                    {t("auth.loginRegister")}
                   </Link>
                 </div>
               )}

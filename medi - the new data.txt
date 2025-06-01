@@ -1,0 +1,374 @@
+[
+  {
+    "name": {
+      "en": "Amoxicillin",
+      "ar": "أموكسيسيلين",
+      "fr": "Amoxicilline"
+    },
+    "description": {
+      "en": "Antibiotic used to treat bacterial infections",
+      "ar": "مضاد حيوي يستخدم لعلاج الالتهابات البكتيرية",
+      "fr": "Antibiotique utilisé pour traiter les infections bactériennes"
+    },
+    "category": {
+      "en": "Antibiotics",
+      "ar": "المضادات الحيوية",
+      "fr": "Antibiotiques"
+    },
+    "prescription": true,
+    "pharmacies": [
+      {
+        "pharmacy": "683aff4b350c34a049c358c5",
+        "inStock": false
+      },
+      {
+        "pharmacy": "683aff4b350c34a049c358bb",
+        "inStock": true
+      },
+      {
+        "pharmacy": "683aff4b350c34a049c358bb",
+        "inStock": false
+      }
+    ],
+    "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS77HFpY0MyZ1LAvxOoHy9ovxJClDd61XNsaQ&s"
+  },
+  {
+    "name": {
+      "en": "Ibuprofen",
+      "ar": "إيبوبروفين",
+      "fr": "Ibuprofène"
+    },
+    "description": {
+      "en": "Pain reliever and fever reducer",
+      "ar": "مسكن للألم وخافض للحمى",
+      "fr": "Analgésique et antipyrétique"
+    },
+    "category": {
+      "en": "Pain Relief",
+      "ar": "تسكين الألم",
+      "fr": "Soulagement de la douleur"
+    },
+    "prescription": false,
+    "pharmacies": [
+      {
+        "pharmacy": "683aff4b350c34a049c358bb",
+        "inStock": true
+      },
+      {
+        "pharmacy": "683aff4b350c34a049c358c5",
+        "inStock": true
+      }
+    ],
+    "image_url": "https://assets.sainsburys-groceries.co.uk/gol/1226065/1/640x640.jpg"
+  },
+  {
+    "name": {
+      "en": "Lisinopril",
+      "ar": "ليسينوبريل",
+      "fr": "Lisinopril"
+    },
+    "description": {
+      "en": "Used to treat high blood pressure",
+      "ar": "يستخدم لعلاج ارتفاع ضغط الدم",
+      "fr": "Utilisé pour traiter l'hypertension artérielle"
+    },
+    "category": {
+      "en": "Blood Pressure",
+      "ar": "ضغط الدم",
+      "fr": "Pression artérielle"
+    },
+    "prescription": true,
+    "pharmacies": [
+      {
+        "pharmacy": "683aff4b350c34a049c358c4",
+        "inStock": true
+      },
+      {
+        "pharmacy": "683aff4b350c34a049c358be",
+        "inStock": false
+      },
+      {
+        "pharmacy": "507f1f77bcf86cd799439018",
+        "inStock": true
+      }
+    ],
+    "image_url": "https://www.drugs.com/images/pills/fio/LU-M43/lisinopril.JPG"
+  },
+  {
+    "name": {
+      "en": "Cetirizine",
+      "ar": "سيتريزين",
+      "fr": "Cétirizine"
+    },
+    "description": {
+      "en": "Antihistamine for allergy relief",
+      "ar": "مضاد للهيستامين لتخفيف الحساسية",
+      "fr": "Antihistaminique pour le soulagement des allergies"
+    },
+    "category": {
+      "en": "Allergy",
+      "ar": "الحساسية",
+      "fr": "Allergie"
+    },
+    "prescription": false,
+    "pharmacies": [
+      {
+        "pharmacy": "683aff4b350c34a049c358be",
+        "inStock": true
+      },
+      {
+        "pharmacy": "683aff4b350c34a049c358be",
+        "inStock": true
+      }
+    ],
+    "image_url": "https://www.webmd.com/assets/rx/zyrtec-10mg-tablet.jpg"
+  },
+  {
+    "name": {
+      "en": "Metformin",
+      "ar": "ميتفورمين",
+      "fr": "Metformine"
+    },
+    "description": {
+      "en": "Used to treat type 2 diabetes",
+      "ar": "يستخدم لعلاج داء السكري من النوع الثاني",
+      "fr": "Utilisé pour traiter le diabète de type 2"
+    },
+    "category": {
+      "en": "Diabetes",
+      "ar": "السكري",
+      "fr": "Diabète"
+    },
+    "prescription": true,
+    "pharmacies": [
+      {
+        "pharmacy": "683aff4b350c34a049c358bb",
+        "inStock": true
+      },
+      {
+        "pharmacy": "683aff4b350c34a049c358bb",
+        "inStock": false
+      },
+      {
+        "pharmacy": "683aff4b350c34a049c358bb",
+        "inStock": true
+      }
+    ],
+    "image_url": "https://www.drugs.com/images/pills/mmx/tm00150/metformin-hydrochloride.JPG"
+  },
+  {
+    "name": {
+      "en": "Acetaminophen",
+      "ar": "أسيتامينوفين",
+      "fr": "Acétaminophène"
+    },
+    "description": {
+      "en": "Pain reliever and fever reducer",
+      "ar": "مسكن للألم وخافض للحمى",
+      "fr": "Analgésique et antipyrétique"
+    },
+    "category": {
+      "en": "Pain Relief",
+      "ar": "تسكين الألم",
+      "fr": "Soulagement de la douleur"
+    },
+    "prescription": false,
+    "pharmacies": [
+      {
+        "pharmacy": "683aff4b350c34a049c358bb",
+        "inStock": true
+      },
+      {
+        "pharmacy": "683aff4b350c34a049c358bb",
+        "inStock": true
+      }
+    ],
+    "image_url": "https://www.webmd.com/assets/rx/tylenol-325mg-tablet.jpg"
+  },
+  {
+    "name": {
+      "en": "Atorvastatin",
+      "ar": "أتورفاستاتين",
+      "fr": "Atorvastatine"
+    },
+    "description": {
+      "en": "Used to lower cholesterol levels",
+      "ar": "يستخدم لخفض مستويات الكوليسترول",
+      "fr": "Utilisé pour réduire les niveaux de cholestérol"
+    },
+    "category": {
+      "en": "Cholesterol",
+      "ar": "الكوليسترول",
+      "fr": "Cholestérol"
+    },
+    "prescription": true,
+    "pharmacies": [
+      {
+        "pharmacy": "683aff4b350c34a049c358bb",
+        "inStock": true
+      },
+      {
+        "pharmacy": "683aff4b350c34a049c358bb",
+        "inStock": false
+      },
+      {
+        "pharmacy": "683aff4b350c34a049c358bb",
+        "inStock": true
+      }
+    ],
+    "image_url": "https://www.drugs.com/images/pills/fio/ATORVASTATIN-40-MG/lipitor.JPG"
+  },
+  {
+    "name": {
+      "en": "Omeprazole",
+      "ar": "أوميبرازول",
+      "fr": "Oméprazole"
+    },
+    "description": {
+      "en": "Used to treat acid reflux and ulcers",
+      "ar": "يستخدم لعلاج الارتجاع الحمضي والقرح",
+      "fr": "Utilisé pour traiter le reflux acide et les ulcères"
+    },
+    "category": {
+      "en": "Gastrointestinal",
+      "ar": "الجهاز الهضمي",
+      "fr": "Gastro-intestinal"
+    },
+    "prescription": false,
+    "pharmacies": [
+      {
+        "pharmacy": "683aff4b350c34a049c358bb",
+        "inStock": true
+      },
+      {
+        "pharmacy": "683aff4b350c34a049c358bb",
+        "inStock": true
+      }
+    ],
+    "image_url": "https://www.webmd.com/assets/rx/prilosec-20mg-capsule.jpg"
+  },
+  {
+    "name": {
+      "en": "Amlodipine",
+      "ar": "أملوديبين",
+      "fr": "Amlodipine"
+    },
+    "description": {
+      "en": "Used to treat high blood pressure and chest pain",
+      "ar": "يستخدم لعلاج ارتفاع ضغط الدم وآلام الصدر",
+      "fr": "Utilisé pour traiter l'hypertension artérielle et les douleurs thoraciques"
+    },
+    "category": {
+      "en": "Blood Pressure",
+      "ar": "ضغط الدم",
+      "fr": "Pression artérielle"
+    },
+    "prescription": true,
+    "pharmacies": [
+      {
+        "pharmacy": "683aff4b350c34a049c358bb",
+        "inStock": true
+      },
+      {
+        "pharmacy": "683aff4b350c34a049c358bb",
+        "inStock": false
+      },
+      {
+        "pharmacy": "683aff4b350c34a049c358bb",
+        "inStock": true
+      }
+    ],
+    "image_url": "https://www.drugs.com/images/pills/fio/AMLODIPINE-5-MG/norvasc.JPG"
+  },
+  {
+    "name": {
+      "en": "Hydrochlorothiazide",
+      "ar": "هيدروكلوروثيازيد",
+      "fr": "Hydrochlorothiazide"
+    },
+    "description": {
+      "en": "Diuretic used to treat high blood pressure and swelling",
+      "ar": "مدر للبول يستخدم لعلاج ارتفاع ضغط الدم والتورم",
+      "fr": "Diurétique utilisé pour traiter l'hypertension artérielle et l'œdème"
+    },
+    "category": {
+      "en": "Blood Pressure",
+      "ar": "ضغط الدم",
+      "fr": "Pression artérielle"
+    },
+    "prescription": true,
+    "pharmacies": [
+      {
+        "pharmacy": "683aff4b350c34a049c358bb",
+        "inStock": true
+      },
+      {
+        "pharmacy": "683aff4b350c34a049c358bb",
+        "inStock": true
+      }
+    ],
+    "image_url": "https://www.drugs.com/images/pills/mmx/tm00160/hydrochlorothiazide.JPG"
+  },
+  {
+    "name": {
+      "en": "Simvastatin",
+      "ar": "سيمفاستاتين",
+      "fr": "Simvastatine"
+    },
+    "description": {
+      "en": "Used to lower cholesterol and triglyceride levels",
+      "ar": "يستخدم لخفض مستويات الكوليسترول والدهون الثلاثية",
+      "fr": "Utilisé pour réduire les niveaux de cholestérol et de triglycérides"
+    },
+    "category": {
+      "en": "Cholesterol",
+      "ar": "الكوليسترول",
+      "fr": "Cholestérol"
+    },
+    "prescription": true,
+    "pharmacies": [
+      {
+        "pharmacy": "683aff4b350c34a049c358bb",
+        "inStock": true
+      },
+      {
+        "pharmacy": "683aff4b350c34a049c358c2",
+        "inStock": false
+      },
+      {
+        "pharmacy": "683aff4b350c34a049c358c2",
+        "inStock": true
+      }
+    ],
+    "image_url": "https://www.drugs.com/images/pills/fio/SIMVASTATIN-20-MG/zocor.JPG"
+  },
+  {
+    "name": {
+      "en": "Albuterol",
+      "ar": "ألبوتيرول",
+      "fr": "Albutérol"
+    },
+    "description": {
+      "en": "Inhaler used to treat asthma and breathing problems",
+      "ar": "جهاز استنشاق يستخدم لعلاج الربو ومشاكل التنفس",
+      "fr": "Inhalateur utilisé pour traiter l'asthme et les problèmes respiratoires"
+    },
+    "category": {
+      "en": "Respiratory",
+      "ar": "الجهاز التنفسي",
+      "fr": "Respiratoire"
+    },
+    "prescription": true,
+    "pharmacies": [
+      {
+        "pharmacy": "683aff4b350c34a049c358be",
+        "inStock": true
+      },
+      {
+        "pharmacy": "683aff4b350c34a049c358be",
+        "inStock": true
+      }
+    ],
+    "image_url": "https://www.webmd.com/assets/rx/proair-hfa-90mcg-inhaler.jpg"
+  }
+]

@@ -1,6 +1,6 @@
 {
        
- 
+
   "home": {
     "hero": {
       "title1": "مرحبا بكم في PharMatch",
@@ -148,7 +148,8 @@
   },
   "common": {
     "cancel": "إلغاء",
-    "register": "تسجيل"
+    "register": "تسجيل",
+    "loading": "جاري التحميل..."
   }
 ,
 
@@ -181,15 +182,14 @@
 
   "pharmacies": {
     "title": "الصيدليات",
-    "subtitle": "ابحث عن أقرب صيدلية في مدينتك بسهولة.",
-    "placeholder": "ابحث عن مدينة أو عنوان...",
-    "searchButton": "بحث",
-    "useMyLocation": "استخدم موقعي الحالي",
-    "pharmaciesIn": "الصيدليات في {{city}}",
-    "noResults": "لا توجد صيدليات في هذا الموقع.",
-    "viewAll": "عرض الكل",
-    "allPharmacies": "جميع الصيدليات"
-
+    "searchPlaceholder": "البحث حسب المدينة او الجهة التابعة لها مدينتك...",
+    "search": "بحث",
+    "viewDetails": "عرض التفاصيل",
+    "medications": "{{count}} دواء",
+    "locationError": "تعذر الحصول على موقعك",
+    "geolocationNotSupported": "متصفحك لا يدعم تحديد الموقع الجغرافي",
+    "searchError": "حدث خطأ أثناء البحث عن الصيدليات",
+    "description": "ابحث عن الصيدليات في منطقتك. ابحث حسب المدينة أو استخدم الجهة التابعة لها مدينتك للعثور على الصيدليات القريبة."
   },
   "errors": {
     "geolocationNotSupported": "ميزة تحديد الموقع غير مدعومة في متصفحك."
@@ -250,6 +250,7 @@
   },
 
   "pharmacyDetails": {
+    "pharmacy": "صيدلية",
     "back": "العودة إلى الصيدليات",
     "error": {
       "title": "الصيدلية غير موجودة"
@@ -264,7 +265,20 @@
       "otc": "بدون وصفة",
       "inStock": "متوفر في المخزون",
       "outOfStock": "غير متوفر"
-    }
+    },
+    "hours": {
+      "open": "مفتوح",
+      "closed": "مغلق",
+      "today": "اليوم",
+      "notAvailable": "غير متوفر"
+    },
+    "status": {
+      "open": "مفتوح",
+      "closed": "مغلق"
+    },
+    "location": "الموقع",
+    "hours": "ساعات العمل",
+    "status": "الحالة"
   },
 
   "pharmacyMapView": {
@@ -531,113 +545,114 @@
 
 
 
-  "notifications": {
-    "title": "الإشعارات",
-    "markAllAsRead": "تمييز الكل كمقروء",
-    "markAllAsReadAlert": "سيتم تمييز جميع الإشعارات كمقروءة",
-    "noNotifications": "لا توجد إشعارات",
-    "allCaughtUp": "لقد انتهيت من كل شيء!",
-    "new": "جديد",
-    "at": "في",
-    "markAsRead": "تمييز كمقروء",
-    "viewAll": "عرض جميع الإشعارات"
-  ,
-    "header": {
-      "title": "الإشعارات"
-    },
-    "empty": "لا توجد لديك إشعارات.",
-    "markAllRead": "وضع الجميع كمقروء",
-    "loadMore": "تحميل المزيد",
-    "types": {
-      "bloodDonationRequest": "طلب تبرع بالدم",
-      "medicationAvailable": "دواء متوفر",
-      "pharmacyMessage": "رسالة من الصيدلية",
-      "system": "إعلان النظام"
-    }
-  }
 
+"notifications": {
+  "title": "الإشعارات",
+  "markAllAsRead": "تمييز الكل كمقروء",
+  "markAllAsReadAlert": "سيتم تمييز جميع الإشعارات كمقروءة",
+  "noNotifications": "لا توجد إشعارات",
+  "allCaughtUp": "لقد انتهيت من كل شيء!",
+  "new": "جديد",
+  "at": "في",
+  "markAsRead": "تمييز كمقروء",
+  "viewAll": "عرض جميع الإشعارات"
 ,
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-  "nav": {
-    "home": "الرئيسية",
-    "findPharmacies": "البحث عن صيدليات",
-    "medications": "الأدوية",
-    "bloodDonation": "التبرع بالدم",
-    "healthAssistant": "المساعد الصحي",
-    "openMenu": "فتح القائمة",
-    "closeMenu": "إغلاق القائمة"
+  "header": {
+    "title": "الإشعارات"
   },
-
-
-  "auth": {
-    "loginRegister": "تسجيل الدخول / التسجيل"
+  "empty": "لا توجد لديك إشعارات.",
+  "markAllRead": "وضع الجميع كمقروء",
+  "loadMore": "تحميل المزيد",
+  "types": {
+    "bloodDonationRequest": "طلب تبرع بالدم",
+    "medicationAvailable": "دواء متوفر",
+    "pharmacyMessage": "رسالة من الصيدلية",
+    "system": "إعلان النظام"
   }
+}
 
 ,
 
-  "footer": {
-    "about_description": "ربطك بالصيدليات، المعلومات الصحية، وخدمات التبرع بالدم الحيوية.",
-    "quick_links": {
-      "title": "روابط سريعة",
-      "home": "الرئيسية",
-      "find_pharmacies": "ابحث عن الصيدليات",
-      "medications": "الأدوية",
-      "blood_donation": "التبرع بالدم",
-      "health_assistant": "مساعد صحي"
-    },
-    "support": {
-      "title": "الدعم",
-      "faq": "الأسئلة الشائعة",
-      "contact_us": "اتصل بنا",
-      "privacy_policy": "سياسة الخصوصية",
-      "terms_of_service": "شروط الخدمة"
-    },
-    "contact_info": {
-      "title": "اتصل بنا",
-      "address": "123 شارع الصحة، الحي الطبي، تطوان، المغرب",
-      "phone": "+1 (555) 123-4567",
-      "email": "info@pharmatch.com"
-    },
-    "bottom_section": {
-      "copyright": "© 2025 فارماتش. جميع الحقوق محفوظة.",
-      "social_media": {
-                "title": "وسائل التواصل الاجتماعي",
-        "facebook": "فيسبوك",
-        "instagram": "إنستغرام",
-        "twitter": "تويتر"
-      },
-      "made_with_love": "صُنع بحب بواسطة فريق فارماتش"
-    }
-  }
 
-  ,
-  
-  "languageDropdown": {
-    "english": "الإنجليزية",
-    "french": "الفرنسية",
-    "arabic": "العربية"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+"nav": {
+  "home": "الرئيسية",
+  "findPharmacies": "البحث عن صيدليات",
+  "medications": "الأدوية",
+  "bloodDonation": "التبرع بالدم",
+  "healthAssistant": "المساعد الصحي",
+  "openMenu": "فتح القائمة",
+  "closeMenu": "إغلاق القائمة "
+},
+
+
+"auth": {
+  "loginRegister": "تسجيل الدخول / التسجيل"
+}
+
+,
+
+"footer": {
+  "about_description": "ربطك بالصيدليات، المعلومات الصحية، وخدمات التبرع بالدم الحيوية.",
+  "quick_links": {
+    "title": "روابط سريعة",
+    "home": "الرئيسية",
+    "find_pharmacies": "ابحث عن الصيدليات",
+    "medications": "الأدوية",
+    "blood_donation": "التبرع بالدم",
+    "health_assistant": "مساعد صحي"
+  },
+  "support": {
+    "title": "الدعم",
+    "faq": "الأسئلة الشائعة",
+    "contact_us": "اتصل بنا",
+    "privacy_policy": "سياسة الخصوصية",
+    "terms_of_service": "شروط الخدمة"
+  },
+  "contact_info": {
+    "title": "اتصل بنا",
+    "address": "123 شارع الصحة، الحي الطبي، تطوان، المغرب",
+    "phone": "+1 (555) 123-4567",
+    "email": "info@pharmatch.com"
+  },
+  "bottom_section": {
+    "copyright": "© 2025 فارماتش. جميع الحقوق محفوظة.",
+    "social_media": {
+              "title": "وسائل التواصل الاجتماعي",
+      "facebook": "فيسبوك",
+      "instagram": "إنستغرام",
+      "twitter": "تويتر"
+    },
+    "made_with_love": "صُنع بحب بواسطة فريق فارماتش"
   }
+}
+
+,
+
+"languageDropdown": {
+  "english": "الإنجليزية",
+  "french": "الفرنسية",
+  "arabic": "العربية"
+}
 
 }
