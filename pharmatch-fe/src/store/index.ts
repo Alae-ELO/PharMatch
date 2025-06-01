@@ -34,6 +34,9 @@ interface PharMatchState {
   fetchPharmacyById: (id: string) => Promise<void>;
   fetchPharmaciesByCity: (city: string) => Promise<void>;
   fetchPharmaciesByMedication: (medicationId: string) => Promise<void>;
+  registerAsBloodDonor: (bloodType: string) => Promise<void>;
+  createBloodDonationRequest: (request: any) => Promise<void>;
+  fetchBloodDonationRequests: () => Promise<void>;
 }
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
@@ -235,6 +238,58 @@ const useStore = create<PharMatchState>((set, get) => ({
     }
   },
   
+  registerAsBloodDonor: async (bloodType: string) => {
+    const { currentUser, token } = get();
+    if (!currentUser || !token) throw new Error('Not authenticated');
+    const response = await fetch(`${API_URL}/users/${currentUser.id}/blood-donor`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({ bloodType })
+    });
+    if (!response.ok) {
+      const data = await response.json();
+      throw new Error(data.message || 'Failed to register as blood donor');
+    }
+    const data = await response.json();
+    set(state => ({
+      currentUser: {
+        ...state.currentUser!,
+        bloodDonor: data.data
+      }
+    }));
+  },
+
+  createBloodDonationRequest: async (request: any) => {
+    const { token } = get();
+    if (!token) throw new Error('Not authenticated');
+    const response = await fetch(`${API_URL}/blood-donation`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify(request)
+    });
+    if (!response.ok) {
+      const data = await response.json();
+      throw new Error(data.message || 'Failed to create blood donation request');
+    }
+    // Optionally: refresh bloodDonationRequests list here
+  },
+
+  fetchBloodDonationRequests: async () => {
+    try {
+      const response = await fetch(`${API_URL}/blood-donation`);
+      if (!response.ok) throw new Error('Failed to fetch blood donation requests');
+      const data = await response.json();
+      set({ bloodDonationRequests: data.data });
+    } catch (error) {
+      console.error('Error fetching blood donation requests:', error);
+    }
+  },
 }));
 
 export default useStore;

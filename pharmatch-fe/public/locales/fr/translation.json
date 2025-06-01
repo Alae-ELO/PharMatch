@@ -126,7 +126,15 @@
     "urgencyHigh": "Élevé - urgent (heures)",
     "contactInfo": "Informations de contact",
     "contactPlaceholder": "Numéro de téléphone ou e-mail",
-    "create": "Créer la demande"
+    "create": "Créer la demande",
+    "requestsList": "Demandes de don de sang",
+    "noRequests": "Aucune demande trouvée.",
+    "createdAt": "Demandée le",
+    "expiresAt": "Expire le",
+    "noExpiry": "Pas de date d'expiration",
+    "successRequest": "Demande de don de sang créée avec succès !",
+    "errorExpiresAtRequired": "La date de fin est requise",
+    "errorExpiresAtPast": "La date de fin doit être dans le futur"
   },
   "common": {
     "cancel": "Annuler",

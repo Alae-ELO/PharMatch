@@ -126,7 +126,15 @@
     "urgencyHigh": "High - Urgent (Hours)",
     "contactInfo": "Contact Information",
     "contactPlaceholder": "Phone number or email",
-    "create": "Create Request"
+    "create": "Create Request",
+    "requestsList": "Blood Donation Requests",
+    "noRequests": "No requests found.",
+    "createdAt": "Requested on",
+    "expiresAt": "Expires at",
+    "noExpiry": "No expiry",
+    "successRequest": "Blood donation request created successfully!",
+    "errorExpiresAtRequired": "End date/time is required",
+    "errorExpiresAtPast": "End date/time must be in the future"
   },
   "common": {
     "cancel": "Cancel",
