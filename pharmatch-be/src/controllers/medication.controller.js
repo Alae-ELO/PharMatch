@@ -77,8 +77,10 @@ exports.getMedications = async (req, res, next) => {
 
     try {
 
+      const medications = await Medication.find(query).sort(options.sort);
+
       // Transform the data to include pharmacy details
-      const transformedData = await Promise.all(result.docs.map(async (medication) => {
+      const transformedData = await Promise.all(medications.map(async (medication) => {
         const pharmacyDetails = await Promise.all(
           medication.pharmacies.map(async (p) => {
             const pharmacy = await Pharmacy.findById(p.pharmacy);
@@ -94,7 +96,7 @@ exports.getMedications = async (req, res, next) => {
             };
           })
         );
-
+      
         return {
           id: medication._id,
           name: medication.name,
@@ -105,10 +107,10 @@ exports.getMedications = async (req, res, next) => {
           pharmacies: pharmacyDetails
         };
       }));
-
+      
       res.status(200).json({
         success: true,
-        count: result.totalDocs,
+        count: medications.length,
         data: transformedData
       });
     } catch (error) {
