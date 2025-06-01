@@ -20,9 +20,10 @@ interface PharMatchState {
   // Authentication
   currentUser: User | null;
   token: string | null;
-  user: User | null; // Add this line to fix the error
+  user: User | null;
   login: (email: string, password: string) => Promise<boolean>;
   logout: () => void;
+  checkAuth: () => Promise<void>;
   
   // Filter states
   cityFilter: string | null;
@@ -54,11 +55,42 @@ const useStore = create<PharMatchState>((set, get) => ({
   messages: [],
   currentUser: null,
   token: localStorage.getItem('token'),
-  user: null, // Add this line to initialize the user property
+  user: null,
   cityFilter: null,
   medicationFilter: null,
   
   // Auth actions
+  checkAuth: async () => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      set({ currentUser: null, token: null, user: null });
+      return;
+    }
+
+    try {
+      const response = await fetch(`${API_URL}/auth/me`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error('Invalid token');
+      }
+
+      const data = await response.json();
+      set({ 
+        currentUser: data.data,
+        token: token,
+        user: data.data
+      });
+    } catch (error) {
+      console.error('Auth check error:', error);
+      localStorage.removeItem('token');
+      set({ currentUser: null, token: null, user: null });
+    }
+  },
+
   login: async (email: string, password: string) => {
     try {
       const response = await fetch(`${API_URL}/auth/login`, {
@@ -78,9 +110,9 @@ const useStore = create<PharMatchState>((set, get) => ({
       localStorage.setItem('token', data.token);
       
       set({ 
-
         currentUser: data.user,
-        token: data.token
+        token: data.token,
+        user: data.user
       });
       
       return true;
@@ -92,7 +124,7 @@ const useStore = create<PharMatchState>((set, get) => ({
   
   logout: () => {
     localStorage.removeItem('token');
-    set({ currentUser: null, token: null, user: null }); // Also clear the user property
+    set({ currentUser: null, token: null, user: null });
   },
   
   // Data fetching actions
