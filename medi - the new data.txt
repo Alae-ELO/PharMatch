@@ -16,6 +16,58 @@
       "fr": "Antibiotiques"
     },
     "prescription": true,
+    "dosage": {
+      "en": "250–500 mg orally every 8 hours (pediatric and adult dosing varies by infection type)",
+      "ar": "250–500 مجم فمويًا كل 8 ساعات (تختلف الجرعة حسب نوع العدوى للأطفال والبالغين)",
+      "fr": "250–500 mg par voie orale toutes les 8 heures (la posologie pédiatrique et adulte varie selon le type d’infection)"
+    },
+    "mechanism_of_action": {
+      "en": "Inhibits bacterial cell wall synthesis by binding to penicillin-binding proteins",
+      "ar": "يعمل على تثبيط تخليق جدار الخلية البكتيرية عن طريق الارتباط ببروتينات مرتبطة بالبنيسيلين",
+      "fr": "Inhibe la synthèse de la paroi cellulaire bactérienne en se liant aux protéines liant la pénicilline"
+    },
+    "side_effects": {
+      "en": [
+        "Nausea",
+        "Diarrhea",
+        "Rash",
+        "Allergic reactions (rare but possible)"
+      ],
+      "ar": [
+        "غثيان",
+        "إسهال",
+        "طفح جلدي",
+        "تفاعلات تحسسية (نادرة ولكن ممكنة)"
+      ],
+      "fr": [
+        "Nausées",
+        "Diarrhée",
+        "Éruption cutanée",
+        "Réactions allergiques (rares mais possibles)"
+      ]
+    },
+    "contraindications": {
+      "en": "History of amoxicillin or penicillin allergy; mononucleosis (higher risk of rash)",
+      "ar": "تاريخ من الحساسية تجاه أموكسيسيلين أو بنيسيلين؛ إصابة سابقة بداء كثرة الوحيدات (خطر أعلى للطفح الجلدي)",
+      "fr": "Antécédent d’allergie à l’amoxicilline ou à la pénicilline ; mononucléose infectieuse (risque accru d’éruption cutanée)"
+    },
+    "interactions": {
+      "en": [
+        "Methotrexate (can increase toxicity)",
+        "Oral contraceptives (may reduce efficacy)",
+        "Allopurinol (increased risk of rash)"
+      ],
+      "ar": [
+        "ميثوتريكسات (يمكن أن يزيد من السمية)",
+        "موانع الحمل الفموية (قد تقلل الفعالية)",
+        "ألوبورينول (زيادة خطر الطفح الجلدي)"
+      ],
+      "fr": [
+        "Méthotrexate (peut augmenter la toxicité)",
+        "Contraceptifs oraux (peut réduire l’efficacité)",
+        "Allopurinol (risque accru d’éruption cutanée)"
+      ]
+    },
     "pharmacies": [
       {
         "pharmacy": "683aff4b350c34a049c358c5",
@@ -92,7 +144,7 @@
         "inStock": true
       }
     ],
-    "image_url": "https://www.drugs.com/images/pills/fio/LU-M43/lisinopril.JPG"
+    "image_url": "https://www.simplymedsonline.co.uk/storage/products/5746/images/lisinopril-tablets-es-711654603366.webp"
   },
   {
     "name": {
@@ -121,7 +173,7 @@
         "inStock": true
       }
     ],
-    "image_url": "https://www.webmd.com/assets/rx/zyrtec-10mg-tablet.jpg"
+    "image_url": "https://www.padagis.com/wp-content/uploads/2023/07/2F1.png"
   },
   {
     "name": {
@@ -154,7 +206,7 @@
         "inStock": true
       }
     ],
-    "image_url": "https://www.drugs.com/images/pills/mmx/tm00150/metformin-hydrochloride.JPG"
+    "image_url": "https://www.simplymedsonline.co.uk/storage/products/6277/images/metformin-tablets-881655727192.webp"
   },
   {
     "name": {
@@ -183,7 +235,7 @@
         "inStock": true
       }
     ],
-    "image_url": "https://www.webmd.com/assets/rx/tylenol-325mg-tablet.jpg"
+    "image_url": "https://m.media-amazon.com/images/I/71Gy7z9J0AL._AC_UF1000,1000_QL80_.jpg"
   },
   {
     "name": {
@@ -216,7 +268,7 @@
         "inStock": true
       }
     ],
-    "image_url": "https://www.drugs.com/images/pills/fio/ATORVASTATIN-40-MG/lipitor.JPG"
+    "image_url": "https://www.meldinpharma.com/web/image/product.template/5171/image_1024?unique=22dbee9"
   },
   {
     "name": {
@@ -245,7 +297,7 @@
         "inStock": true
       }
     ],
-    "image_url": "https://www.webmd.com/assets/rx/prilosec-20mg-capsule.jpg"
+    "image_url": "https://pics.walgreens.com/prodimg/400302/3_450.jpg"
   },
   {
     "name": {
@@ -278,7 +330,7 @@
         "inStock": true
       }
     ],
-    "image_url": "https://www.drugs.com/images/pills/fio/AMLODIPINE-5-MG/norvasc.JPG"
+    "image_url": "https://5.imimg.com/data5/SELLER/Default/2023/10/357072066/NM/BM/NI/135658020/amlodipine-tablets-ip-5-mg.jpg"
   },
   {
     "name": {
@@ -307,7 +359,7 @@
         "inStock": true
       }
     ],
-    "image_url": "https://www.drugs.com/images/pills/mmx/tm00160/hydrochlorothiazide.JPG"
+    "image_url": "https://empower-images.s3.us-east-1.amazonaws.com/images/Website%20Images/Capsules%20and%20Tablets/empower-pharmacy-commercial-hydrochlorothiazide-tablets-25-mg-294x490.jpg"
   },
   {
     "name": {
@@ -340,7 +392,7 @@
         "inStock": true
       }
     ],
-    "image_url": "https://www.drugs.com/images/pills/fio/SIMVASTATIN-20-MG/zocor.JPG"
+    "image_url": "https://www.ratiopharm.de/assets/_processed_/8/7/csm_Simvastatin_rtp_40mg_FTA_OP100_3D_Web_quer_links_clean_03508710_19a3d59bab.png"
   },
   {
     "name": {
@@ -369,6 +421,6 @@
         "inStock": true
       }
     ],
-    "image_url": "https://www.webmd.com/assets/rx/proair-hfa-90mcg-inhaler.jpg"
+    "image_url": "https://www.613med.com/web/image/product.template/12141/image_1024?unique=3788292"
   }
 ]

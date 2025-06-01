@@ -3,23 +3,63 @@ const mongoosePaginate = require('mongoose-paginate-v2');
 
 const medicationSchema = new mongoose.Schema({
   name: {
-    type: String,
-    required: [true, 'Medication name is required'],
-    trim: true
+    en: {
+      type: String,
+      required: [true, 'English medication name is required'],
+      trim: true
+    },
+    ar: {
+      type: String,
+      required: [true, 'Arabic medication name is required'],
+      trim: true
+    },
+    fr: {
+      type: String,
+      required: [true, 'French medication name is required'],
+      trim: true
+    }
   },
   description: {
-    type: String,
-    required: [true, 'Description is required'],
-    trim: true
+    en: {
+      type: String,
+      required: [true, 'English description is required'],
+      trim: true
+    },
+    ar: {
+      type: String,
+      required: [true, 'Arabic description is required'],
+      trim: true
+    },
+    fr: {
+      type: String,
+      required: [true, 'French description is required'],
+      trim: true
+    }
   },
   category: {
-    type: String,
-    required: [true, 'Category is required'],
-    trim: true
+    en: {
+      type: String,
+      required: [true, 'English category is required'],
+      trim: true
+    },
+    ar: {
+      type: String,
+      required: [true, 'Arabic category is required'],
+      trim: true
+    },
+    fr: {
+      type: String,
+      required: [true, 'French category is required'],
+      trim: true
+    }
   },
   prescription: {
     type: Boolean,
     default: false
+  },
+  image_url: {
+    type: String,
+    trim: true
   },
   pharmacies: [
     {
@@ -34,7 +74,8 @@ const medicationSchema = new mongoose.Schema({
       },
       price: {
         type: Number,
-        min: 0
+        default: 0,
+        min: [0, 'Price cannot be negative']
       }
     }
   ],
@@ -48,6 +89,16 @@ const medicationSchema = new mongoose.Schema({
 medicationSchema.plugin(mongoosePaginate);
 
 // Add text index for search
-medicationSchema.index({ name: 'text', description: 'text', category: 'text' });
+medicationSchema.index({ 
+  'name.en': 'text', 
+  'name.ar': 'text', 
+  'name.fr': 'text',
+  'description.en': 'text', 
+  'description.ar': 'text', 
+  'description.fr': 'text',
+  'category.en': 'text', 
+  'category.ar': 'text', 
+  'category.fr': 'text'
+});
 
 module.exports = mongoose.model('Medication', medicationSchema);

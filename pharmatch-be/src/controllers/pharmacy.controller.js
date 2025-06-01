@@ -71,11 +71,17 @@ exports.getPharmacy = async (req, res, next) => {
       data: {
         id: pharmacy._id,
         name: pharmacy.name,
+        name_ar: pharmacy.name_ar,
         address: pharmacy.address,
         city: pharmacy.city,
+        region: pharmacy.region,
+        region_ar: pharmacy.region_ar,
         phone: pharmacy.phone,
         hours: pharmacy.hours,
-        coordinates: pharmacy.coordinates,
+        coordinates: pharmacy.coordinates || {
+          lat: pharmacy.location?.coordinates[1],
+          lng: pharmacy.location?.coordinates[0]
+        },
         owner: pharmacy.owner,
         medications: medications.map(med => ({
           id: med._id,
@@ -139,7 +145,22 @@ exports.getPharmaciesByLocation = async (req, res, next) => {
       res.status(200).json({
         success: true,
         count: pharmacies.length,
-        data: pharmacies
+        data: pharmacies.map(pharmacy => ({
+          id: pharmacy._id,
+          name: pharmacy.name,
+          name_ar: pharmacy.name_ar,
+          address: pharmacy.address,
+          city: pharmacy.city,
+          region: pharmacy.region,
+          region_ar: pharmacy.region_ar,
+          phone: pharmacy.phone,
+          email: pharmacy.email,
+          hours: pharmacy.hours,
+          coordinates: pharmacy.coordinates || {
+            lat: pharmacy.location?.coordinates[1],
+            lng: pharmacy.location?.coordinates[0]
+          }
+        }))
       });
     } catch (error) {
       console.error('Error in getPharmaciesByLocation:', error); // Debug log
@@ -303,46 +324,6 @@ exports.deletePharmacy = async (req, res, next) => {
     res.status(200).json({
       success: true,
       data: {}
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-
-
-// @desc    Get pharmacies by medication
-// @route   GET /api/pharmacies/medication/:medicationId
-// @access  Public
-exports.getPharmaciesByMedication = async (req, res, next) => {
-  try {
-    const medication = await Medication.findById(req.params.medicationId)
-      .populate('pharmacies.pharmacy');
-
-    if (!medication) {
-      return res.status(404).json({
-        success: false,
-        message: 'Medication not found'
-      });
-    }
-
-    // Extract pharmacies that have this medication in stock
-    const pharmaciesWithMedication = medication.pharmacies
-      .filter(p => p.inStock)
-      .map(p => ({
-        id: p.pharmacy._id,
-        name: p.pharmacy.name,
-        address: p.pharmacy.address,
-        city: p.pharmacy.city,
-        phone: p.pharmacy.phone,
-        hours: p.pharmacy.hours,
-        coordinates: p.pharmacy.coordinates,
-        price: p.price
-      }));
-
-    res.status(200).json({
-      success: true,
-      count: pharmaciesWithMedication.length,
-      data: pharmaciesWithMedication
     });
   } catch (error) {
     next(error);

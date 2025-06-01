@@ -1,13 +1,12 @@
 export interface Pharmacy {
   id: string;
   name: string;
-  name_ar:string;
+  name_ar: string;
   address: string;
   city: string;
-  region:string;
-  region_ar:string;
+  region: string;
+  region_ar: string;
   phone: string;
-  email?: string;
   hours: string;
   coordinates: {
     lat: number;
@@ -24,16 +23,24 @@ export interface Pharmacy {
 
 export interface Medication {
   id: string;
-  name: string;
-  description: string;
-  category: string;
+  name: {
+    en: string;
+    ar: string;
+    fr: string;
+  };
+  description: {
+    en: string;
+    ar: string;
+    fr: string;
+  };
+  category: {
+    en: string;
+    ar: string;
+    fr: string;
+  };
   prescription: boolean;
-  pharmacies: {
-    id: string;
-    name: string;
-    inStock: boolean;
-    price?: number;
-  }[];
+  image_url?: string;
+  pharmacies: Pharmacy[];
 }
 
 export interface User {
