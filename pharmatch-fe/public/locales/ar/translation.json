@@ -135,7 +135,15 @@
     "urgencyHigh": "عالي - عاجل (ساعات)",
     "contactInfo": "معلومات الاتصال",
     "contactPlaceholder": "رقم الهاتف أو البريد الإلكتروني",
-    "create": "إنشاء الطلب"
+    "create": "إنشاء الطلب",
+    "requestsList": "طلبات التبرع بالدم",
+    "noRequests": "لا توجد طلبات.",
+    "createdAt": "تاريخ الطلب",
+    "expiresAt": "تاريخ الانتهاء",
+    "noExpiry": "بدون تاريخ انتهاء",
+    "successRequest": "تم إنشاء طلب التبرع بالدم بنجاح!",
+    "errorExpiresAtRequired": "تاريخ الانتهاء مطلوب",
+    "errorExpiresAtPast": "يجب أن يكون تاريخ الانتهاء في المستقبل"
   },
   "common": {
     "cancel": "إلغاء",
