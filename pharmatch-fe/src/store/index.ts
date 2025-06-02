@@ -39,8 +39,6 @@ interface PharMatchState {
   createBloodDonationRequest: (request: any) => Promise<void>;
   fetchBloodDonationRequests: () => Promise<void>;
   fetchMedications: (queryParams?: string) => Promise<void>;
-  fetchMedicationById: (id: string) => Promise<Medication | null>;
-  fetchPharmaciesByMedication: (medicationId: string) => Promise<Pharmacy[]>;
 
 }
 
@@ -357,56 +355,7 @@ const useStore = create<PharMatchState>((set, get) => ({
     }
   },
 
-  fetchMedicationById: async (id: string) => {
-    try {
-      const response = await fetch(`${API_URL}/medications/${id}`, {
-        headers: {
-          'Authorization': `Bearer ${get().token}`
-        }
-      });
-      
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to fetch medication details');
-      }
-      
-      const data = await response.json();
-      
-      // Check if we have valid data
-      if (!data || !data.data) {
-        throw new Error('Invalid medication data received');
-      }
 
-      const medicationData = data.data;
-      
-      // Safely transform the medication data
-      const transformedMedication = {
-        id: medicationData._id || medicationData.id || id,
-        name: medicationData.name || { en: 'Unknown', ar: 'غير معروف' },
-        description: medicationData.description || { en: '', ar: '' },
-        category: medicationData.category || { en: 'Uncategorized', ar: 'غير مصنف' },
-        prescription: medicationData.prescription || false,
-        image_url: medicationData.image_url || null,
-        pharmacies: medicationData.pharmacies || []
-      };
-
-      set(state => {
-        const existingMedicationIndex = state.medications.findIndex(m => m.id === id);
-        if (existingMedicationIndex >= 0) {
-          const updatedMedications = [...state.medications];
-          updatedMedications[existingMedicationIndex] = transformedMedication;
-          return { medications: updatedMedications };
-        } else {
-          return { medications: [...state.medications, transformedMedication] };
-        }
-      });
-
-      return transformedMedication;
-    } catch (error) {
-      console.error('Error fetching medication details:', error);
-      throw error;
-    }
-  },
   registerAsBloodDonor: async (bloodType: string) => {
     const { currentUser, token } = get();
     if (!currentUser || !token) throw new Error('Not authenticated');

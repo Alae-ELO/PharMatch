@@ -10,8 +10,7 @@ import MainLayout from './components/Layout/MainLayout';
 import Home from './pages/Home';
 import PharmaciesPage from './pages/PharmaciesPage';
 import PharmacyDetailsPage from './pages/PharmacyDetailsPage';
-import MedicationsPage from './pages/MedicationsPage';
-import MedicationDetailsPage from './pages/MedicationDetailsPage';
+import MedicationsPage  from './pages/MedicationsPage';
 import ChatPage from './pages/ChatPage';
 import BloodDonationPage from './pages/BloodDonationPage';
 import LoginPage from './pages/LoginPage';
@@ -76,7 +75,6 @@ function App() {
           <Route path="pharmacies" element={<PharmaciesPage />} />
           <Route path="pharmacies/:id" element={<PharmacyDetailsPage />} />
           <Route path="medications" element={<MedicationsPage />} />
-          <Route path="medications/:id" element={<MedicationDetailsPage />} />
           <Route path="chat" element={<ChatPage />} />
           <Route path="blood-donation" element={<BloodDonationPage />} />
           <Route path="login" element={<LoginPage />} />

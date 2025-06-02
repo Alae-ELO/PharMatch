@@ -162,7 +162,7 @@
 
   "medications": {
     "title": "الأدوية",
-    "description": "ابحث عن الأدوية  بين الصيدليات",
+    "description": "ابحث عن الأدوية ابحث عن الأدوية التي تحتاجها بسهولة وسرعة.",
     "searchPlaceholder": "البحث عن الأدوية...",
     "allCategories": "جميع الفئات",
     "prescription": "يتطلب وصفة طبية",
@@ -173,16 +173,7 @@
     "noPharmaciesAvailable": "لا توجد صيدليات لديها هذا الدواء في المخزون",
     "price": "السعر",
     "category": "الفئة",
-    "dosage": "الجرعة",
-    "description": "الوصف",
-    "mechanismOfAction": "آلية العمل",
-    "sideEffects": "الآثار الجانبية",
-    "contraindications": "موانع الاستخدام",
-    "interactions": "التفاعلات الدوائية",
-    "contactPharmacy": "اتصل بالصيدلية",
-    "backToMedications": "العودة إلى الأدوية",
     "pharmaciesFound": "صيدلية متوفرة",
-    "clickToView": "انقر للعرض",
     "error": {
       "invalidId": "معرف الدواء غير صالح",
       "loading": "حدث خطأ أثناء تحميل البيانات"

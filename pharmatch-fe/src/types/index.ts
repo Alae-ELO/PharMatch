@@ -41,6 +41,7 @@ export interface Medication {
   prescription: boolean;
   image_url?: string;
   pharmacies: Pharmacy[];
+  price?: number;
 }
 
 export interface User {
