@@ -5,30 +5,27 @@ const Medication = require('../models/medication.model');
 // @route   GET /api/pharmacies
 // @access  Public
 exports.getPharmacies = async (req, res, next) => {
-    try {
-      let query = {};
-  
-      if (req.query.search) {
-        query.$text = { $search: req.query.search };
-      }
-  
-      if (req.query.city) {
-        query.city = req.query.city;
-      }
-  
-      const options = {
-        sort: { name: 1 }
-      };
-    
-      res.status(200).json({
-        success: true,
-        count: result.totalDocs,
-        data: result.docs
-      });
-    } catch (error) {
-      next(error);
-    }
-  };
+  try {
+    const pharmacies = await Pharmacy.find();
+    res.status(200).json({
+      success: true,
+      count: pharmacies.length,
+      data: pharmacies.map(pharmacy => ({
+        id: pharmacy._id,
+        name: pharmacy.name,
+        name_ar: pharmacy.name_ar,
+        address: pharmacy.address,
+        city: pharmacy.city,
+        region: pharmacy.region,
+        region_ar: pharmacy.region_ar,
+        phone: pharmacy.phone,
+        owner: pharmacy.owner
+      }))
+    });
+  } catch (error) {
+    next(error);
+  }
+};
   
 
 // @desc    Get single pharmacy

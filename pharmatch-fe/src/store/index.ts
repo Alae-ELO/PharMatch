@@ -39,7 +39,7 @@ interface PharMatchState {
   createBloodDonationRequest: (request: any) => Promise<void>;
   fetchBloodDonationRequests: () => Promise<void>;
   fetchMedications: (queryParams?: string) => Promise<void>;
-
+  fetchUsers: () => Promise<void>;
 }
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
@@ -149,7 +149,6 @@ const useStore = create<PharMatchState>((set, get) => ({
         region: pharmacy.region,
         region_ar: pharmacy.region_ar,
         phone: pharmacy.phone,
-        email: pharmacy.email,
         hours: pharmacy.hours,
         coordinates: pharmacy.coordinates || {
           lat: pharmacy.location?.coordinates[1],
@@ -232,12 +231,13 @@ const useStore = create<PharMatchState>((set, get) => ({
         region: data.data.region,
         region_ar: data.data.region_ar,
         phone: data.data.phone,
+        email: data.data.email || '',
         hours: data.data.hours,
         coordinates: data.data.coordinates || {
           lat: data.data.location?.coordinates[1],
           lng: data.data.location?.coordinates[0]
         },
-        medications: data.data.medications
+        medications: data.data.medications || []
       };
       
       set(state => {
@@ -280,12 +280,13 @@ const useStore = create<PharMatchState>((set, get) => ({
         region: pharmacy.region,
         region_ar: pharmacy.region_ar,
         phone: pharmacy.phone,
-        email: pharmacy.email,
+        email: pharmacy.email || '',
         hours: pharmacy.hours,
         coordinates: pharmacy.coordinates || {
           lat: pharmacy.location?.coordinates[1],
           lng: pharmacy.location?.coordinates[0]
-        }
+        },
+        medications: pharmacy.medications || []
       }));
       set({ pharmacies: transformedPharmacies, cityFilter: city });
     } catch (error) {
@@ -406,6 +407,26 @@ const useStore = create<PharMatchState>((set, get) => ({
       set({ bloodDonationRequests: data.data });
     } catch (error) {
       console.error('Error fetching blood donation requests:', error);
+    }
+  },
+
+  fetchUsers: async () => {
+    try {
+      const response = await fetch(`${API_URL}/users`, {
+        headers: {
+          'Authorization': `Bearer ${get().token}`
+        }
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to fetch users');
+      }
+      
+      const data = await response.json();
+      set({ users: data.data });
+    } catch (error) {
+      console.error('Error fetching users:', error);
+      throw error;
     }
   },
 

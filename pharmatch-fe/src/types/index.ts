@@ -19,6 +19,10 @@ export interface Pharmacy {
     inStock: boolean;
     price?: number;
   }>;
+  permanence?: {
+    isOnDuty: boolean;
+    days: string[];
+  };
 }
 
 export interface Medication {
@@ -64,6 +68,12 @@ export interface BloodDonationRequest {
   contactInfo: string;
   createdAt: string;
   expiresAt: string;
+  status: 'active' | 'fulfilled' | 'expired';
+  donors?: Array<{
+    user: string;
+    donationDate: string;
+    status: 'pending' | 'completed' | 'cancelled';
+  }>;
 }
 
 export interface Message {
