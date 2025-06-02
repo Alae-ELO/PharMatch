@@ -21,13 +21,12 @@ import {
   LinearScale,
   BarElement,
   Title,
-  ChartData,
-  ChartOptions
+  ChartData
 } from 'chart.js';
 import { Pie, Bar } from 'react-chartjs-2';
 import Button from '../components/ui/Button';
 import Input from '../components/ui/Input';
-import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '../components/ui/Card';
+import { Card, CardHeader, CardTitle, CardContent } from '../components/ui/Card';
 import Badge from '../components/ui/Badge';
 import useStore from '../store';
 
